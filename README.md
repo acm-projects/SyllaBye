@@ -26,7 +26,7 @@ Have you ever felt overwhelmed by all the syllabi being thrown at you the first 
 
 ## Milestones
  **Week 1**
-Meet team, decide frontend/backend teams, set up development environment, finalize tech stack
+- Meet team, decide frontend/backend teams, set up development environment, finalize tech stack
 
 **Week 2**
 - Flesh out collective vision for the app
