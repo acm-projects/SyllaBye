@@ -139,7 +139,7 @@ Have you ever felt overwhelmed by all the syllabi being thrown at you the first 
 - Clara Conner
 - Abel Thomas
 - Rahul Karthik
-- Ansh Naikele
+- Ansh Naikele: Backend
 
 **Industry Mentor:**
 - Sean Hassan
