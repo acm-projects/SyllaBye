@@ -16,13 +16,13 @@ Have you ever felt overwhelmed by all the syllabi being thrown at you the first 
 	- Test information
 	- Office hours
 	- Sentiment analysis for strictness of professor
--   Implementation of Google Calendar API the to take events from syllabi and insert them onto a user’s calendar
-	- [Google Calendar API](https://developers.google.com/calendar/api/guides/overview) 
 
 ## Stretch Goals
 -   Implementation of the RateMyProf API to provide further insight into a user’s syllabus:
 	- https://github.com/tisuela/ratemyprof-api
 -   Social aspect that allows you to find other people with the same class
+-   Implementation of Google Calendar API the to take events from syllabi and insert them onto a user’s calendar OR local calendar system with reminders
+	- [Google Calendar API](https://developers.google.com/calendar/api/guides/overview) 
 
 ## Milestones
  **Week 1**
