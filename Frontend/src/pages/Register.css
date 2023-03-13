@@ -1,0 +1,193 @@
+
+  /* WF Header */
+  
+  /* Auto layout */
+  .App-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  
+  width: 1230px;
+  height: 108px;
+  
+  /* Tiny Gray */
+  background: #FBFFF9;
+  
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  }
+  .nameEnc{
+    display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 24px 29px;
+  gap: 530px;
+  
+  width: 1230px;
+  height: 108px;
+  
+  
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+  }
+  #name {
+    width: 214px;
+  height: 60px;
+  
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 50px;
+  line-height: 120%;
+  margin-left: auto;
+  /* margin-right: auto; */
+  /* identical to box height, or 60px */
+  /* display: flex; */
+  align-items: center;
+  letter-spacing: 0.01em;
+  
+  /* Darkest Green */
+  color: #263928;
+  
+  
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  }
+  .Form{
+    /* WF Hero/Centered */
+  
+  /* Auto layout */
+  /* display: flex; */
+  flex-direction: column;
+  /* justify-content: center; */
+  /* align-items: center; */
+  padding: 0px;
+  
+  width: 1230px;
+  bottom: 0px;
+  height: 400px;
+  position: absolute;
+  /* papers */
+  background: linear-gradient(0deg, rgba(194, 255, 211, 0.2), rgba(194, 255, 211, 0.2)), url(backgroundimage.jpg);
+  
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+  }
+  .RealForm{
+    display: inline-block;
+    width: 420px;
+  height: 450px;
+  
+  align-self: center;
+  /* Tiny Gray */
+  background: #FBFFF9;
+  border: 1px black;
+  border-radius: 30px;
+  
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  }
+  
+  #signup{
+    /* Sign Up */
+  
+  /* position: absolute; */
+  /* width: 182px;
+  height: 10px;
+  left: 255px; */
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: bold;
+  font-size: 36px;
+  line-height: 130%;
+  /* or 62px */
+  /* display: flex; */
+  /* align-items: center;
+  text-align: center; */
+  /* margin-left: auto;
+  margin-right: auto; */
+  
+  /* Darkest Green */
+  color: #263928;
+  
+  }
+  .labels{
+    font-weight: bold;
+  }
+   .inputs{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    width: 60%;
+  } 
+  #signupButton{
+    /* display: flex; */
+  flex-direction: column;
+  align-items: center;
+  padding: 5px;
+  margin-left: auto;
+  margin-right: auto;
+  cursor: pointer;
+  /* position: absolute; */
+  
+  
+   /* Darkest Green */
+  
+  /* Writing */
+  
+  background: #263928;
+  border-radius: 5px;
+  color:white;
+  font-size: 1rem;
+  /* Inside auto layout  */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  }
+  label, input {display: block;}
+  @media (prefers-reduced-motion: no-preference) {
+    .App-logo {
+      animation: App-logo-spin infinite 20s linear;
+    }
+  }
+  
+  /* .App-header {
+    background-color: #E0EAE2;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+  } */
+  
+  /* .App-link {
+    color: #61dafb;
+  }
+  
+  @keyframes App-logo-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  } */
+  
