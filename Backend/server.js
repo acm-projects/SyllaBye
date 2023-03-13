@@ -9,7 +9,9 @@ const bcrypt = require('bcryptjs')
 app.use(cors())
 app.use(express.json())
 
-mongoose.connect('mongodb://localhost:27017/Syllabye')
+mongoose.set('strictQuery', true);
+
+mongoose.connect('mongodb://127.0.0.1:27017/Syllabye')
 
 app.post('/api/register', async (req, res) => {
     console.log(req.body)
