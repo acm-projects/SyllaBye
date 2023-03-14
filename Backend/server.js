@@ -31,13 +31,16 @@ app.post('/api/register', async (req, res) => {
 })
 
 app.post('/api/login', async (req, res) => {
+    
     const user = await User.findOne({
         email: req.body.email,
     })
 
     if(!user){
-        return res.json({status: 'error', user: 'invalid login'})
+        return res.json({status: 'error', error: 'Invalid email or password'})
     }
+    console.log("test");
+
     const isPasswordValid = await bcrypt.compare(req.body.password, user.password)
     if(isPasswordValid){
         const token = await new jose.SignJWT({
