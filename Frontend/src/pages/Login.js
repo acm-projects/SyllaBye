@@ -28,11 +28,10 @@ function Login() {
 
         if(data.user){
             localStorage.setItem('token', data.user)
-            alert('Login successful')
-            navigate('/dashboard')
+            navigate('/home')
         }
         else{
-            alert('Please check your email and password')
+            //add error message
         }
     }
 

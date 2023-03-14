@@ -3,6 +3,7 @@ const app = express();
 const cors = require('cors')
 const mongoose = require('mongoose')
 const User = require('./models/user')
+const File = require('./models/file')
 const jose = require('jose')
 const bcrypt = require('bcryptjs')
 
@@ -14,8 +15,6 @@ mongoose.set('strictQuery', true);
 mongoose.connect('mongodb://127.0.0.1:27017/Syllabye')
 
 app.post('/api/register', async (req, res) => {
-    console.log(req.body)
-
     try{
         const newPassword = await bcrypt.hash(req.body.password, 10)
         await User.create({
@@ -37,7 +36,7 @@ app.post('/api/login', async (req, res) => {
     })
 
     if(!user){
-        return res.json({status: 'error', error: 'Invalid email or password'})
+        return res.json({status: 'error', error: 'invalid login'})
     }
     console.log("test");
 
@@ -55,7 +54,6 @@ app.post('/api/login', async (req, res) => {
         return res.json({status: 'ok', user: token})
     }
     else{
-        console.log(isPasswordValid)
         return res.json({status: 'error', user: false})
     }
 })
@@ -86,7 +84,6 @@ app.post('/api/home', async (req, res) => {
         return res.json({status: 'ok'})
     }
     catch(error){
-        console.log(error)
         res.json({status: 'error', error: 'invalid token'})
     }
 
