@@ -1,0 +1,30 @@
+.box{
+    display: inline-block;
+    width: 35vw;
+    height: 40vh;
+    margin-left: 15vw;
+    margin-top: 10vh;
+    align-self: center;
+    /* Tiny Gray */
+    background: #E0EAE2;
+    border: 1px black;
+    border-radius: 15px;
+    
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+#namelabel{
+    font-weight: bold;
+    text-align: center;
+    font-size: 4vh;
+    padding-top: 2vh;
+}
+ul{
+    padding-right: 0.2vw;
+    padding-top: 0vh;
+    line-height:5vh;
+    font-size: 2.4vh;
+    margin-bottom:0.5vh;
+}
