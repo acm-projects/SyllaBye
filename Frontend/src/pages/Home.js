@@ -3,6 +3,7 @@ import Header from "./components/Header";
 import Dropzone from "./components/Dropzone";
 import ImageGrid from "./components/ImageGrid";
 import cuid from "cuid";
+import "./Home.css";
 
 function Home() {
 
