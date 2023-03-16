@@ -1,6 +1,7 @@
 const express = require('express');
 const fileUpload = require('express-fileupload');
 const pdfParse = require('pdf-parse');
+const pdfjsLib = require('pdfjs-dist');
 
 // const pdf = fs.readFileSync('pdf.json', 'utf8');
 // const pdfdata = JSON.parse(pdf);
@@ -20,25 +21,92 @@ const fs = require('fs');
 app.use("/", express.static("public"));
 app.use(fileUpload());
 
+// console.log("test")
+
+
 app.post("/extract-text", (req, res) => {
     if (!req.files && !req.files.pdfFile) {
         res.status(400)
         res.end();
     }
 
+    // const p = req.files.pdfFile;
+
+    // pdfjsLib.getDocument(p).promise.then(function (doc) {
+    //     for(let i = 1; i < doc.numPages; i++){
+    //         doc.getPage(i).then(function (page) {
+    //             page.getTextContent().then(function (textContent) {
+    //                 let formattedText = '';
+    //                 let lastDate = '';
+                    
+    //                 // Loop through each item in the text content
+    //                 for (let i = 0; i < textContent.items.length; i++) {
+    //                   let item = textContent.items[i];
+    //                   let text = item.str;
+                      
+    //                   // Check if the current item matches the date pattern (MM/DD)
+    //                   if (RegExp("(?<month>[0-3]?[0-9])/(?<day>[0-3]?[0-9])").test(text)) {
+                        
+    //                     // If it does, add a new line and update the last date variable
+    //                     formattedText += '\n' + text + ' ';
+    //                     lastDate = text;
+    //                   } else {
+                        
+    //                     // If it doesn't, add the text to the current line and include the last date variable
+    //                     formattedText += text;
+    //                   }
+    //                 }
+                    
+    //                 console.log(formattedText);
+    //               });
+    //         });
+    //     }
+    // });
+
+    // pdfjsLib.getDocument(p).promise.then(function (doc) {
+    //     let totalPages = doc.numPages;
+    //     let pagesProcessed = 0;
+    //     let pdftext = [];
+    
+    //     for (let i = 1; i <= totalPages; i++) {
+    //         doc.getPage(i).then(function (page) {
+    //             page.getTextContent().then(function (textContent) {
+    //                 let text = textContent.items.map(function (s) { return s.str; }).join('');
+    //                 text = text.split('\n').filter(Boolean);
+    //                 text.forEach(element => {
+    //                     const val = element.toLowerCase();
+    //                     if (/\d{4,}/.test(val)) {
+    //                         if (val.includes("course number")) {
+    //                             const coursenum = val.replace("course number: ", "");
+    //                             pdftext.push(coursenum);
+    //                         }
+    //                     }
+    //                     else if (RegExp("(?<month>[0-3]?[0-9])/(?<day>[0-3]?[0-9])").test(val)) {
+    //                         pdftext.push(val);
+    //                     }
+    //                 });
+    //                 pagesProcessed++;
+    //                 if (pagesProcessed === totalPages) {
+    //                     let formattedText = pdftext.join('\n');
+    //                     console.log(formattedText);
+    //                 }
+    //             });
+    //         });
+    //     }
+    //     console.log(pdftext);
+    // });
+    
+
     pdfParse(req.files.pdfFile).then(data => {
-        // console.log(typeof data);
         let first = (data.text).split("\n");
         let second = first.filter((element) => { return element.trim() != "" });
         let text = second.map((element) => { return element.trim() });
 
-        //let text = p.map((element) => { return element.trim() });
-        const Jsontext = JSON.stringify(text, null, 4);
-        //If it doesnt split all the "" as well as other things that are needed, 
-        // then make a function that takes each inputs and check 
-        // to see if valid if not then dont push to array, if valid then push. 
-        // This way only valid datat will be stored in the array and it can be represented in the JSON file.
 
+        const Jsontext = JSON.stringify(text, null, 4);
+
+
+        
         fs.writeFile("pdf2.json", Jsontext, (err) => {
             if (err) {
                 console.log(err);
@@ -47,12 +115,44 @@ app.post("/extract-text", (req, res) => {
                 console.log("File written successfully");
             }
         });
+        // fs.writeFile("pdf3.json", JSON.stringify(first, null, 4), (err) => {
+        //     if (err) {
+        //         console.log(err);
+        //     }
+        //     else {
+        //         console.log("File written successfully");
+        //     }
+        // });
 
         const pdftext = [];
         let status = false;
         let status2 = false;
+        let datecounter = 0;
+        let counter = 0;
+        const arr = [];
         text.forEach(element => {
+            arr.push(element);
+            counter++;
+
             const val = element.toLowerCase();
+            if (/\d{4,}/.test(val)) {
+                // pdftext.push(val);
+                if(val.includes("course number")){
+                    const coursenum = val.replace("course number: ", "");
+                    pdftext.push(coursenum);
+                }
+            }
+            if (RegExp("(?<month>[0-3]?[0-9])/(?<day>[0-3]?[0-9])").test(val) && !val.includes("24/7")) {
+                if (datecounter == 0){
+                    let tableofcontents = arr[counter-2].split(" ");
+                    console.log(tableofcontents);
+                    // console.log(arr[counter-2]);
+                    // pdftext.push(val);
+                    // datecounter++;
+                    datecounter++;
+                }
+                //Look at page 260 in REGEX textbook for this regex expression
+            }
             if (status == false) {
                 if (val.includes("course number:")) {
                     const coursenum = val.replace("course number: ", "");
@@ -87,6 +187,7 @@ app.post("/extract-text", (req, res) => {
 
         //console.log(data.text);
         //console.log(Object.keys(data.text));
+        
         var str;
         var test = new Array();
         // if (data.text.includes("Course Number:")){
@@ -164,6 +265,6 @@ app.post("/extract-text", (req, res) => {
 
 
 
-app.listen(3000, () => {
+app.listen(1337, () => {
     console.log('Server started');
 });
