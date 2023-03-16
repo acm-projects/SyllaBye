@@ -9,6 +9,7 @@ function Login() {
     const [password, setPassword] = useState('')
 
     async function loginUser(event) {
+        console.log('login');
         event.preventDefault()
 
         const response = await fetch('http://localhost:1337/api/login', {
@@ -23,6 +24,7 @@ function Login() {
         })
 
         const data = await response.json();
+        
 
         if(data.user){
             localStorage.setItem('token', data.user)
