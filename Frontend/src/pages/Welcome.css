@@ -1,17 +1,14 @@
-.App {
-    text-align: center;
-  }
-  /* WF Header */
-  
-  /* Auto layout */
-  .App-header {
+.App3{
+  text-align: center;
+}
+.App-header3 {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   padding: 0px;
   
-  width: 1230px;
-  height: 108px;
+  width: 100vw;
+  height: 15vh;
   
   /* Tiny Gray */
   background: #FBFFF9;
@@ -21,16 +18,14 @@
   order: 0;
   flex-grow: 0;
   }
-  .nameEnc{
-    display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: flex-start;
-  padding: 24px 29px;
-  gap: 530px;
+  .nameEnc3{
+  /* flex-direction: row; */
+
+  /* padding: 24px 29px; */
   
-  width: 1230px;
-  height: 108px;
+  
+  width: 100vw;
+  height: 10vh;
   
   
   /* Inside auto layout */
@@ -39,20 +34,21 @@
   align-self: stretch;
   flex-grow: 0;
   }
-  #name {
-    width: 214px;
-  height: 60px;
+  #name3 {
+    font-size: 8vh;
   
   font-family: 'Inter';
   font-style: normal;
-  font-weight: 700;
-  font-size: 50px;
-  line-height: 120%;
-  margin-left: auto;
-  margin-right: auto;
+  font-weight: bold;
+  margin-top: 3vh;
+  /* font-weight: 700; */
+ 
+  /* line-height: 120%; */
+  /* margin-right: auto; */
   /* identical to box height, or 60px */
-  display: flex;
-  align-items: center;
+  /* display: flex; */
+ 
+  text-align: center;
   letter-spacing: 0.01em;
   
   /* Darkest Green */
@@ -64,57 +60,54 @@
   order: 0;
   flex-grow: 0;
   }
-  .Form{
-    /* WF Hero/Centered */
-  
-  /* Auto layout */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 104px;
-  
-  width: 1230px;
-  bottom: 100px;
-  height: 400px;
-  position: absolute;
-  /* papers */
-  background: linear-gradient(0deg, rgba(194, 255, 211, 0.2), rgba(194, 255, 211, 0.2)), url(backgroundimage.jpg);
-  
-  /* Inside auto layout */
-  flex: none;
-  order: 1;
-  flex-grow: 0;
+  .Form3{
+    display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+padding-top: 2vh;
+
+width: 100vw;
+
+height: 75vh;
+/* position: absolute; */
+/* papers */
+background: linear-gradient(0deg, rgba(194, 255, 211, 0.2), rgba(194, 255, 211, 0.2)), url(backgroundimage.jpg);
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
   }
-  .RealForm {
-    width: 420px;
-  height: 350px;
-  align-self: center;
-  /* Tiny Gray */
-  background: #FBFFF9;
-  border: 1px black;
-  border-radius: 30px;
-  
-  /* Inside auto layout */
-  flex: none;
-  order: 0;
-  flex-grow: 0;
+  .RealForm3{
+    width: 40%;
+height: 90%;
+align-self: center;
+/* Tiny Gray */
+background: #FBFFF9;
+border: 1px black;
+border-radius: 30px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+overflow-y: scroll;
   }
   
-  #signin{
+  #signin2{
     /* Sign Up */
   
   /* position: absolute; */
   /* width: 182px;
   height: 10px;
   left: 255px; */
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin-top: 3vh;
   font-family: 'Inter';
   font-style: normal;
-  font-weight: 700;
-  font-size: 36px;
-  line-height: 130%;
+  font-weight: bold;
+  font-size: 4vw;
+  /* line-height: 130%; */
   /* or 62px */
   /* display: flex; */
   /* align-items: center;
@@ -127,24 +120,23 @@
   
   }
   #welcomeMessage{
-    padding-top: 60px;
-  padding-right: 40px;
-  padding-left: 40px;
+    padding-top: 10vh;
+  padding-right: 2vw;
+  padding-left: 2vw;
   font-family: 'Inter';
   font-style: normal;
-  font-weight: 700;
-  font-size: 18px;
-  line-height: 130%;
+  font-weight: bold;
+  font-size: 3.5vh;
   color: #263928;
   }
   .Buttons{
-    padding-left: 50px;
-    padding-right: 50px;
-    display: flex;
-    padding-top: 50px;
+    padding-left: 2vw;
+    padding-right: 2vw;
+    display:inline-flex;
+    padding-top: 7vh;
     /* cursor: pointer; */
   }
-  #signinButton{
+  #signinButton2{
     /* display: flex; */
   flex-direction: column;
   align-items: center;
@@ -168,13 +160,14 @@
   order: 0;
   flex-grow: 0;
   }
-  #signupButton{
+  #signupButton3{
     /* display: flex; */
   flex-direction: column;
   align-items: center;
   padding: 10px;
   margin-top: 10px;
  margin-left: 10px;
+ cursor: pointer;
  
   /* position: absolute; */
   
