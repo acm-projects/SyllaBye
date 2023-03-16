@@ -9,7 +9,8 @@
     background: #E0EAE2;
     border: 1px black;
     border-radius: 15px;
-    
+    overflow-y: scroll;
+    overflow-x: scroll;
     /* Inside auto layout */
     flex: none;
     order: 0;
@@ -21,3 +22,19 @@
     text-align: center;
     font-size: 4vh;
 }
+.tables{
+    border: 1px solid black;
+    margin-left: 10%;
+    margin-top: 5%;
+    width: 35%;
+    font-weight: bold;
+    display: inline-table;
+    font-size: 1.8vh;
+}
+tr,td{
+    border: 1px solid black;
+}
+.range{
+    width: 80%;
+}
+

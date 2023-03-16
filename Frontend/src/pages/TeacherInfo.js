@@ -1,16 +1,42 @@
+import React from 'react';
 import './TeacherInfo.css'
-function TeacherInfo(props){
-    return(
-    <div className = "box">
-        <label id="namelabel">Teacher/Class Info</label>
-        <ul className="infoList">
-            <li>Name: {props.name}</li>
-            <li>Email: {props.email}</li>
-            <li>Class times: {props.classTimes}</li>
-            <li>Office hours: {props.officeHours}</li>
-            <li>Classroom: {props.classroom}</li>
-        </ul>
-    </div>
-    );
+class TeacherInfo extends React.Component{
+    constructor(props){
+        super(props);
+        this.state = props;
+    }
+    render(){
+        return(
+            <div className = "box">
+                <label id="namelabel">Teacher/Class Info</label>
+                {/* <button className="addItem">+</button> */}
+                <table className="infoList">
+                    {this.props.items.map(item => (
+                        <tr>
+                            <td id="fieldForTeacher">{item.field}</td>
+                            <td>{item.info}</td>
+                        </tr>
+                        // <li>{item.field + ": " + item.info}</li>
+                    ))}
+                </table>
+            </div>
+            );
+    }
 }
+// function TeacherInfo(props){
+//     return(
+//     <div className = "box">
+//         <label id="namelabel">Teacher/Class Info</label>
+//         <table className="infoList">
+//             {props.items.map(item => (
+//                 <tr>
+//                     <td id="fieldForTeacher">{item.field}</td>
+//                     <td>{item.info}</td>
+//                 </tr>
+//                 // <li>{item.field + ": " + item.info}</li>
+//             ))}
+//         </table>
+//     </div>
+//     );
+// }
 export default TeacherInfo;

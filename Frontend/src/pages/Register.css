@@ -97,6 +97,7 @@ border-radius: 30px;
 flex: none;
 order: 0;
 flex-grow: 0;
+overflow-y: scroll;
   }
   
   #signup{
@@ -127,7 +128,7 @@ flex-grow: 0;
   .labels{
     text-align: left;
     font-weight: bold;
-    margin-bottom: 0.5vh;
+    margin-bottom: 1%;
     font-size: 3vh;
     margin-left: 19%;
   }
@@ -140,10 +141,17 @@ flex-grow: 0;
     height: 3vh;
     border-color: #263928;
   } 
+  #yesAccount{
+    font-size: 15px;
+    color: #263928;
+    font-weight: bold;
+    margin-top: 0%;
+    margin-bottom: 0vh;
+  }
   #signupButton{
     /* display: flex; */
   /* flex-direction: column; */
-  padding: 1vh;
+  padding: 2%;
   margin-left: auto;
   margin-right: auto;
   cursor: pointer;
@@ -158,18 +166,35 @@ flex-grow: 0;
   border-radius: 1vh;
   color:white;
   font-size: 3vh;
-  margin-top: -2vh;
+  margin-top: 1vh;
   /* Inside auto layout  */
   flex: none;
   order: 0;
   flex-grow: 0;
   }
-  label, input {display: block;}
-  @media (prefers-reduced-motion: no-preference) {
-    .App-logo {
-      animation: App-logo-spin infinite 20s linear;
-    }
+  #signinButton3{
+    flex-direction: column;
+align-items: center;
+padding: 2%;
+margin-top: 1%;
+margin-left: auto;
+margin-right: auto;
+margin-bottom: 5%;
+cursor: pointer;
+
+
+background: #FBFFF9;
+border-radius: 5px;
+border-color: #263928;
+color:#263928;
+font-size: 3vh;
+/* Inside auto layout  */
+flex: none;
+order: 0;
+flex-grow: 0;
   }
+  label, input {display: block;}
+
   
   /* .App-header {
     background-color: #E0EAE2;

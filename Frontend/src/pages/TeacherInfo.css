@@ -14,17 +14,26 @@
     flex: none;
     order: 0;
     flex-grow: 0;
+    overflow-y: scroll;
+    overflow-x: scroll;
 }
 #namelabel{
     font-weight: bold;
     text-align: center;
-    font-size: 4vh;
+    font-size: 3vw;
     padding-top: 2vh;
 }
-ul{
-    padding-right: 0.2vw;
-    padding-top: 0vh;
-    line-height:5vh;
-    font-size: 2.4vh;
-    margin-bottom:0.5vh;
+.infoList{
+    margin-top: 5%;
+    /* line-height: 5vh; */
+    font-size: 1.8vh;
+    font-weight: bold;
+    border: 1px solid black;
+    margin-left: 10%;
+    width: 80%;
+    /* bottom: 5%; */
+}
+
+#fieldForTeacher{
+    width: 30%;
 }

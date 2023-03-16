@@ -5,7 +5,10 @@ import {useNavigate} from 'react-router-dom'
 
 function Register() {
     const navigate = useNavigate()
-
+    function handleLoginAsk(e){
+        e.preventDefault();
+        navigate('/login');
+    }
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -79,6 +82,9 @@ function Register() {
                         <br />
                         <input id="signupButton" type="submit" value="Sign Up"/>
                     </form>
+                    <p id = "yesAccount">Already have an account?</p>
+                    <br />
+                    <input id="signinButton3" type="submit" value="Sign In" onClick={handleLoginAsk}/>
                 </div>
             </div>
         </div>

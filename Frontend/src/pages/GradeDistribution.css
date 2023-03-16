@@ -9,7 +9,7 @@
     background: #E0EAE2;
     border: 1px black;
     border-radius: 15px;
-    
+    overflow-y: scroll;
     /* Inside auto layout */
     flex: none;
     order: 0;
@@ -19,5 +19,18 @@
     padding-top: 2vh;
     font-weight: bold;
     text-align: center;
-    font-size: 4vh;
+    
+    font-size: 3vw;
+}
+.table3{
+    border: 1px solid black;
+    margin-left: 10%;
+    margin-top: 5%;
+    width: 80%;
+    font-weight: bold;
+    font-size: 1.8vh;
+}
+#itemForFields{
+    border: 1px solid black;
+    width: 80%;
 }

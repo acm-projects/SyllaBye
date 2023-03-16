@@ -9,7 +9,7 @@
     background: #E0EAE2;
     border: 1px black;
     border-radius: 15px;
-    
+    overflow-y: scroll;
     /* Inside auto layout */
     flex: none;
     order: 0;
@@ -20,4 +20,22 @@
     font-weight: bold;
     text-align: center;
     font-size: 4vh;
+}
+.table4{
+    border: 1px solid black;
+    margin-left: 10%;
+    margin-top: 5%;
+    width: 80%;
+    font-weight: bold;
+    font-size: 1.8vh;
+}
+tr,td{
+    border: 1px solid black;
+    
+}
+#assignment{
+    width: 50%;
+}
+#due_date{
+    width: 25%;
 }
