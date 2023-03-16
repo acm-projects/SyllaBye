@@ -78,10 +78,17 @@ background: linear-gradient(0deg, rgba(194, 255, 211, 0.2), rgba(194, 255, 211, 
 flex: none;
 order: 1;
 flex-grow: 0;
+<<<<<<< HEAD
   }
   .RealForm2{
     width: 40%;
 height: 90%;
+=======
+}
+.RealForm {
+width: 420px;
+height: 400px;
+>>>>>>> 22f5abee8413b0e85d0797828e0f3d239783953e
 align-self: center;
 /* Tiny Gray */
 background: #FBFFF9;

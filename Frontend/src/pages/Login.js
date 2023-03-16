@@ -12,6 +12,7 @@ function Login() {
         navigate('/register');
     }
     async function loginUser(event) {
+        console.log('login');
         event.preventDefault()
 
         const response = await fetch('http://localhost:1337/api/login', {
@@ -26,14 +27,14 @@ function Login() {
         })
 
         const data = await response.json();
+        
 
         if(data.user){
             localStorage.setItem('token', data.user)
-            alert('Login successful')
-            navigate('/dashboard')
+            navigate('/home')
         }
         else{
-            alert('Please check your email and password')
+            //add error message
         }
     }
 
