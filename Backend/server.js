@@ -10,7 +10,9 @@ const bcrypt = require('bcryptjs')
 app.use(cors())
 app.use(express.json())
 
-mongoose.connect('mongodb://localhost:27017/Syllabye')
+mongoose.set('strictQuery', true);
+
+mongoose.connect('mongodb://127.0.0.1:27017/Syllabye')
 
 app.post('/api/register', async (req, res) => {
     try{
@@ -28,6 +30,7 @@ app.post('/api/register', async (req, res) => {
 })
 
 app.post('/api/login', async (req, res) => {
+    
     const user = await User.findOne({
         email: req.body.email,
     })
@@ -35,6 +38,8 @@ app.post('/api/login', async (req, res) => {
     if(!user){
         return res.json({status: 'error', error: 'invalid login'})
     }
+    console.log("test");
+
     const isPasswordValid = await bcrypt.compare(req.body.password, user.password)
     if(isPasswordValid){
         const token = await new jose.SignJWT({
