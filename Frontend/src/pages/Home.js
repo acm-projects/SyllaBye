@@ -9,7 +9,6 @@ import * as jose from 'jose'
 function Home() {
     const navigate = useNavigate()
 
-    const [name, setName] = useState('')
     const [images, setImages] = useState([]);
 
     async function logout() {
