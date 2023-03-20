@@ -1,9 +1,10 @@
-import TeacherInfo from "./TeacherInfo";
-import Grades from "./Grades";
 import './FileDetails.css';
-import GradeDistribution from "./GradeDistribution";
-import Dates from "./Dates";
 import React from "react";
+import TeacherInfo from "./components/TeacherInfo";
+import Grades from "./components/Grades";
+import GradeDistribution from "./components/GradeDistribution";
+import Dates from "./components/Dates";
+
 class FileDetails extends React.Component{
     constructor(props){
         super(props);

@@ -1,42 +1,71 @@
 import React, {useEffect, useState, useCallback} from "react";
+import {useNavigate} from 'react-router-dom'
 import Header from "./components/Header";
 import Dropzone from "./components/Dropzone";
 import ImageGrid from "./components/ImageGrid";
 import cuid from "cuid";
+import * as jose from 'jose'
 
 function Home() {
+    const navigate = useNavigate()
 
-  const [images, setImages] = useState([]);
+    const [name, setName] = useState('')
+    const [images, setImages] = useState([]);
 
-  const onDrop = useCallback((acceptedFiles) => {
-    acceptedFiles.map((file) => {
-      const reader = new FileReader();
-      reader.onload = function (e) {
-        setImages((prevState) => [
-          ...prevState,
-          { id: cuid(), src: e.target.result },
-        ]);
-      };
-      reader.readAsDataURL(file);
-    });
-  }, []);
+    async function logout() {
+        localStorage.removeItem('token')
+        navigate('/login')
+    }
 
-  return (
-    <main className="App">
-      <Header/>
-      
-      <Dropzone 
-        onDrop={onDrop} 
-        accept={"application.pdf"} 
-        restrictions={{
-          allowedExtensions: [".pdf"]
-        }}
-      />
+    useEffect(() => {
+        const token = localStorage.getItem('token')
+        if(token){
+            const user = jose.decodeJwt(token)
+            if(!user){
+                localStorage.removeItem('token')
+                navigate('/login')
+            }
+            else{
+                //
+            }
+        }
+        else{
+            navigate('/login')
+        }
+    }, [])
 
-      <ImageGrid images={images}/>
+    const onDrop = useCallback((acceptedFiles) => {
+        acceptedFiles.map((file) => {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                setImages((prevState) => [
+                    ...prevState,
+                    { id: cuid(), src: e.target.result },
+                ]);
+            };
+            reader.readAsDataURL(file);
+        });
+    }, []);
 
-    </main>
-  );
+    return (
+        <main className="App">
+        <button onClick={logout}>Logout</button>
+        <h1>Welcome {name} !!!</h1>
+
+        <Header/>
+        
+        <Dropzone 
+            onDrop={onDrop} 
+            accept={"application.pdf"} 
+            restrictions={{
+            allowedExtensions: [".pdf"]
+            }}
+        />
+
+        <ImageGrid images={images}/>
+
+        </main>
+    );
 }
 
 export default Home;
