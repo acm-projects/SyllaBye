@@ -49,7 +49,6 @@ function Home() {
     return (
         <main className="App">
         <button onClick={logout}>Logout</button>
-        <h1>Welcome {name} !!!</h1>
 
         <Header/>
         
