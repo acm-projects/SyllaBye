@@ -11,7 +11,6 @@ app.use(cors())
 app.use(express.json())
 
 mongoose.set('strictQuery', true);
-
 mongoose.connect('mongodb://127.0.0.1:27017/Syllabye')
 
 app.post('/api/register', async (req, res) => {
@@ -38,7 +37,6 @@ app.post('/api/login', async (req, res) => {
     if(!user){
         return res.json({status: 'error', error: 'invalid login'})
     }
-    console.log("test");
 
     const isPasswordValid = await bcrypt.compare(req.body.password, user.password)
     if(isPasswordValid){
@@ -56,37 +54,6 @@ app.post('/api/login', async (req, res) => {
     else{
         return res.json({status: 'error', user: false})
     }
-})
-
-app.get('/api/home', async (req, res) => {
-    const token = req.headers['x-access-token']
-
-    try{
-        const decoded = await jose.jwtVerify(token, new TextEncoder().encode('secret123'))
-        const email = decoded.payload.email
-        const user = await User.findOne({email: email})
-
-        return res.json({status: 'ok', quote: user.quote})
-    }
-    catch(error){
-        res.json({status: 'error', error: 'invalid token'})
-    }
-
-})
-
-app.post('/api/home', async (req, res) => {
-    const token = req.headers['x-access-token']
-
-    try{
-        const decoded = await jose.jwtVerify(token, new TextEncoder().encode('secret123'))
-        const email = decoded.payload.email
-
-        return res.json({status: 'ok'})
-    }
-    catch(error){
-        res.json({status: 'error', error: 'invalid token'})
-    }
-
 })
 
 app.listen(1337, () => {

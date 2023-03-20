@@ -4,14 +4,17 @@ import {useNavigate} from 'react-router-dom';
 
 function Welcome() {
     const navigate = useNavigate()
+
     function handleLoginAsk(e){
         e.preventDefault();
         navigate('/login');
     }
+
     function handleRegisterAsk(e){
         e.preventDefault();
         navigate('/register');
     }
+    
   return (
     <div className="App3">
         <header className="App-header3">

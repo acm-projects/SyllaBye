@@ -2,17 +2,18 @@ import './Register.css'
 import {useState} from 'react'
 import {useNavigate} from 'react-router-dom'
 
-
 function Register() {
     const navigate = useNavigate()
-    function handleLoginAsk(e){
-        e.preventDefault();
-        navigate('/login');
-    }
+
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [vPassword, setVPassword] = useState('');
+
+    function handleLoginAsk(e){
+        e.preventDefault();
+        navigate('/login');
+    }
 
     async function registeredUser(event) {
         event.preventDefault()

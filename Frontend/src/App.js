@@ -1,12 +1,10 @@
 import React from 'react'
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
+import Welcome from './pages/Welcome'
 import Register from './pages/Register'
 import Login from './pages/Login'
-import Welcome from './pages/Welcome'
-
-import FileDetails from './pages/FileDetails'
-
 import Home from './pages/Home'
+import FileDetails from './pages/FileDetails'
 
 
 const App = () => {
@@ -17,11 +15,8 @@ const App = () => {
                     <Route path ="/" element = {<Welcome />} />
                     <Route path="/register" element={<Register />} />
                     <Route path ="/login" element={<Login />} />
-
-                    <Route path="/details" element={<FileDetails />}/>
-
                     <Route path ="/home" element={<Home />} />
-
+                    <Route path="/details" element={<FileDetails />}/>
                 </Routes>
             </Router>
         </div>

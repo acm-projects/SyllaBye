@@ -7,12 +7,13 @@ function Login() {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+
     function handleRegisterAsk(e){
         e.preventDefault();
         navigate('/register');
     }
+
     async function loginUser(event) {
-        console.log('login');
         event.preventDefault()
 
         const response = await fetch('http://localhost:1337/api/login', {
@@ -25,10 +26,9 @@ function Login() {
                 password
             }),
         })
-
+        
         const data = await response.json();
         
-
         if(data.user){
             localStorage.setItem('token', data.user)
             navigate('/home')
