@@ -3,8 +3,6 @@ import {useNavigate} from 'react-router-dom'
 import Header from "./components/Header";
 import Dropzone from "./components/Dropzone";
 import ImageGrid from "./components/ImageGrid";
-import cuid from "cuid"
-import "./Home.css";
 import * as jose from 'jose'
 import cuid from "cuid";
 import { pdfjs, Document, Page } from 'react-pdf';

@@ -1,6 +1,6 @@
 import React from "react";
 import { useDropzone } from "react-dropzone";
-import "Dropzone.css";
+import "./Dropzone.css";
 
 function Dropzone({ onDrop, accept, open }) {
 

@@ -1,5 +1,5 @@
 import React from "react";
-import "ImageGrid.css";
+import "./ImageGrid.css";
 
 const Image = ({ image }) => {
   return (
