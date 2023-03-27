@@ -2,7 +2,6 @@ import './Register.css'
 import {useState} from 'react'
 import {useNavigate} from 'react-router-dom'
 
-
 function Register() {
     const navigate = useNavigate()
 
@@ -10,6 +9,11 @@ function Register() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [vPassword, setVPassword] = useState('');
+
+    function handleLoginAsk(e){
+        e.preventDefault();
+        navigate('/login');
+    }
 
     async function registeredUser(event) {
         event.preventDefault()
@@ -45,6 +49,7 @@ function Register() {
                     <label for="personNameField" class = "labels" id = "personName">Name</label>
                     <form onSubmit = {registeredUser}>
                         <input
+                            class = "inputs"
                             value = {name}
                             onChange = {(e) => setName(e.target.value)}
                             type="text"  
@@ -52,29 +57,35 @@ function Register() {
                         <br />
                         <label for="emailField" class = "labels" id = "email">Email</label>
                         <input 
+                            class = "inputs"
                             value = {email}
                             onChange = {(e) => setEmail(e.target.value)}
                             type="text"  
                         />
                         <br />
                         <label for="passwordField" class = "labels" id = "password">Password</label>
-                        <br />
+                        {/* <br /> */}
                         <input 
+                            class = "inputs"
                             value = {password}
                             onChange = {(e) => setPassword(e.target.value)}
-                            type="text"  
+                            type="password"  
                         />
                         <br />
                         <label for="verifypwField" class = "labels" id = "verifypw">Verify password</label>
-                        <br />
+                        {/* <br /> */}
                         <input 
+                            class = "inputs"
                             value = {vPassword}
                             onChange = {(e) => setVPassword(e.target.value)}
-                            type="text"  
+                            type="password"  
                         />
                         <br />
-                        <input type="submit" value="Sign Up"/>
+                        <input id="signupButton" type="submit" value="Sign Up"/>
                     </form>
+                    <p id = "yesAccount">Already have an account?</p>
+                    <br />
+                    <input id="signinButton3" type="submit" value="Sign In" onClick={handleLoginAsk}/>
                 </div>
             </div>
         </div>
