@@ -1,6 +1,6 @@
 import React from "react";
 import { useDropzone } from "react-dropzone";
-import { Document, Page } from 'react-pdf';
+import "Dropzone.css";
 
 function Dropzone({ onDrop, accept, open }) {
 
@@ -27,8 +27,7 @@ function Dropzone({ onDrop, accept, open }) {
             </p>
           ) : (
             <p className="dropzone-content">
-              Drag’ n’ drop some files here, or click to select files
-              <br></br>
+              Drag’ n’ drop some files here, or click to select files. 
               Please only upload PDF files
             </p>
           )}
