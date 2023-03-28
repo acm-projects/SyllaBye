@@ -1,50 +1,51 @@
 .dropzone {
-    text-align: center;
-    padding: 1%;
-    border: 3px rgb(35, 74, 45) dashed;
-    width: 95%;
-    height: 80%;
-    margin: 1%;
-    border-radius: 6px;
-  }
-  
-  .btn {
-    border: none;
-    text-align: center;
-    background-color: rgb(223, 232, 223);
-    padding: 10px 10px 10px 10px;
-    border-radius: 12px;
-    color: rgb(35, 61, 43);
-    font-weight: 500;
-    font-size: medium;
-    font-family: 'Inter';
-    transition-duration: 1s;
-  }
-  
-  .dropzone-content {
-    margin: 1%;
-  }
+  text-align: center;
+  padding: 1%;
+  border: 3px rgb(35, 74, 45) dashed;
+  width: 95%;
+  height: 80%;
+  margin: 1%;
+  border-radius: 6px;
+}
 
-  p {
-    color: #263928;
-  }
+.btn {
+  border: none;
+  text-align: center;
+  background-color: rgb(223, 232, 223);
+  padding: 10px 10px 10px 10px;
+  border-radius: 12px;
+  color: rgb(35, 61, 43);
+  font-weight: 500;
+  font-size: medium;
+  font-family: 'Inter';
+  transition-duration: 1s;
+}
 
-  button {
-    color:#263928;
-    background-color:#e7eae5;
-    border: none;
-    height: 60px;
-    width: 200px;
-    font-family: 'Inter';
-    font-size: 20px;
-    font-weight: 500;
+.dropzone-content {
+  margin: 1%;
+}
+
+p {
+  color: #263928;
+}
+
+button {
+  color:#263928;
+  background-color:#e7eae5;
+  border: none;
+  height: 60px;
+  width: 200px;
+  font-family: 'Inter';
+  font-size: 20px;
+  font-weight: 500;
+
+  display:inline-block;
   
-    display:inline-block;
-    
-    opacity: 1;
-    transition: 1s;
-  
-  }
-  
-  button:hover {opacity: .8}
-  button:hover {background-color:#d2d9cc;}
+  opacity: 1;
+  transition: 1s;
+
+}
+
+button:hover {opacity: .8}
+button:hover {background-color:#d2d9cc;}
+
