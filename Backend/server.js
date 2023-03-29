@@ -7,11 +7,13 @@ const File = require('./models/file')
 const jose = require('jose')
 const bcrypt = require('bcryptjs')
 
+require('dotenv').config()
+
 app.use(cors())
 app.use(express.json())
 
 mongoose.set('strictQuery', true);
-mongoose.connect('mongodb://127.0.0.1:27017/Syllabye')
+mongoose.connect(process.env.mongoURL)
 
 app.post('/api/register', async (req, res) => {
     try{
