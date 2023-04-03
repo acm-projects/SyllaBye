@@ -9,7 +9,6 @@ header {
     width: 100%;
     height: 10%;
   
-    display: flex;
     order: 0;
     align-self: stretch;
     flex-grow: 0;
@@ -32,7 +31,7 @@ h1 {
     align-items: center;
     letter-spacing: 0.01em;
 
-    margin-top: 0px;
+    margin-top: 1%;
 
     color: #263928;
 
@@ -69,8 +68,8 @@ h2 {
     color:#263928;
     background-color:#e7eae5;
     border: none;
-    height: max-content;
-    width: 80%;
+    height: 10%;
+    width: 80px;
     font-family: 'Inter';
     font-size: 20px;
     font-weight: 500;
