@@ -3,6 +3,10 @@ const fileUpload = require('express-fileupload');
 const pdfParse = require('pdf-parse');
 const pdfjsLib = require('pdfjs-dist');
 const cors = require('cors');
+const jose = require('jose')
+const mongoose = require('mongoose')
+const User = require('./models/user')
+const File = require('./models/file')
 require("dotenv").config();
 
 
@@ -18,6 +22,9 @@ const date1 = RegExp("(?<month>[0-3]?[0-9])/(?<day>[0-3]?[0-9])");
 
 app.use("/", express.static("public"));
 app.use(fileUpload());
+
+mongoose.set('strictQuery', true);
+mongoose.connect(process.env.mongoURL)
 
 const pdfdata = {
     professorName: "",
@@ -500,6 +507,19 @@ app.post("/extract-text", async (req, res) => {
     pdfdata.term = findTerm(JD);
     pdfdata.grades = findGrades(JD);
 
+    const token = req.headers['x-access-token'];
+    try{
+        const {payload, protectedHeader} = jwt.verify(token, process.env.JWTKey)
+        const userEmail = payload.email
+        
+        await File.create({
+            email: userEmail,
+            fileData: pdfdata
+        })
+    }
+    catch(err){
+        console.log(err)
+    }
 
     const calendar = findCalendar(JD, pdfdata.term);//
 

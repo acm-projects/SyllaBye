@@ -26,6 +26,9 @@ function Dropzone({ onDrop, accept, open }) {
     // console.log("test");
     const res = await fetch("http://localhost:1337/extract-text", {
         method: "post",
+        headers:{
+            'x-access-token': localStorage.getItem('token'),
+        },
         body: formData
     });
 

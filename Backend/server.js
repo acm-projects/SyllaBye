@@ -49,7 +49,7 @@ app.post('/api/login', async (req, res) => {
             .setProtectedHeader({alg: 'HS256'})
             .setIssuedAt()
             .setExpirationTime('2h')
-            .sign(new TextEncoder().encode('secret123'))
+            .sign(new TextEncoder().encode(process.env.JWTKey))
 
         return res.json({status: 'ok', user: token})
     }
