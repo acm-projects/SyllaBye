@@ -1,11 +1,13 @@
+import "./Header.css";
+
 const Header = () => {
     return (
       <header>
         <h1>SyllaBye</h1>
         <nav>
-          <button class="headerBtn"> Home </button>
-          <button class="headerBtn"> Calendar </button>
-          <button class="headerBtn"> Settings </button>
+          <button className="headerBtn"> Home </button>
+          <button className="headerBtn"> Calendar </button>
+          <button className="headerBtn"> Settings </button>
         </nav>
       </header>
     )
