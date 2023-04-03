@@ -1,8 +1,6 @@
 import React from "react";
 import { useDropzone } from "react-dropzone";
 import "./Dropzone.css";
-
-import { useDropzone } from "react-dropzone";
 import { Document, Page } from 'react-pdf';
 
 import "./Dropzone.css";
