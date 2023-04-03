@@ -13,26 +13,28 @@ function Home() {
     const navigate = useNavigate()
 
      async function logout() {
-        // localStorage.removeItem('token')
-        // navigate('/login')
+        localStorage.removeItem('token')
+        navigate('/login')
      }
 
-    // useEffect(() => {
-    //     const token = localStorage.getItem('token')
-    //     if(token){
-    //         const user = jose.decodeJwt(token)
-    //         if(!user){
-    //             localStorage.removeItem('token')
-    //             navigate('/login')
-    //         }
-    //         else{
-    //             //
-    //         }
-    //     }
-    //     else{
-    //         navigate('/login')
-    //     }
-    // }, [])
+    useEffect(() => {
+        const token = localStorage.getItem('token')
+        if(token){
+            const user = jose.decodeJwt(token)
+            if(!user){
+                localStorage.removeItem('token')
+                navigate('/login')
+            }
+            else{
+                //
+            }
+        }
+        else{
+            navigate('/login')
+        }
+    }, [])
+
+    
 
   const [images, setImages] = useState([]);
 
