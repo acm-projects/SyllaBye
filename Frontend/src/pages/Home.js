@@ -3,35 +3,38 @@ import {useNavigate} from 'react-router-dom'
 import Header from "./components/Header";
 import Dropzone from "./components/Dropzone";
 import ImageGrid from "./components/ImageGrid";
-import cuid from "cuid";
 import * as jose from 'jose'
+import cuid from "cuid";
 import { pdfjs, Document, Page } from 'react-pdf';
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
+
 
 function Home() {
     const navigate = useNavigate()
 
      async function logout() {
-        // localStorage.removeItem('token')
-        // navigate('/login')
+        localStorage.removeItem('token')
+        navigate('/login')
      }
 
-    // useEffect(() => {
-    //     const token = localStorage.getItem('token')
-    //     if(token){
-    //         const user = jose.decodeJwt(token)
-    //         if(!user){
-    //             localStorage.removeItem('token')
-    //             navigate('/login')
-    //         }
-    //         else{
-    //             //
-    //         }
-    //     }
-    //     else{
-    //         navigate('/login')
-    //     }
-    // }, [])
+    useEffect(() => {
+        const token = localStorage.getItem('token')
+        if(token){
+            const user = jose.decodeJwt(token)
+            if(!user){
+                localStorage.removeItem('token')
+                navigate('/login')
+            }
+            else{
+                //
+            }
+        }
+        else{
+            navigate('/login')
+        }
+    }, [])
+
+    
 
   const [images, setImages] = useState([]);
 
