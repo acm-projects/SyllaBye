@@ -12,27 +12,27 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/$
 function Home() {
     const navigate = useNavigate()
 
-    async function logout() {
-        localStorage.removeItem('token')
-        navigate('/login')
-    }
+     async function logout() {
+        // localStorage.removeItem('token')
+        // navigate('/login')
+     }
 
-    useEffect(() => {
-        const token = localStorage.getItem('token')
-        if(token){
-            const user = jose.decodeJwt(token)
-            if(!user){
-                localStorage.removeItem('token')
-                navigate('/login')
-            }
-            else{
-                //
-            }
-        }
-        else{
-            navigate('/login')
-        }
-    }, [])
+    // useEffect(() => {
+    //     const token = localStorage.getItem('token')
+    //     if(token){
+    //         const user = jose.decodeJwt(token)
+    //         if(!user){
+    //             localStorage.removeItem('token')
+    //             navigate('/login')
+    //         }
+    //         else{
+    //             //
+    //         }
+    //     }
+    //     else{
+    //         navigate('/login')
+    //     }
+    // }, [])
 
   const [images, setImages] = useState([]);
 
@@ -60,29 +60,30 @@ function Home() {
               document.body.appendChild(canvas); // Add canvas to DOM for debugging purposes
               pdfPage.render({ canvasContext: context, viewport: viewport }).promise.then(() => {
                 const thumbnail = canvas.toDataURL();
+                console.log(thumbnail);
                 document.body.removeChild(canvas); // Remove canvas from DOM after rendering
                 console.log(`Thumbnail generated for PDF file: ${file.name}`);
                 setImages((prevState) => [
-                  ...prevState,
-                  { id: cuid(), src: thumbnail, name: file.name },
-                ]);
+                    ...prevState,
+                    { id: cuid(), src: e.target.result },
+                  ]);
+                }).catch((error) => {
+                  console.error(`Error rendering PDF page: ${error}`);
+                });
               }).catch((error) => {
-                console.error(`Error rendering PDF page: ${error}`);
+                console.error(`Error getting PDF page: ${error}`);
               });
             }).catch((error) => {
-              console.error(`Error getting PDF page: ${error}`);
+              console.error(`Error loading PDF document: ${error}`);
             });
-          }).catch((error) => {
-            console.error(`Error loading PDF document: ${error}`);
-          });
-        } else {
-          // handle unsupported file types
-          console.log(`Unsupported file type: ${file.type}`);
-        }
-      };
-      reader.readAsArrayBuffer(file);
-    });
-  }, []);
+          } else {
+            // handle unsupported file types
+            console.log(`Unsupported file type: ${file.type}`);
+          }
+        };
+        reader.readAsArrayBuffer(file);
+      });
+    }, []);
 
     return (
         <main className="App">

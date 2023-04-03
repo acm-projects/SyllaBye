@@ -19,7 +19,7 @@ const Image = ({ image }) => {
   );
 };
 
-const ImageGride = ({ images }) => {
+const ImageGrid = ({ images }) => {
 
   const renderImage = (image, index) => {
     return <Image image={image} key={`${image.id}-image`} /> ;
@@ -30,4 +30,4 @@ const ImageGride = ({ images }) => {
   );
 };
 
-export default ImageGride;
+export default ImageGrid;
