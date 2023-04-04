@@ -536,7 +536,7 @@ app.post("/extract-text", async (req, res) => {
     // console.log("Grades:", grades);
     // console.log("Term:", term);//
     // console.log("Calendar:", calendar);
-    // console.log(pdfdata);
+    console.log(pdfdata);
     res.send(pdfdata);
 });
 

@@ -17,40 +17,40 @@ function Dropzone({ onDrop, accept, open }) {
         </li>
     ));
 
-  // const inpFile = document.getElementById('inpFile');
-  // // const btnUpload = document.getElementById('btnUpload');
+    const inpFile = document.getElementById('inpFile');
+    // const btnUpload = document.getElementById('btnUpload');
 
-  // async function clickUpload() {
-  //   const formData = new FormData();
-  //   formData.append("pdfFile", inpFile.files[0]);
-  //   // console.log("test");
-  //   const res = await fetch("http://localhost:1337/extract-text", {
-  //       method: "post",
-  //       body: formData
-  //   });
+    async function clickUpload() {
+        const formData = new FormData();
+        formData.append("pdfFile", inpFile.files[0]);
+        // console.log("test");
+        const res = await fetch("http://localhost:1337/extract-text", {
+            method: "post",
+            body: formData
+        });
 
-  //   const extractedText = await res.json();
-  //   if (extractedText) {
-  //      console.log(extractedText);
-  //      return extractedText;
-  //   }
-  //   else{
-  //     return "Error";
-  //   }
-  // }
+        const extractedText = await res.json();
+        if (extractedText) {
+            console.log(extractedText);
+            return extractedText;
+        }
+        else{
+            return "Error";
+        }
+    }
 
-  // btnUpload.addEventListener("click", () => {
-  //   const formData = new FormData();
-  //   formData.append("pdfFile", inpFile.files[0]);
-  //   fetch("/extract-text", {
-  //       method: "post",
-  //       body: formData
-  //   }).then(response => {
-  //       return response.text();
-  //   }).then(extractedText => {
-  //       resultText.value = extractedText;
-  //   })
-  // });
+    btnUpload.addEventListener("click", () => {
+    const formData = new FormData();
+    formData.append("pdfFile", inpFile.files[0]);
+    fetch("/extract-text", {
+        method: "post",
+        body: formData
+    }).then(response => {
+        return response.text();
+    }).then(extractedText => {
+        resultText.value = extractedText;
+    })
+    });
 
     return (
         <div>
@@ -68,7 +68,7 @@ function Dropzone({ onDrop, accept, open }) {
                         Please only upload PDF files
                         </p>
                     )}
-                    { <button type="button" onClick={open} className="btn">
+                    { <button type="button" onClick={clickUpload} className="btn">
                         Click to select files
                     </button> }
                     {/* <input type="file" id="inpFile"/>
