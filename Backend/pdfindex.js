@@ -26,6 +26,9 @@ app.use(fileUpload());
 mongoose.set('strictQuery', true);
 mongoose.connect(process.env.mongoURL)
 
+const rmp = {
+    name: "",
+}
 const pdfdata = {
     professorName: "",
     professorEmail: "",
