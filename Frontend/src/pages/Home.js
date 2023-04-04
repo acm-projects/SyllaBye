@@ -1,40 +1,15 @@
-import React, {useEffect, useState, useCallback} from "react";
-import {useNavigate} from 'react-router-dom'
+import React, { useState, useCallback} from "react";
 import Header from "./components/Header";
 import Dropzone from "./components/Dropzone";
 import ImageGrid from "./components/ImageGrid";
-import * as jose from 'jose'
+import './components/ImageGrid.css';
 import cuid from "cuid";
 import { pdfjs, Document, Page } from 'react-pdf';
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 
 function Home() {
-    const navigate = useNavigate()
 
-     async function logout() {
-        localStorage.removeItem('token')
-        navigate('/login')
-     }
-
-    useEffect(() => {
-        const token = localStorage.getItem('token')
-        if(token){
-            const user = jose.decodeJwt(token)
-            if(!user){
-                localStorage.removeItem('token')
-                navigate('/login')
-            }
-            else{
-                //
-            }
-        }
-        else{
-            navigate('/login')
-        }
-    }, [])
-
-    
 
   const [images, setImages] = useState([]);
 
@@ -62,12 +37,11 @@ function Home() {
               document.body.appendChild(canvas); // Add canvas to DOM for debugging purposes
               pdfPage.render({ canvasContext: context, viewport: viewport }).promise.then(() => {
                 const thumbnail = canvas.toDataURL();
-                console.log(thumbnail);
                 document.body.removeChild(canvas); // Remove canvas from DOM after rendering
                 console.log(`Thumbnail generated for PDF file: ${file.name}`);
                 setImages((prevState) => [
                     ...prevState,
-                    { id: cuid(), src: e.target.result },
+                    { id: cuid(), src: thumbnail, name: file.name },
                   ]);
                 }).catch((error) => {
                   console.error(`Error rendering PDF page: ${error}`);
@@ -89,7 +63,6 @@ function Home() {
 
     return (
         <main className="App">
-        <button onClick={logout}>Logout</button>
 
         <Header/>
         
@@ -107,4 +80,4 @@ function Home() {
     );
 }
 
-export default Home;
+export default Home
