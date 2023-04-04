@@ -14,6 +14,8 @@ app.use(express.json())
 
 mongoose.set('strictQuery', true);
 mongoose.connect(process.env.mongoURL)
+// mongoose.connect("mongodb://127.0.0.1:27017", {useNewUrlParser: true});
+
 
 app.post('/api/register', async (req, res) => {
     try{

@@ -6,18 +6,39 @@ import { Document, Page } from 'react-pdf';
 import "./Dropzone.css";
 
 function Dropzone({ onDrop, accept, open }) {
+    // const { getRootProps, getInputProps, isDragActive, acceptedFiles } =
+    // useDropzone({
+    //   accept: "./pdf",
+    //   onDrop,
+    // });
 
-  const { getRootProps, getInputProps, isDragActive, acceptedFiles } =
-    useDropzone({
-      accept: "./pdf",
-      onDrop,
+    // const files = acceptedFiles.map((file) => (
+    // <li key={file.path}>
+    //   {file.path} - {file.size} bytes
+    // </li>
+    // ));
+
+  const inpFile = document.getElementById('inpFile');
+  // const btnUpload = document.getElementById('btnUpload');
+
+  async function clickUpload() {
+    const formData = new FormData();
+    formData.append("pdfFile", inpFile.files[0]);
+    // console.log("test");
+    const res = await fetch("http://localhost:1338/extract-text", {
+        method: "post",
+        body: formData
     });
 
-  const files = acceptedFiles.map((file) => (
-     <li key={file.path}>
-       {file.path} - {file.size} bytes
-     </li>
-   ));
+    const extractedText = await res.json();
+    if (extractedText) {
+       console.log(extractedText);
+       return extractedText;
+    }
+    else{
+      return "Error";
+    }
+  }
 
   // const inpFile = document.getElementById('inpFile');
   // // const btnUpload = document.getElementById('btnUpload');
@@ -56,6 +77,13 @@ function Dropzone({ onDrop, accept, open }) {
 
   return (
     <div>
+      {/* <input type="file" id="inpFile"/>
+      <input
+        type="button"
+        id="btnUpload"
+        value="Upload"
+        onClick={() => { clickUpload() }}
+      /> */}
       <div {...getRootProps({ className: "dropzone" })}>
         <input className="input-zone" {...getInputProps()} />
         <div className="text-center">

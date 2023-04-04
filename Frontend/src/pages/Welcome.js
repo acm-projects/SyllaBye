@@ -4,7 +4,6 @@ import {useNavigate} from 'react-router-dom';
 
 function Welcome() {
     const navigate = useNavigate()
-
     function handleLoginAsk(e){
         e.preventDefault();
         navigate('/login');
@@ -32,7 +31,7 @@ function Welcome() {
                 </div>
             </div>
         </div>
-    </div> 
+    </div>
     );
 }
 
