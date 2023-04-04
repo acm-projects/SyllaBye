@@ -24,7 +24,7 @@ function Dropzone({ onDrop, accept, open }) {
     const formData = new FormData();
     formData.append("pdfFile", inpFile.files[0]);
     // console.log("test");
-    const res = await fetch("http://localhost:1337/extract-text", {
+    const res = await fetch("http://localhost:1338/extract-text", {
         method: "post",
         body: formData
     });
@@ -86,6 +86,7 @@ function Dropzone({ onDrop, accept, open }) {
         value="Upload"
         onClick={() => { clickUpload() }}
       />
+      {/* <button type="button" onClick={open}>Upload</button> */}
     </div>
   );
 }
