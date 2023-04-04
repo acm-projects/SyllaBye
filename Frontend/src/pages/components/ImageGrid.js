@@ -3,19 +3,25 @@ import React from "react";
 const Image = ({ image }) => {
   return (
     <div className="file-item">
-      <img
-        alt={`img - ${image.id}`}
-        src={image.src}
-        className="file-img"
-      />
+      {image.isPdf ? (
+        <div className="pdf-icon">PDF</div>
+      ) : (
+        <img
+          alt={`img - ${image.id}`}
+          src={image.src}
+          className="file-img"
+        />
+      )}
+      <button type="button" className="pdf-label">{image.name}</button>
+      
     </div>
   );
 };
 
-const ImageGride = ({ images }) => {
+const ImageGrid = ({ images }) => {
 
   const renderImage = (image, index) => {
-    return <Image image={image} key={`${image.id}-image`} />;
+    return <Image image={image} key={`${image.id}-image`} /> ;
   };
 
   return (
@@ -23,4 +29,4 @@ const ImageGride = ({ images }) => {
   );
 };
 
-export default ImageGride;
+export default ImageGrid;
