@@ -6,11 +6,16 @@ const User = require('./models/user')
 const File = require('./models/file')
 const jose = require('jose')
 const bcrypt = require('bcryptjs')
+const fileUpload = require('express-fileupload');
+const multer = require('multer');
+const upload = multer();
 
 require('dotenv').config()
 
 app.use(cors())
 app.use(express.json())
+app.use("/", express.static("public"));
+app.use(fileUpload());
 
 mongoose.set('strictQuery', true);
 mongoose.connect(process.env.mongoURL)
@@ -48,13 +53,48 @@ app.post('/api/login', async (req, res) => {
         })
             .setProtectedHeader({alg: 'HS256'})
             .setIssuedAt()
-            .setExpirationTime('2h')
             .sign(new TextEncoder().encode(process.env.JWTKey))
 
         return res.json({status: 'ok', user: token})
     }
     else{
         return res.json({status: 'error', user: false})
+    }
+})
+
+//app.post('/api/upload', async (req, res) => {
+app.post('/api/upload', upload.fields([{ name: 'text' }]), async (req, res) => {
+    try{
+        if (!req.body) {
+            res.status(400)
+            res.end()
+            console.log("test")
+        }
+    }
+    catch(err){
+        console.log("THERE IS AN ERROR\n\n\n")
+        console.log(err)
+    }
+
+    const token = req.headers['x-access-token'];
+    try{
+        const {payload, protectedHeader} = await jose.jwtVerify(token, new TextEncoder().encode(process.env.JWTKey))
+        const userEmail = payload.email
+        const text = await req.body.text
+        //const thumbnail = await req.body.thumbnail
+
+        console.log(text)
+        //console.log(thumbnail)
+        //console.log(req.files.thumbnail)
+        // await File.create({
+        //     email: userEmail,
+        //     thumbnail: req.body.thumbnail,
+        //     fileData: req.body.extractedText
+        // })
+        res.send("Success")
+    }
+    catch(err){
+        console.log(err)
     }
 })
 

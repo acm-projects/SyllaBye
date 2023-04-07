@@ -26,6 +26,7 @@ app.use(cors());
 
 const fs = require('fs');
 const { stringify } = require('querystring');
+const bodyParser = require('body-parser');
 
 app.use("/", express.static("public"));
 app.use(fileUpload());
@@ -1012,11 +1013,16 @@ async function findCalendar(data, term){
 }
 
 app.post("/extract-text", async (req, res) => {
-    if (!req.files && !req.files.pdfFile) {
-        res.status(400);
-        res.end();
+    try{
+        if (!req.files && !req.files.pdfFile) {
+            res.status(400)
+            res.end()
+        }
     }
-
+    catch(err){
+        console.log(err)
+    }
+    
     let val = await pdfParse(req.files.pdfFile);
     let first = (val.text).split("\n");
     let second = first.filter((element) => { return element.trim() != "" });
@@ -1037,22 +1043,6 @@ app.post("/extract-text", async (req, res) => {
     pdfdata.courseName = await findCourseName(courseNum);
     pdfdata.term = findTerm(JD);
     pdfdata.grades = findGrades(JD);
-
-    const token = req.headers['x-access-token'];
-    try{
-        const {payload, protectedHeader} = jwt.verify(token, process.env.JWTKey)
-        const userEmail = payload.email
-        
-        await File.create({
-            email: userEmail,
-            fileData: pdfdata
-        })
-    }
-    catch(err){
-        console.log(err)
-    }
-
-    const calendar = findCalendar(JD, pdfdata.term);//
 
     //test
     // console.log("Professor Name:", professorName);

@@ -20,7 +20,7 @@ const Header = () => {
                 <button className="headerBtn"> Calendar </button>
                 <button className="headerBtn"> Settings </button>
                 <button onClick={logout} class="headerBtn">Logout</button>
-                <button class="headerBtn"> Home </button>
+                <button className="headerBtn"> Home </button>
             </nav>
         </header>
     )
