@@ -9,6 +9,8 @@ import * as jose from 'jose'
 import {useNavigate} from 'react-router-dom'
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
+let extractedText = null
+
 async function extract(file, thumbnail){
     const formData = new FormData()
     formData.append("pdfFile", file)
@@ -17,7 +19,7 @@ async function extract(file, thumbnail){
         body: formData
     });
 
-    const extractedText = await res.json();
+    extractedText = await res.json();
     if (extractedText) {
         const formData2 = new FormData()
         formData2.append("text", JSON.stringify(extractedText))
@@ -83,14 +85,14 @@ function Home() {
                 canvas.height = viewport.height;
                 canvas.width = viewport.width;
                 document.body.appendChild(canvas); // Add canvas to DOM for debugging purposes
-                pdfPage.render({ canvasContext: context, viewport: viewport }).promise.then(() => {
+                pdfPage.render({ canvasContext: context, viewport: viewport }).promise.then(async() => {
                     const thumbnail = canvas.toDataURL();
-                    extract(file, thumbnail)
+                    await extract(file, thumbnail)
                     document.body.removeChild(canvas); // Remove canvas from DOM after rendering
                     console.log(`Thumbnail generated for PDF file: ${file.name}`);
                     setImages((prevState) => [
                         ...prevState,
-                        { id: cuid(), src: thumbnail, name: file.name },
+                        { id: cuid(), src: thumbnail, name: extractedText.courseName },
                     ]);
                     }).catch((error) => {
                     console.error(`Error rendering PDF page: ${error}`);
