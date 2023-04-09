@@ -1,4 +1,5 @@
 import React from "react";
+import './ImageGrid.css'
 
 const Image = ({ image }) => {
   return (
@@ -20,7 +21,7 @@ const Image = ({ image }) => {
 
 const ImageGrid = ({ images }) => {
 
-  const renderImage = (image, index) => {
+  const renderImage = (image) => {
     return <Image image={image} key={`${image.id}-image`} /> ;
   };
 
