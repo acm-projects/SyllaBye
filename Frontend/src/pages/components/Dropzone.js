@@ -2,7 +2,6 @@ import React from "react";
 import { useDropzone } from "react-dropzone";
 import "./Dropzone.css";
 import { Document, Page } from 'react-pdf';
-
 import "./Dropzone.css";
 
 function Dropzone({ onDrop, accept, open }) {
@@ -117,5 +116,7 @@ function Dropzone({ onDrop, accept, open }) {
   //     />
   //   </div>
   // );
+
 }
+
 export default Dropzone;

@@ -5,7 +5,6 @@ import logo from './../syllabyelogo.png';
 
 function Welcome() {
     const navigate = useNavigate()
-
     function handleLoginAsk(e){
         e.preventDefault();
         navigate('/login');
@@ -33,7 +32,7 @@ function Welcome() {
                 </div>
             </div>
         </div>
-    </div> 
+    </div>
     );
 }
 
