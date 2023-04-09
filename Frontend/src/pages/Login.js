@@ -1,6 +1,7 @@
 import './Login.css';
 import {useState} from 'react'
 import {useNavigate} from 'react-router-dom'
+import logo from './../syllabyelogo.png';
 
 function Login() {
     const navigate = useNavigate()
@@ -42,7 +43,7 @@ function Login() {
         <div className="App2">
             <header className="App-header2">
                 <div className = "nameEnc2">
-                    <label for="nameField2" id="name2">Syllabye</label>
+                    <label for="nameField2" id="name2"><img src={logo}/></label>
                 </div>
             </header>
             <div className = "Form2">

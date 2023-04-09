@@ -18,12 +18,15 @@ function Home() {
       const reader = new FileReader();
       reader.onload = function (e) {
         const fileType = file.type.split('/')[0];
+        
         if (fileType === 'image') { // display warning for no PDF file
+          console.log("image uploaded");
           // process image files
-          setImages((prevState) => [
-            ...prevState,
-            { id: cuid(), src: e.target.result, name: file },
-          ]);
+          // setImages((prevState) => [
+          //   ...prevState,
+          //   { id: cuid(), src: e.target.result, name: file },
+          // ])
+          ;
         } else if (fileType === 'application' && file.type.split('/')[1] === 'pdf') {
           // process pdf files
           const pdfData = new Uint8Array(e.target.result);

@@ -1,3 +1,12 @@
+:root {
+  --lightestGrey: #FBFFF9;
+  --lightestGreen: #EDF6EF;
+  --mediumGreen: #E0EAE2;
+  --mediumDarkGreen: #4B6350;
+  --darkGreen: #263928;
+}
+
+
 .App3{
   text-align: center;
 }
@@ -8,7 +17,7 @@
   padding: 0px;
   
   width: 100vw;
-  height: 15vh;
+  height: 13vh;
   
   /* Tiny Gray */
   background: #FBFFF9;
@@ -40,7 +49,7 @@
   font-family: 'Inter';
   font-style: normal;
   font-weight: bold;
-  margin-top: 3vh;
+  margin-top: .6vh;
   /* font-weight: 700; */
  
   /* line-height: 120%; */
@@ -65,15 +74,16 @@
 flex-direction: column;
 justify-content: center;
 align-items: center;
-padding-top: 2vh;
+padding-top: 8vh;
+padding-bottom: 11vh;
 
 width: 100vw;
 
-height: 75vh;
+height: 60vh;
 /* position: absolute; */
 /* papers */
-background: linear-gradient(0deg, rgba(194, 255, 211, 0.2), rgba(194, 255, 211, 0.2)), url(backgroundimage.jpg);
-
+background: linear-gradient(0deg, rgba(194, 255, 211, 0.2), rgba(194, 255, 211, 0.2)), url(background.jpg) no-repeat center center fixed;
+background-size:cover;
 /* Inside auto layout */
 flex: none;
 order: 1;
@@ -85,14 +95,13 @@ height: 90%;
 align-self: center;
 /* Tiny Gray */
 background: #FBFFF9;
-border: 1px black;
+border: 1px var(--darkGreen);
 border-radius: 30px;
 
 /* Inside auto layout */
 flex: none;
 order: 0;
 flex-grow: 0;
-overflow-y: scroll;
   }
   
   #signin2{
@@ -102,11 +111,11 @@ overflow-y: scroll;
   /* width: 182px;
   height: 10px;
   left: 255px; */
-  margin-top: 3vh;
+  margin-top: 8vh;
   font-family: 'Inter';
   font-style: normal;
   font-weight: bold;
-  font-size: 4vw;
+  font-size: 3.25vw;
   /* line-height: 130%; */
   /* or 62px */
   /* display: flex; */
@@ -120,29 +129,30 @@ overflow-y: scroll;
   
   }
   #welcomeMessage{
-    padding-top: 10vh;
+    padding-top: 2vh;
   padding-right: 2vw;
   padding-left: 2vw;
   font-family: 'Inter';
   font-style: normal;
   font-weight: bold;
-  font-size: 3.5vh;
-  color: #263928;
+  font-size: 3.0vh;
+  color: var(--mediumDarkGreen);
   }
   .Buttons{
     padding-left: 2vw;
     padding-right: 2vw;
     display:inline-flex;
-    padding-top: 7vh;
+    padding-top: 6vh;
     /* cursor: pointer; */
   }
   #signinButton2{
     /* display: flex; */
-  flex-direction: column;
+    flex-direction: column;
   align-items: center;
-  padding: 10px;
+  padding: 15px;
   margin-top: 10px;
-  cursor: pointer;
+ margin-left: 10px;
+ cursor: pointer;
 
   /* position: absolute; */
   
@@ -152,19 +162,20 @@ overflow-y: scroll;
   /* Writing */
   
   background: #FBFFF9;
-  border-radius: 5px;
-  color:#263928;
-  font-size: 1rem;
-  /* Inside auto layout  */
-  flex: none;
-  order: 0;
-  flex-grow: 0;
+border-radius: 5px;
+border-color: #263928;
+color:#263928;
+font-size: 1.2rem;
+/* Inside auto layout  */
+flex: none;
+order: 0;
+flex-grow: 0;
   }
   #signupButton3{
     /* display: flex; */
   flex-direction: column;
   align-items: center;
-  padding: 10px;
+  padding: 15px;
   margin-top: 10px;
  margin-left: 10px;
  cursor: pointer;
@@ -179,12 +190,13 @@ overflow-y: scroll;
   background: #263928;
   border-radius: 5px;
   color:white;
-  font-size: 1rem;
+  font-size: 1.2rem;
   /* Inside auto layout  */
   flex: none;
   order: 0;
   flex-grow: 0;
   }
+
   label, input {display: block;}
   @media (prefers-reduced-motion: no-preference) {
     .App-logo {

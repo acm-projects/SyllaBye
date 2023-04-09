@@ -2,11 +2,12 @@ import "./Header.css";
 import * as jose from 'jose';
 import React, {useEffect} from "react";
 import {useNavigate} from 'react-router-dom'
+import logo from './../../syllabyelogo.png';
 
 
 const Header = () => {
 
-//   const navigate = useNavigate()
+  const navigate = useNavigate()
 
   async function logout() {
 //      localStorage.removeItem('token')
@@ -35,10 +36,10 @@ const Header = () => {
 
     return (
       <header>
-        <h1>SyllaBye</h1>
+        <img src={logo}/>
         <nav>
-          <button onClick={logout} class="headerBtn">Logout</button>
           <button class="headerBtn"> Home </button>
+          <button onClick={logout} class="headerBtn">Logout</button>
         </nav>
       </header>
     )

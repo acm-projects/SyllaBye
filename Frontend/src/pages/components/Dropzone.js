@@ -7,10 +7,9 @@ import "./Dropzone.css";
 
 function Dropzone({ onDrop, accept, open }) {
 
-  const { getRootProps, getInputProps, isDragActive, acceptedFiles } =
+  const { getRootProps, getInputProps, isDragActive, acceptedFiles, fileRejections } =
     useDropzone({
-      accept: "./pdf",
-      onDrop,
+      accept: {"image/pdf":['.pdf']}
     });
 
   const files = acceptedFiles.map((file) => (
@@ -18,6 +17,10 @@ function Dropzone({ onDrop, accept, open }) {
        {file.path} - {file.size} bytes
      </li>
    ));
+
+  acceptedFiles.forEach((file) => {
+    
+  });
 
   // const inpFile = document.getElementById('inpFile');
   // // const btnUpload = document.getElementById('btnUpload');
@@ -54,6 +57,23 @@ function Dropzone({ onDrop, accept, open }) {
   //   })
   // });
 
+  // const acceptedFileItems = acceptedFiles.map(file => (
+  //   <li key={file.path}>
+  //     {file.path} - {file.size} bytes
+  //   </li>
+  // ));
+
+  // const fileRejectionItems = fileRejections.map(({ file, errors }) => (
+  //   <li key={file.path}>
+  //     {file.path} - {file.size} bytes
+  //     <ul>
+  //       {errors.map(e => (
+  //         <li key={e.code}>{e.message}</li>
+  //       ))}
+  //     </ul>
+  //   </li>
+  // ));
+
   return (
     <div>
       <div {...getRootProps({ className: "dropzone" })}>
@@ -65,17 +85,24 @@ function Dropzone({ onDrop, accept, open }) {
             </p>
           ) : (
             <p className="dropzone-content">
-              Drag’ n’ drop some files here, or click to select files
+              Drag’ n’ drop some files here, or click to select files.
               <br></br>
-              Please only upload PDF files
+              Only accepts PDF files. 
             </p>
-          )}
-          { <button type="button" onClick={open} className="btn">
-            Click to select files
+            )}
+          
+          { <button onClick={open}>
+            
           </button> }
           {/* <input type="file" id="inpFile"/>
           <button type="button" id="btnUpload">Upload</button> */}
         </div>
+        {/* <aside>
+        <h4>Accepted files</h4>
+        <ul>{acceptedFileItems}</ul>
+        <h4>Rejected files</h4>
+        <ul>{fileRejectionItems}</ul>
+      </aside> */}
       </div>
     </div>
   );
