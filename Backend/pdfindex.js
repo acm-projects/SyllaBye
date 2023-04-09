@@ -3,6 +3,10 @@ const fileUpload = require('express-fileupload');
 const pdfParse = require('pdf-parse');
 const pdfjsLib = require('pdfjs-dist');
 const cors = require('cors');
+const jose = require('jose')
+const mongoose = require('mongoose')
+const User = require('./models/user')
+const File = require('./models/file')
 require("dotenv").config();
 // const { Configuration, OpenAIApi } = require("openai");
 
@@ -22,10 +26,17 @@ app.use(cors());
 
 const fs = require('fs');
 const { stringify } = require('querystring');
+const bodyParser = require('body-parser');
 
 app.use("/", express.static("public"));
 app.use(fileUpload());
 
+mongoose.set('strictQuery', true);
+mongoose.connect(process.env.mongoURL)
+
+const rmp = {
+    name: "",
+}
 
 // openai.apiKey = process.env.OPENAI_API_KEY;
 // const model = 'davinci';
@@ -1002,11 +1013,16 @@ async function findCalendar(data, term){
 }
 
 app.post("/extract-text", async (req, res) => {
-    if (!req.files && !req.files.pdfFile) {
-        res.status(400);
-        res.end();
+    try{
+        if (!req.files && !req.files.pdfFile) {
+            res.status(400)
+            res.end()
+        }
     }
-
+    catch(err){
+        console.log(err)
+    }
+    
     let val = await pdfParse(req.files.pdfFile);
     let first = (val.text).split("\n");
     let second = first.filter((element) => { return element.trim() != "" });
@@ -1028,9 +1044,6 @@ app.post("/extract-text", async (req, res) => {
     pdfdata.term = findTerm(JD);
     pdfdata.grades = findGrades(JD);
 
-
-    const calendar = findCalendar(JD, pdfdata.term);//
-
     //test
     // console.log("Professor Name:", professorName);
     // console.log("Professor Email:", professorEmail);
@@ -1041,7 +1054,7 @@ app.post("/extract-text", async (req, res) => {
     // console.log("Grades:", grades);
     // console.log("Term:", term);//
     // console.log("Calendar:", calendar);
-    // console.log(pdfdata);
+    console.log(pdfdata);
     res.send(pdfdata);
 });
 

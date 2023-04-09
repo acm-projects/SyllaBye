@@ -7,6 +7,35 @@ import cuid from "cuid";
 import { pdfjs, Document, Page } from 'react-pdf';
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
+async function extract(file, thumbnail){
+    const formData = new FormData()
+        formData.append("pdfFile", file)
+        const res = await fetch("http://localhost:1338/extract-text", {
+            method: "post",
+            body: formData
+        });
+
+        const extractedText = await res.json();
+        if (extractedText) {
+            const formData2 = new FormData()
+            formData2.append("text", JSON.stringify(extractedText))
+            formData2.append("thumbnail", thumbnail)
+            const res = await fetch("http://localhost:1337/api/upload", {
+                method: "post",
+                headers: {"x-access-token" : localStorage.getItem("token"),},
+                body: formData2
+            });
+            if(res){
+                return "Success";
+            }
+            else{
+                return "Upload Error";
+            }
+        }
+        else{
+            return "PDF Error";
+        }
+}
 
 function Home() {
 
@@ -37,6 +66,7 @@ function Home() {
               document.body.appendChild(canvas); // Add canvas to DOM for debugging purposes
               pdfPage.render({ canvasContext: context, viewport: viewport }).promise.then(() => {
                 const thumbnail = canvas.toDataURL();
+                extract(file, thumbnail)
                 document.body.removeChild(canvas); // Remove canvas from DOM after rendering
                 console.log(`Thumbnail generated for PDF file: ${file.name}`);
                 setImages((prevState) => [
@@ -80,4 +110,4 @@ function Home() {
     );
 }
 
-export default Home;
+export default Home
