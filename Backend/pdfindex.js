@@ -405,7 +405,7 @@ async function findCalendar(data, term){
     const Xregex = new RegExp(Xwords.join("|"), "gi");
     const match = data.filter(str => keywords.some(word => str.includes(word) && !Xregex.test(str)));
     const TOC = match[0].split(" ");//Table of Contents
-    console.log(TOC);
+    // console.log(TOC);
     pdfdata.TOC = TOC;
     let s = false;
     let format = false;
