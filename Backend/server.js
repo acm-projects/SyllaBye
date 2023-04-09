@@ -6,16 +6,16 @@ const User = require('./models/user')
 const File = require('./models/file')
 const jose = require('jose')
 const bcrypt = require('bcryptjs')
-const fileUpload = require('express-fileupload');
 const multer = require('multer');
-const upload = multer();
+const upload1 = multer();
+const storage = multer.memoryStorage();
+const upload2 = multer({ storage });
 
 require('dotenv').config()
 
 app.use(cors())
 app.use(express.json())
 app.use("/", express.static("public"));
-app.use(fileUpload());
 
 mongoose.set('strictQuery', true);
 mongoose.connect(process.env.mongoURL)
@@ -62,8 +62,7 @@ app.post('/api/login', async (req, res) => {
     }
 })
 
-//app.post('/api/upload', async (req, res) => {
-app.post('/api/upload', upload.fields([{ name: 'text' }]), async (req, res) => {
+app.post('/api/upload', upload1.fields([upload2.single({ name: 'text' }), { name: 'thumbnail' }]), async (req, res) => {
     try{
         if (!req.body) {
             res.status(400)
@@ -80,21 +79,38 @@ app.post('/api/upload', upload.fields([{ name: 'text' }]), async (req, res) => {
     try{
         const {payload, protectedHeader} = await jose.jwtVerify(token, new TextEncoder().encode(process.env.JWTKey))
         const userEmail = payload.email
-        const text = await req.body.text
-        //const thumbnail = await req.body.thumbnail
+        const thumbnail = req.body.thumbnail
+        const text = JSON.parse(req.body.text);
 
-        console.log(text)
-        //console.log(thumbnail)
-        //console.log(req.files.thumbnail)
-        // await File.create({
-        //     email: userEmail,
-        //     thumbnail: req.body.thumbnail,
-        //     fileData: req.body.extractedText
-        // })
+        await File.create({
+            email: userEmail,
+            thumbnail: thumbnail,
+            fileData: text,
+        })
+
         res.send("Success")
     }
     catch(err){
         console.log(err)
+    }
+})
+
+app.get('/api/files', async (req, res) => {
+    try{
+        const token = req.headers['x-access-token'];
+
+        const {payload, protectedHeader} = await jose.jwtVerify(token, new TextEncoder().encode(process.env.JWTKey))
+        const userEmail = payload.email
+
+        const files = await File.find({
+            email: userEmail,
+        })
+
+        res.json(files)
+    }
+    catch(err){
+        console.log(err)
+        res.status(500)
     }
 })
 

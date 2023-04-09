@@ -16,16 +16,13 @@ async function extract(file, thumbnail){
         });
 
         const extractedText = await res.json();
-        console.log(extractedText)
         if (extractedText) {
-
             const formData2 = new FormData()
-            formData2.append("text", extractedText)
-            //formData2.append("thumbnail", thumbnail)
+            formData2.append("text", JSON.stringify(extractedText))
+            formData2.append("thumbnail", thumbnail)
             const res = await fetch("http://localhost:1337/api/upload", {
                 method: "post",
                 headers: {"x-access-token" : localStorage.getItem("token"),},
-                //'Content-Type': 'multipart/form-data; boundary=---------------------------974767299852498929531610575'},
                 body: formData2
             });
             if(res){
