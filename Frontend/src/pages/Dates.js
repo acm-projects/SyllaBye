@@ -4,6 +4,7 @@ function Dates(props){
     return(
     <div className = "box4">
         <label id="namelabel4">Important Dates</label>
+        <button className="addItem" onChange = {props.addField}>+</button>
         <table className="table4">
             <tr>
                 <td>Assignment</td>

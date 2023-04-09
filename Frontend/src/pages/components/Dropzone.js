@@ -32,7 +32,7 @@ function Dropzone({ onDrop, accept, open }) {
               Please only upload PDF files
             </p>
           )}
-          <button type="button" onClick={open} className="btn">
+          <button type="button" onClick={onDrop} className="btn">
             Click to select files
           </button>
         </div>
