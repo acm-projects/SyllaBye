@@ -1,39 +1,54 @@
+:root {
+    --lightestGrey: #FBFFF9;
+    --lightestGreen: #EDF6EF;
+    --mediumGreen: #E0EAE2;
+    --mediumDarkGreen: #4B6350;
+    --darkGreen: #263928;
+}
+
+body {
+    background-color: var(--lightestGrey);
+}
+
+
+
 .file-list {
     /* border: 3px dotted black;  */
     display: grid;
-    gap: 5%;
+    gap: 3%;
     grid-template-columns:repeat(4,1fr);
     width: 94%;
-    margin: 3%;
-    margin-bottom: 10%;
-    /* border: 3px dotted black; */
+    margin-right: 3%;
+    margin-left: 2%;
+    margin-bottom: 0%;
   }
   
   .file-list img {
-    height: 100%;
+    height: 70%;
     width: 100%;
-    padding: 1%;
+    /* padding: 1%; */
     object-fit: cover;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
-    border: 3px solid rgb(196, 206, 196);
+    border: 3px solid var(--mediumGreen);
   }
   
   .pdf-label {
   
       border-bottom-left-radius: 8px;
       border-bottom-right-radius: 8px;
-      width: 100%;
-      background-color: rgb(196, 206, 196); 
+      width: 102%;
+      background-color: var(--mediumGreen); 
+      margin-left: 1vh;
+      height: 60px;
   
   }
 
   button {
-    color:#263928;
-    background-color:#e7eae5;
+    color: var(--darkestGreen);
+    background-color: var(--mediumGreen);
     border: none;
     height: 60px;
-    width: 200px;
     font-family: 'Inter';
     font-size: 20px;
     font-weight: 500;
@@ -41,9 +56,10 @@
     display:inline-block;
     
     opacity: 1;
-    transition: 1s;
+    transition: .6s;
   
   }
   
-  button:hover {opacity: .8}
-  button:hover {background-color:#d2d9cc;}
+  button:hover {background-color: var(--lightestGreen);
+                color: var(--mediumDarkGreen);          
+            }
