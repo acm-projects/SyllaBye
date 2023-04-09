@@ -41,15 +41,9 @@ const pdfdata = {
     courseName: "",
     term: "",
     grades: [],
-    calendar: {
-        dates: [],
-        weeks: [],
-        topics: [],
-        readings: [],
-        chapters: [],
-        assignments: [],
-    }
+    calendar: []
 };
+
 
 function findProfessorName(data) {
     const keywords = ["Professor", "professor" , "Name", "name", "Dr."];
@@ -363,294 +357,35 @@ function findTerm(data){
 //     // const JD = JSON.parse(Jsontext);
 //     const Jtext = JSON.stringify(tempStrData, 4, null);
 //     const Jdata = JSON.parse(Jtext)
-//     console.log(Jdata);
+//     // console.log(Jdata);
 
 //     prompt = (
-//         "Organize the following calendar data into their specific Table of Content section and include an important section for exams or tests:\n"
-//         + "\n" + Object.values(Jdata).join("\n")
+//         "Create a table of contents with individual sections for each week of the calendar data provided, including the week number, dates, topic, and any assignments for that week. Additionally, create a separate section for exams or tests. If a week includes multiple topics or assignments, please list them all under that week's section. Be sure to include the date and assignment name for each assignment mentioned. Keep the Labels for each thing like Week: __, Date:___, Assignments:___ and more. Do that for one section then make another section for the next week with the same content:\n"
+//         + "Data:\n" + Object.values(Jdata).join("\n")
 //     )
 
-//     model_engine = "Ada"
-//     max_tokens = 2048
+//     // console.log(prompt);
+
+//     model_engine = "text-ada-001"
+//     // model_engine = "code-davinci-001"
+//     max_tokens = 500
 //     temperature = 0.5
 //     n = 1
-//     stop = "\n"
 
 //     const response = await openai.createCompletion({
 //         model: model_engine,
-//         engine: model_engine,
 //         prompt: prompt,
 //         max_tokens: max_tokens,
 //         temperature: temperature,
 //         n: n,
-//         stop: stop,
 //     });
 
 //     const completed_text = await response.data.choices[0].text
-//     console.log(completed_text);
+//     const test = JSON.stringify(completed_text, 4, null);
+//     console.log("Completed Text: " + test + "\n\n\n");
+//     console.log("JSON: " + test);
+// } //AI Calendar function
 
-//             //     console.log(tempData);
-//             //     let week = [];
-//             //     let weekstatus = false;
-//             //     let date = [];
-//             //     let topic = [];
-//             //     let reading = [];
-//             //     let chapter = [];
-//             //     let assignment = [];
-//             //     let important = [];
-
-//             //     // I can probably connect the broken data into one line like it is for DSA syllabus and then split it into an array and send it down the if statements
-//             //     if(!format){
-//             //         if(TOC.includes("Week") || TOC.includes("week") || TOC.includes("WEEK")){
-//             //             for (let i = 0; i < tempData.length; i++) {
-//             //                 if(!tempData[i][0].includes("/") && (/\d/).test(tempData[i][0])){
-//             //                     week.push(tempData[i][0]);
-//             //                 }
-//             //             }
-//             //             weekstatus = true;
-//             //             // console.log("week: ", week.length);
-//             //             // console.log(week);
-//             //         }
-                
-//             //         if(TOC.includes("Date") || TOC.includes("date") || TOC.includes("DATE")){
-//             //             let current = -1;
-//             //             const keywords = ["EXAM", "Exam", "exam", "TEST", "Test", "test"];
-//             //             for (let i = 0; i < tempData.length; i++) {
-//             //                 let str = "";
-//             //                 for (let j = 0; j < tempData[i].length; j++) {
-//             //                     if(tempData[i][j].includes("/")){
-//             //                         if(keywords.some(word => tempData[i][j+1].includes(word))){
-//             //                             important.push(tempData[i][j].replace(",", "").replace(":", "").replace(";", ""));
-//             //                             if(j + 2 < tempData[i].length){
-//             //                                 important.push(tempData[i][j+1].replace(",", "").replace(":", "").replace(";", "") + " " + tempData[i][j+2].replace(",", "").replace(":", "").replace(";", ""));
-//             //                             }
-//             //                             else{
-//             //                                 important.push(tempData[i][j+1].replace(",", "").replace(":", "").replace(";", ""));
-//             //                             }
-//             //                         }
-//             //                         else{
-//             //                             str += (tempData[i][j].replace(",", "").replace(":", "").replace(";", "")) + " ";
-//             //                         }
-//             //                     }
-//             //                 }
-//             //                 if(str.length > 0){
-//             //                     if(weekstatus){
-//             //                         if(i > week.length){
-//             //                             date[current-1] += str;
-//             //                         }
-//             //                         else if (!tempStrData[i].includes(week[i])){
-//             //                             // console.log(str);
-//             //                             // console.log(date[current-1]);
-                
-//             //                             // let temp = date[current]
-//             //                             // for(let k = 0; k < str.length; k++){
-//             //                             //     temp.push(str[k]);
-//             //                             // }
-//             //                             date[current] += " " + str.trim();
-                
-//             //                         }
-//             //                         else{
-//             //                             date.push(str.trim());
-//             //                             current++;
-//             //                         }
-//             //                     }
-//             //                     else{
-//             //                         date.push(str.trim());
-//             //                     }
-//             //                     // date.push(str);
-//             //                 }
-//             //             }
-//             //             // console.log("date: ", date.length);
-//             //             // console.log(date);
-//             //         }
-                
-//             //         if(TOC.includes("Topic") || TOC.includes("topic") || TOC.includes("TOPIC")){
-//             //             current = -1;
-//             //             const Xwords = ["Assignment", "assignment", "ASSIGNMENT", "Chapter", "chapter", "CHAPTER", "Exam", "exam", "EXAM", "Test", "test", "TEST", "Appendix", "appendix", "APPENDIX", "Ch.", "ch.", "CH."];
-//             //             for (let i = 0; i < tempData.length; i++) {
-//             //                 let str = "";
-//             //                 for (let j = 0; j < tempData[i].length; j++) {
-//             //                     if(j == 0 && (/\d/).test(tempData[i][j])){
-//             //                         continue;
-//             //                     }
-//             //                     if(tempData[i][j].includes("Assignment") || tempData[i][j].includes("Chapter")){
-//             //                         break;
-//             //                     }
-//             //                     else if(!tempData[i][j].includes("/") && !Xwords.some(word => tempData[i][j].includes(word))){
-//             //                         str += (tempData[i][j].replace(",", "").replace(":", "").replace(";", "").trim()) + " ";
-//             //                     }
-//             //                 }
-//             //                 if(str.length > 0){
-//             //                     if(i >= date.length){
-//             //                         if(topic[current].includes("None")){
-//             //                             topic[current] = str.trim();
-//             //                         }
-//             //                         else{
-//             //                             topic[current] += " | " + str.trim();
-//             //                         }
-//             //                     }
-//             //                     else{
-//             //                         let d = date[i].split(" ");
-//             //                         if(!tempStrData[i].includes(d[0])){
-//             //                             if(topic[current].includes("None")){
-//             //                                 topic[current] = str.trim();
-//             //                             }
-//             //                             else{
-//             //                                 topic[current] += " | " + str.trim();
-//             //                             }
-//             //                         }
-//             //                         else{
-//             //                             topic.push(str.trim());
-//             //                             current++;
-//             //                         }
-//             //                     }
-//             //                 }
-//             //                 else{
-//             //                     if(i < date.length){
-//             //                         topic.push("None");
-//             //                     }
-//             //                 }
-//             //             }
-//             //             // console.log("Topic: " + topic.length);
-//             //             // console.log(topic);
-//             //         }
-                
-//             //         if(TOC.includes("Assignment") || TOC.includes("Assignments") || TOC.includes("assignment") || TOC.includes("ASSIGNMENT")){
-//             //             let current = -1;
-//             //             for (let i = 0; i < tempData.length; i++) {
-//             //                 let str = "";
-//             //                 let status = false;
-//             //                 for (let j = 0; j < tempData[i].length; j++) {
-//             //                     if(tempData[i][j].includes("Assignment")){
-//             //                         status = true;
-//             //                     }
-//             //                     if(status){
-//             //                         str += (tempData[i][j].replace(",", "").replace(":", "").replace(";", "").trim()) + " ";
-//             //                     }
-//             //                 }
-//             //                 if(str.length > 0){
-//             //                     if(i >= date.length){
-//             //                         if(assignment[current].includes("None")){
-//             //                             assignment[current] = str.trim();
-//             //                         }
-//             //                         else{
-//             //                             assignment[current] += " | " + str.trim();
-//             //                         }
-//             //                     }
-//             //                     else{
-//             //                         let d = date[i].split(" ");
-//             //                         if(!tempStrData[i].includes(d[0])){
-//             //                             if(assignment[current].includes("None")){
-//             //                                 assignment[current] = str.trim();
-//             //                             }
-//             //                             else{
-//             //                                 assignment[current] += " | " + str.trim();
-//             //                             }
-//             //                         }
-//             //                         else{
-//             //                             assignment.push(str.trim());
-//             //                             current++;
-//             //                         }
-//             //                     }
-//             //                 }
-//             //                 else{
-//             //                     if(i < date.length){
-//             //                         assignment.push("None");
-//             //                         current++;
-//             //                     }
-//             //                 }
-//             //             }
-//             //             // console.log("Assignments: " + assignment.length);
-//             //             // console.log(assignment);
-//             //         }
-//             //     }
-//             //     else{
-//             //         const monthWords = ["Jan ", "Feb ", "Mar ", "Apr ", "May ", "Jun ", "Jul ", "Aug ", "Sep ", "Oct ", "Nov ", "Dec "];
-//             //         const assignmentWords = ["Assignment", "assignment", "ASSIGNMENT"];
-//             //         const chapterWords = ["Chapter", "chapter", "CHAPTER", "Ch.", "ch.", "CH.", "Appendix", "appendix", "APPENDIX"];
-//             //         const importantWords = ["Exam", "exam", "EXAM", "Test", "test", "TEST"];
-//             //         for(let i = 0; i < tempData.length; i++){
-//             //             if(tempData[i].length() < 3){
-//             //                 week.push(tempData[i].trim());
-//             //             }
-//             //             else if((tempData[i].includes("/") && RegExp(/\{d}/).test(tempData[i])) || (monthWords.some(month => tempData[i].includes(month)) && RegExp(/\{d}/).test(tempData[i]))){
-//             //                 date.push(tempData[i].trim());
-//             //             }
-//             //             else if(assignmentWords.some(word => tempData[i].includes(word))){
-//             //                 assignment.push(tempData[i].trim());
-//             //             }
-//             //             else if(chapterWords.some(word => tempData[i].includes(word))){
-//             //                 chapter.push(tempData[i].trim());
-//             //             }
-//             //             else if(importantWords.some(word => tempData[i].includes(word))){
-//             //                 important.push(tempData[i].trim());
-//             //             }
-
-//             //         }
-//             //     }
-                
-//             //     console.log("week: " + week.length);
-//             //     // console.log(week);
-//             //     console.log("date: " + date.length);
-//             //     console.log(date);
-//             //     console.log("Topic: " + topic.length);
-//             //     console.log(topic);
-//             //     console.log("Assignments: " + assignment.length);
-//             //     // console.log(assignment);
-//             //     console.log("important: " + important.length);
-//             //     console.log(important);
-                
-                
-
-//             //     // const testmatch = data.filter(str => RegExp(/^(\d+)\s+([\d/ ,]+)\s+(.+?)\s*Assignment\s*(\d*)$/).test(str));
-//             //     // console.log(testmatch);
-
-
-                
-//             //     //Maybe use a 2D array where arr[0][1..n] stores the table of contents for example 
-//             //     // arr[0][1] = "Week" and arr[0][2] = "Date" and so on. We first find the table of contents, split 
-//             //     // the content and then input each element into arr[0][n] next we take each string and search for 
-//             //     // values or something based off each arr[0][n] and then input in arr[n][m] where n is the value 
-//             //     // it matches like week is in n=1 so arr[1][m] is where we store the data relating to it. Also lets 
-//             //     // setup functions for if we come accross numbers and convert them to numbers. BTW some lines may not 
-//             //     // include any of the table of content so we input the value for that content null meaning topic or 
-//             //     // chapter or something wasnt given and continue on. What we are basically doing is that m is for 
-//             //     // the line we are currently at on the pdf json file.
-
-
-//             //     if(term.includes("Spring")){
-//             //         const month = 5;
-//             //         const day = 12;
-//             //     }
-
-//             //     let status = false;
-//             //     data.forEach(element => {
-//             //         if(keywords.some(word => element.includes(word) && !Xregex.test(element))){
-//             //             status = true;
-//             //         }
-//             //         else if(status == true){
-//             // //     //                     else if (RegExp("(?<month>[0-3]?[0-9])/(?<day>[0-3]?[0-9])").test(val)) {
-
-//             //             // if (RegExp("(?<month>[0-3]?[0-9])/(?<day>[0-3]?[0-9])").test(element)){
-//             //             //     const date = element.match(RegExp("(?<month>[0-3]?[0-9])/(?<day>[0-3]?[0-9])"));
-//             //             //     // const val = date.split(RegExp("(?<month>[0-3]?[0-9])/(?<day>[0-3]?[0-9])"));
-//             //             //     // console.log("test");
-//             //             //     // if(date.includes("/")){
-//             //             //     //     const val = date.split(RegExp("(?<month>[0-3]?[0-9])/(?<day>[0-3]?[0-9])"));
-//             //             //     //     console.log("test");
-//             //             //     // }
-//             //             // }
-//             //             // console.log(element);
-//             //         }
-//             //     });
-//             //     // const match = data.filter(str => keywords.some(word => str.includes(word) && !Xregex.test(str)));
-
-//             //     // const match = data.filter(str => regex.test(str));
-//             //     // const Rwords = ["Important", ":"];//Removed words
-//             //     // const Rregex = new RegExp(Rwords.join("|"), "gi");
-//             //     // const val = match.filter(str => str.includes());
-//             //     // console.log(match);//
-// }
 async function findCalendar(data, term){
     const keywords = ["Date"];
     // const regex = new RegExp(keywords.join("|"), "gi");
@@ -686,7 +421,8 @@ async function findCalendar(data, term){
         let row = [];
         let str = "";
         for(let i = 0; i < tempStrData.length; i++){
-            if(((tempStrData[i][0] == Weekcounter.toString() || (tempStrData[i][0] + tempStrData[i][1]) == Weekcounter.toString()))){
+            if(((tempStrData[i][0] == Weekcounter.toString() || (tempStrData[i][0] + tempStrData[i][1]) == Weekcounter.toString()))){ //Maybe want to check if that value doesnt have "/" as it could mean theirs no weeks
+                                                                                                                                      // and instead its just dates
                 Weekcounter++;
                 if(str != ("")){
                     row.push(str.trim());
@@ -712,293 +448,335 @@ async function findCalendar(data, term){
                 }
             }
         }
+        console.log("Built data set:");
         console.log(row);
-        let week = [];
-        let weekC = 0;
-        let weekstatus = false;
-        let date = [];
-        let topic = [];
-        let reading = [];
-        let chapter = [];
-        let assignment = [];
-        let important = [];
 
+        const set = [];
+        let tempWeek = "";
+        let tempDate = [];
+        let tempTopic = "";
+        let tempReading = [];
+        let tempAssignment = [];
+        let tempImportant = [];
+        let dateStatus = false;
+        const dateKeywords = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        const ReadingKeywords = ["Chapter", "Chapters", "Chp.", "Chp", "Ch.", "Ch", "chp.", "chp", "ch.", "ch", "Appendix", "Appendices", "appendix", "appendices", "Reading", "Readings", "reading", "readings"];
+        const Reading2ndKeywords = ["Chp.", "Ch.", "A.", "chp.", "ch.", "a."];
+        const AssignmentKeywords = ["Assignment", "Assignments", "assignment", "assignments", "Homework", "homework", "HW", "hw"];
+        const ImportantKeywords = ["Exams", "Exam", "Tests", "Test", "Midterms", "Midterm", "Finals", "Final", "exams", "exam", "tests", "test", "midterms", "midterm", "finals", "final"];
+        const TopicKeywords = ["Review", "review"];
+        const X2Words = ["TBA", "--"]
+        //Add case sensitivity .toLowerCase() later
+
+        console.log("Parsing data set:\n");
         for(let i = 0; i < row.length; i++){
             const temp = row[i].split(" ");
-            let date_C = 0;
-            if(RegExp(/\{d}/).test(temp[0])){
-                week.push(temp[0]);
-                for(let j = 1; j < temp.length; j++){
-                    if(temp[j].includes("/")){
-                        if(temp[j+1].includes("/")){
-                            date.push(temp[j] + " " + temp[j+1]);
+            if(RegExp(/\d/).test(temp[0])){
+                if(!temp[0].includes("/")){
+                    tempWeek = temp[0];
+                    for(let j = 1; j < temp.length; j++){
+                        if((temp[j].includes("/") && RegExp(/\d/).test(temp[j])) || dateKeywords.some(word => (temp[j] == word))){
+                            dateStatus = true;
+                            if(temp[j].includes("/")){// Dates that are 01/30
+                                if(ImportantKeywords.some(word => temp[j+1].includes(word))){ // 01/30 Exams
+                                    if(RegExp(/\d/).test(temp[j+1])){ // 01/30 Exams1
+                                        tempImportant.push(temp[j].replace(":", "").trim() + " | " + temp[j+1]);
+                                        j++;
+                                    }
+                                    else if (j+2 < temp.length){ // 01/30 Exams 1
+                                        if(RegExp(/\d/).test(temp[j+2])){
+                                            tempImportant.push(temp[j].replace(":", "").trim() + " | " + temp[j+1] + " " + temp[j+2]);
+                                            j+=2;
+                                        }
+                                    }
+                                    else{ // 01/30 Exams
+                                        tempImportant.push(temp[j].replace(":", "").trim() + " | " + temp[j+1]);
+                                        j++;
+                                    }
+                                }
+                                else{ // 01/30
+                                    tempDate.push(temp[j].replace(",", "").trim());
+                                }
+                            }
+                            else{// Dates that are Jan 30 or Jan30
+                                if(RegExp(/\d/).test(temp[j])){ //Jan30
+                                    if(ImportantKeywords.some(word => temp[j+1].includes(word))){ //Jan30 Exams
+                                        if(RegExp(/\d/).test(temp[j+1])){ //Jan30 Exams1
+                                            if(j+2 < temp.length){
+                                                if(TopicKeywords.some(word => temp[j+2].equals(word))){ //Jan30 Exams1 Review
+                                                    tempDate.push(temp[j].trim());
+                                                    if(tempTopic != ("")){
+                                                        tempTopic += " " + temp[j+1] + " " + temp[j+2];
+                                                    }
+                                                    else{
+                                                        tempTopic = temp[j+1] + " " + temp[j+2];
+                                                    }
+                                                    j+=2;
+                                                }
+                                                else{ //Jan30 Exams1
+                                                    tempImportant.push(temp[j].replace(":", "").trim() + " | " + temp[j+1]);
+                                                    j++;
+                                                }
+                                            }
+                                            else{ //Jan30 Exams1
+                                                tempImportant.push(temp[j].replace(":", "").trim() + " | " + temp[j+1]);
+                                                j++;
+                                            }
+                                        }
+                                        else if (j+2 < temp.length){ //Jan30 Exams ...
+                                            if(RegExp(/\d/).test(temp[j+2])){ //Jan30 Exams 1
+                                                if(j+3 < temp.length){
+                                                    if(TopicKeywords.some(word => temp[j+3].equals(word))){ //Jan30 Exams 1 Review
+                                                        tempDate.push(temp[j].trim());
+                                                        if(tempTopic != ("")){
+                                                            tempTopic += " " + temp[j+1] + " " + temp[j+2] + " " + temp[j+3];
+                                                        }
+                                                        else{
+                                                            tempTopic = temp[j+1] + " " + temp[j+2] + " " + temp[j+3];
+                                                        }
+                                                        j+=3;
+                                                    }
+                                                    else{ //Jan30 Exams 1
+                                                        tempImportant.push(temp[j].replace(":", "").trim() + " | " + temp[j+1] + " " + temp[j+2]);
+                                                        j+=2;
+                                                    }
+                                                }
+                                                else{ //Jan30 Exams 1
+                                                    tempImportant.push(temp[j].replace(":", "").trim() + " | " + temp[j+1] + " " + temp[j+2]);
+                                                    j+=2;
+                                                }
+                                            }
+                                            else{ //Jan30 Exams (no ...)
+                                                tempImportant.push(temp[j].replace(":", "").trim() + " | " + temp[j+1]);
+                                                j++;
+                                            }
+                                        }
+                                        else{ //Jan30 Exams
+                                            tempImportant.push(temp[j].replace(":", "").trim() + " | " + temp[j+1]);
+                                            j++;
+                                        }
+                                    }
+                                    else{ //Jan30
+                                        tempDate[tempWeek.length - 1] += " | " + temp[j];
+                                    }
+                                }
+                                else{ //Jan 30
+                                    if(ImportantKeywords.some(word => temp[j+2].includes(word))){ //Jan 30 Exams
+                                        if(RegExp(/\d/).test(temp[j+2])){ //Jan 30 Exams1
+                                            if(j+3 < temp.length){ //Jan 30 Exams1 ...
+                                                if(TopicKeywords.some(word => temp[j+3].equals(word))){ //Jan 30 Exams1 Review
+                                                    tempDate.push(temp[j].trim() + " " + temp[j+1]);
+                                                    if(tempTopic != ("")){
+                                                        tempTopic += " " + temp[j+2] + " " + temp[j+3];
+                                                    }
+                                                    else{
+                                                        tempTopic = temp[j+2] + " " + temp[j+3];
+                                                    }
+                                                    j+=3;
+                                                }
+                                                else{ //Jan 30 Exams1
+                                                    tempImportant.push(temp[j].replace(":", "").trim() + " " + temp[j+1] + " | " + temp[j+2]);
+                                                    j+=2;
+                                                }
+                                            }
+                                            else{ //Jan 30 Exams1
+                                                tempImportant.push(temp[j].replace(":", "").trim() + " " + temp[j+1] + " | " + temp[j+2]);
+                                                j+=2;
+                                            }
+                                        }
+                                        else if (j+3 < temp.length){ //Jan 30 Exams ...
+                                            if(RegExp(/\d/).test(temp[j+3])){ //Jan 30 Exams 1
+                                                if(j+4 < temp.length){
+                                                    if(TopicKeywords.some(word => (temp[j+4] == word))){ //Jan 30 Exams 1 Review
+                                                        tempDate.push(temp[j].trim() + " " + temp[j+1]);
+                                                        if(tempTopic != ("")){
+                                                            tempTopic += " " + temp[j+2] + " " + temp[j+3] + " " + temp[j+4];
+                                                        }
+                                                        else{
+                                                            tempTopic = temp[j+2] + " " + temp[j+3] + " " + temp[j+4];
+                                                        }
+                                                        j+=4;
+                                                    }
+                                                    else{ //Jan 30 Exams 1
+                                                        tempImportant.push(temp[j].replace(":", "").trim() + " " + temp[j+1] + " | " + temp[j+2] + " " + temp[j+3]);
+                                                        j+=3;
+                                                    }
+                                                }
+                                                else{ //Jan 30 Exams 1
+                                                    tempImportant.push(temp[j].replace(":", "").trim() + " " + temp[j+1] + " | " + temp[j+2] + " " + temp[j+3]);
+                                                    j+=3;
+                                                }
+                                            }
+                                            else{ //Jan 30 Exams (no ...)
+                                                tempImportant.push(temp[j].replace(":", "").trim() + " " + temp[j+1] + " | " + temp[j+2]);
+                                                j+=2;
+                                            }
+                                        }
+                                        else{ //Jan 30 Exams
+                                            tempImportant.push(temp[j].replace(":", "").trim() + " " + temp[j+1] + " | " + temp[j+2]);
+                                            j+=2;
+                                        }
+                                    }
+                                    else{ //Jan 30
+                                        tempDate.push(temp[j].trim() + " " + temp[j+1]);
+                                        j++;
+                                    }
+                                }
+                            }
+                        }
+                        else if(ReadingKeywords.some(word => (temp[j] == word)) || Reading2ndKeywords.some(word2 => temp[j].includes(word2))){ // Chapter/Reading/Appendix
+                            if(RegExp(/\d/).test(temp[j])){ //Chp.1
+                                if(temp[j].includes(",")){ //Chp.1,
+                                    if(j+1 < temp.length){
+                                        if(RegExp(/\d/).test(temp[j+1]) && !Reading2ndKeywords.some(word2 => temp[j+1].includes(word2))){ //Chp.1, 2
+                                            tempReading.push(temp[j].replace(",", "").trim() + " " + temp[j+1].replace(",", "").trim());
+                                            j++;
+                                        }
+                                        else{
+                                            tempReading.push(temp[j].replace(",", "").trim());
+                                        }
+                                    }
+                                    else{
+                                        tempReading.push(temp[j].replace(",", "").trim());
+                                    }
+                                }
+                                else{
+                                    tempReading.push(temp[j].replace(",", "").trim());
+                                }
+                            }
+                            else if(j+1 < temp.length){ //Chp. ...
+                                if(RegExp(/\d/).test(temp[j+1])){ //Chp. 1
+                                    if(temp[j+1].includes(",")){ //Chp. 1,
+                                        if(j+2 < temp.length){
+                                            if(RegExp(/\d/).test(temp[j+2]) && !Reading2ndKeywords.some(word2 => temp[j+2].includes(word2))){ //Chp. 1, 2
+                                                tempReading.push(temp[j].replace(",", "").trim() + " " + temp[j+1].replace(",", "").trim() + ", " + temp[j+2].replace(",", "").trim());
+                                                j+=2;
+                                            }
+                                            else{ //Chp. 1, 2
+                                                tempReading.push(temp[j].replace(",", "").trim() + " " + temp[j+1].replace(",", "").trim());
+                                                j++;
+                                            }
+                                        }
+                                        else{
+                                            tempReading.push(temp[j].replace(",", "").trim() + " " + temp[j+1].replace(",", "").trim());
+                                            j++;
+                                        }
+                                    }
+                                    else{
+                                        tempReading.push(temp[j].replace(",", "").trim() + " " + temp[j+1].replace(",", "").trim());
+                                        j++;
+                                    }
+                                }
+                                else{
+                                    if(temp[j+1].length == 1 && !RegExp(/\d/).test(temp[j+1])){ //Appendix A
+                                        tempReading.push(temp[j].replace(",", "").trim() + " " + temp[j+1].replace(",", "").trim());
+                                        j++;
+                                    }
+                                    else{
+                                        tempReading.push(temp[j].replace(",", "").trim());
+                                    }
+                                }
+                            }
+                            else{
+                                tempReading.push(temp[j].replace(",", "").trim());
+                            }
+                        }
+                        else if(AssignmentKeywords.some(word => (temp[j] == word))){
+                            if(RegExp(/\d/).test(temp[j])){
+                                tempAssignment.push(temp[j]);
+                            }
+                            else if(j+1 < temp.length){
+                                if(RegExp(/\d/).test(temp[j+1])){
+                                    tempAssignment.push(temp[j] + " " + temp[j+1]);
+                                    j++;
+                                }
+                                else{
+                                    tempAssignment.push(temp[j]);
+                                }
+                            }
+                        }
+                        else if(ImportantKeywords.some(word => temp[j].includes(word))){
+                            if(RegExp(/\d/).test(temp[j])){ //Test1
+                                tempImportant.push(temp[j]);
+                            }
+                            else if(j+1 < temp.length){ //Test ...
+                                if(RegExp(/\d/).test(temp[j+1])){ //Test 1
+                                    tempImportant.push(temp[j].replace(",", "").trim() + " " + temp[j+1].replace(",", "").trim());
+                                    j++;
+                                }
+                                else{
+                                    tempImportant.push(temp[j].replace(",", "").trim());
+                                }
+                            }
+
+                            if(row[i].includes("TBA")){ //Test 3 -- TBA
+                                tempImportant[tempImportant.length - 1] += " -- " + "TBA";
+                            }
                         }
                         else{
-                            date.push(temp[j]);
+                            if(!X2Words.some(word => (temp[j] == word))){
+                                if(dateStatus){
+                                    dateStatus = false;
+                                    if(tempTopic != ""){
+                                        tempTopic += " | " + temp[j];
+                                    }
+                                    else{
+                                        tempTopic = temp[j];
+                                    }
+                                }
+                                else{
+                                    if(tempTopic != ""){
+                                        tempTopic += " " + temp[j];
+                                    }
+                                    else{
+                                        tempTopic = temp[j];
+                                    }
+                                }
+                            }
                         }
                     }
-                    // else if()
                 }
-                weekC++;
-            }
-            else{
-                for(let j = 0; j < temp.length; j++){
-                }
-            }
-            
-        }
-
-        // I can probably connect the broken data into one line like it is for DSA syllabus and then split it into an array and send it down the if statements
-                            // if(!format){
-                            //     if(TOC.includes("Week") || TOC.includes("week") || TOC.includes("WEEK")){
-                            //         for (let i = 0; i < tempData.length; i++) {
-                            //             if(!tempData[i][0].includes("/") && (/\d/).test(tempData[i][0])){
-                            //                 week.push(tempData[i][0]);
-                            //             }
-                            //         }
-                            //         weekstatus = true;
-                            //         // console.log("week: ", week.length);
-                            //         // console.log(week);
-                            //     }
-                            
-                            //     if(TOC.includes("Date") || TOC.includes("date") || TOC.includes("DATE")){
-                            //         let current = -1;
-                            //         const keywords = ["EXAM", "Exam", "exam", "TEST", "Test", "test"];
-                            //         for (let i = 0; i < tempData.length; i++) {
-                            //             let str = "";
-                            //             for (let j = 0; j < tempData[i].length; j++) {
-                            //                 if(tempData[i][j].includes("/")){
-                            //                     if(keywords.some(word => tempData[i][j+1].includes(word))){
-                            //                         important.push(tempData[i][j].replace(",", "").replace(":", "").replace(";", ""));
-                            //                         if(j + 2 < tempData[i].length){
-                            //                             important.push(tempData[i][j+1].replace(",", "").replace(":", "").replace(";", "") + " " + tempData[i][j+2].replace(",", "").replace(":", "").replace(";", ""));
-                            //                         }
-                            //                         else{
-                            //                             important.push(tempData[i][j+1].replace(",", "").replace(":", "").replace(";", ""));
-                            //                         }
-                            //                     }
-                            //                     else{
-                            //                         str += (tempData[i][j].replace(",", "").replace(":", "").replace(";", "")) + " ";
-                            //                     }
-                            //                 }
-                            //             }
-                            //             if(str.length > 0){
-                            //                 if(weekstatus){
-                            //                     if(i > week.length){
-                            //                         date[current-1] += str;
-                            //                     }
-                            //                     else if (!tempStrData[i].includes(week[i])){
-                            //                         // console.log(str);
-                            //                         // console.log(date[current-1]);
-                            
-                            //                         // let temp = date[current]
-                            //                         // for(let k = 0; k < str.length; k++){
-                            //                         //     temp.push(str[k]);
-                            //                         // }
-                            //                         date[current] += " " + str.trim();
-                            
-                            //                     }
-                            //                     else{
-                            //                         date.push(str.trim());
-                            //                         current++;
-                            //                     }
-                            //                 }
-                            //                 else{
-                            //                     date.push(str.trim());
-                            //                 }
-                            //                 // date.push(str);
-                            //             }
-                            //         }
-                            //         // console.log("date: ", date.length);
-                            //         // console.log(date);
-                            //     }
-                            
-                            //     if(TOC.includes("Topic") || TOC.includes("topic") || TOC.includes("TOPIC")){
-                            //         current = -1;
-                            //         const Xwords = ["Assignment", "assignment", "ASSIGNMENT", "Chapter", "chapter", "CHAPTER", "Exam", "exam", "EXAM", "Test", "test", "TEST", "Appendix", "appendix", "APPENDIX", "Ch.", "ch.", "CH."];
-                            //         for (let i = 0; i < tempData.length; i++) {
-                            //             let str = "";
-                            //             for (let j = 0; j < tempData[i].length; j++) {
-                            //                 if(j == 0 && (/\d/).test(tempData[i][j])){
-                            //                     continue;
-                            //                 }
-                            //                 if(tempData[i][j].includes("Assignment") || tempData[i][j].includes("Chapter")){
-                            //                     break;
-                            //                 }
-                            //                 else if(!tempData[i][j].includes("/") && !Xwords.some(word => tempData[i][j].includes(word))){
-                            //                     str += (tempData[i][j].replace(",", "").replace(":", "").replace(";", "").trim()) + " ";
-                            //                 }
-                            //             }
-                            //             if(str.length > 0){
-                            //                 if(i >= date.length){
-                            //                     if(topic[current].includes("None")){
-                            //                         topic[current] = str.trim();
-                            //                     }
-                            //                     else{
-                            //                         topic[current] += " | " + str.trim();
-                            //                     }
-                            //                 }
-                            //                 else{
-                            //                     let d = date[i].split(" ");
-                            //                     if(!tempStrData[i].includes(d[0])){
-                            //                         if(topic[current].includes("None")){
-                            //                             topic[current] = str.trim();
-                            //                         }
-                            //                         else{
-                            //                             topic[current] += " | " + str.trim();
-                            //                         }
-                            //                     }
-                            //                     else{
-                            //                         topic.push(str.trim());
-                            //                         current++;
-                            //                     }
-                            //                 }
-                            //             }
-                            //             else{
-                            //                 if(i < date.length){
-                            //                     topic.push("None");
-                            //                 }
-                            //             }
-                            //         }
-                            //         // console.log("Topic: " + topic.length);
-                            //         // console.log(topic);
-                            //     }
-                            
-                            //     if(TOC.includes("Assignment") || TOC.includes("Assignments") || TOC.includes("assignment") || TOC.includes("ASSIGNMENT")){
-                            //         let current = -1;
-                            //         for (let i = 0; i < tempData.length; i++) {
-                            //             let str = "";
-                            //             let status = false;
-                            //             for (let j = 0; j < tempData[i].length; j++) {
-                            //                 if(tempData[i][j].includes("Assignment")){
-                            //                     status = true;
-                            //                 }
-                            //                 if(status){
-                            //                     str += (tempData[i][j].replace(",", "").replace(":", "").replace(";", "").trim()) + " ";
-                            //                 }
-                            //             }
-                            //             if(str.length > 0){
-                            //                 if(i >= date.length){
-                            //                     if(assignment[current].includes("None")){
-                            //                         assignment[current] = str.trim();
-                            //                     }
-                            //                     else{
-                            //                         assignment[current] += " | " + str.trim();
-                            //                     }
-                            //                 }
-                            //                 else{
-                            //                     let d = date[i].split(" ");
-                            //                     if(!tempStrData[i].includes(d[0])){
-                            //                         if(assignment[current].includes("None")){
-                            //                             assignment[current] = str.trim();
-                            //                         }
-                            //                         else{
-                            //                             assignment[current] += " | " + str.trim();
-                            //                         }
-                            //                     }
-                            //                     else{
-                            //                         assignment.push(str.trim());
-                            //                         current++;
-                            //                     }
-                            //                 }
-                            //             }
-                            //             else{
-                            //                 if(i < date.length){
-                            //                     assignment.push("None");
-                            //                     current++;
-                            //                 }
-                            //             }
-                            //         }
-                            //         // console.log("Assignments: " + assignment.length);
-                            //         // console.log(assignment);
-                            //     }
-                            // }
-                            // else{
-                            //     const monthWords = ["Jan ", "Feb ", "Mar ", "Apr ", "May ", "Jun ", "Jul ", "Aug ", "Sep ", "Oct ", "Nov ", "Dec "];
-                            //     const assignmentWords = ["Assignment", "assignment", "ASSIGNMENT"];
-                            //     const chapterWords = ["Chapter", "chapter", "CHAPTER", "Ch.", "ch.", "CH.", "Appendix", "appendix", "APPENDIX"];
-                            //     const importantWords = ["Exam", "exam", "EXAM", "Test", "test", "TEST"];
-                            //     for(let i = 0; i < tempData.length; i++){
-                            //         if(tempData[i].length() < 3){
-                            //             week.push(tempData[i].trim());
-                            //         }
-                            //         else if((tempData[i].includes("/") && RegExp(/\{d}/).test(tempData[i])) || (monthWords.some(month => tempData[i].includes(month)) && RegExp(/\{d}/).test(tempData[i]))){
-                            //             date.push(tempData[i].trim());
-                            //         }
-                            //         else if(assignmentWords.some(word => tempData[i].includes(word))){
-                            //             assignment.push(tempData[i].trim());
-                            //         }
-                            //         else if(chapterWords.some(word => tempData[i].includes(word))){
-                            //             chapter.push(tempData[i].trim());
-                            //         }
-                            //         else if(importantWords.some(word => tempData[i].includes(word))){
-                            //             important.push(tempData[i].trim());
-                            //         }
-
-                            //     }
-                            // }
-                            
-                            // console.log("week: " + week.length);
-                            // // console.log(week);
-                            // console.log("date: " + date.length);
-                            // console.log(date);
-                            // console.log("Topic: " + topic.length);
-                            // console.log(topic);
-                            // console.log("Assignments: " + assignment.length);
-                            // // console.log(assignment);
-                            // console.log("important: " + important.length);
-                            // console.log(important);
-        
-        
-
-        // const testmatch = data.filter(str => RegExp(/^(\d+)\s+([\d/ ,]+)\s+(.+?)\s*Assignment\s*(\d*)$/).test(str));
-        // console.log(testmatch);
-
-
-        
-        //Maybe use a 2D array where arr[0][1..n] stores the table of contents for example 
-        // arr[0][1] = "Week" and arr[0][2] = "Date" and so on. We first find the table of contents, split 
-        // the content and then input each element into arr[0][n] next we take each string and search for 
-        // values or something based off each arr[0][n] and then input in arr[n][m] where n is the value 
-        // it matches like week is in n=1 so arr[1][m] is where we store the data relating to it. Also lets 
-        // setup functions for if we come accross numbers and convert them to numbers. BTW some lines may not 
-        // include any of the table of content so we input the value for that content null meaning topic or 
-        // chapter or something wasnt given and continue on. What we are basically doing is that m is for 
-        // the line we are currently at on the pdf json file.
-
-
-        if(term.includes("Spring")){
-            const month = 5;
-            const day = 12;
-        }
-
-        let status = false;
-        data.forEach(element => {
-            if(keywords.some(word => element.includes(word) && !Xregex.test(element))){
-                status = true;
-            }
-            else if(status == true){
-    //     //                     else if (RegExp("(?<month>[0-3]?[0-9])/(?<day>[0-3]?[0-9])").test(val)) {
-
-                // if (RegExp("(?<month>[0-3]?[0-9])/(?<day>[0-3]?[0-9])").test(element)){
-                //     const date = element.match(RegExp("(?<month>[0-3]?[0-9])/(?<day>[0-3]?[0-9])"));
-                //     // const val = date.split(RegExp("(?<month>[0-3]?[0-9])/(?<day>[0-3]?[0-9])"));
-                //     // console.log("test");
-                //     // if(date.includes("/")){
-                //     //     const val = date.split(RegExp("(?<month>[0-3]?[0-9])/(?<day>[0-3]?[0-9])"));
-                //     //     console.log("test");
-                //     // }
+                // else{
+                //     for(let j = 0; j < temp.length; j++){
+                //     }
                 // }
-                // console.log(element);
             }
-        });
-        // const match = data.filter(str => keywords.some(word => str.includes(word) && !Xregex.test(str)));
-
-        // const match = data.filter(str => regex.test(str));
-        // const Rwords = ["Important", ":"];//Removed words
-        // const Rregex = new RegExp(Rwords.join("|"), "gi");
-        // const val = match.filter(str => str.includes());
-        // console.log(match);//
+            if(tempWeek == ""){
+                tempWeek = "None";
+            }
+            if(tempDate.length == 0){
+                tempDate.push("None");
+            }
+            if(tempTopic == ""){
+                tempTopic = "None";
+            }
+            if(tempReading.length == 0){
+                tempReading.push("None");
+            }
+            if(tempAssignment.length == 0){
+                tempAssignment.push("None");
+            }
+            if(tempImportant.length == 0){
+                tempImportant.push("None");
+            }
+            set.push({
+                week: tempWeek,
+                date: tempDate,
+                topic: tempTopic,
+                reading: tempReading,
+                assignment: tempAssignment,
+                important: tempImportant
+            })
+            tempWeek = "";
+            tempDate = [];
+            tempTopic = "";
+            tempReading = [];
+            tempAssignment = [];
+            tempImportant = [];
+        }
+    pdfdata.calendar = set;
+    // console.log(set);
+    return set;
 }
 
 app.post("/extract-text", async (req, res) => {
@@ -1027,9 +805,7 @@ app.post("/extract-text", async (req, res) => {
     pdfdata.courseName = await findCourseName(courseNum);
     pdfdata.term = findTerm(JD);
     pdfdata.grades = findGrades(JD);
-
-
-    const calendar = findCalendar(JD, pdfdata.term);//
+    pdfdata.calendar = await findCalendar(JD, pdfdata.term);
 
     //test
     // console.log("Professor Name:", professorName);
@@ -1041,6 +817,8 @@ app.post("/extract-text", async (req, res) => {
     // console.log("Grades:", grades);
     // console.log("Term:", term);//
     // console.log("Calendar:", calendar);
+    // console.log(pdfdata);
+    // console.log(pdfdata.calendar);
     // console.log(pdfdata);
     res.send(pdfdata);
 });
