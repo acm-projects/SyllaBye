@@ -52,6 +52,7 @@ const pdfdata = {
     courseName: "",
     term: "",
     grades: [],
+    TOC: [],
     calendar: []
 };
 
@@ -405,6 +406,7 @@ async function findCalendar(data, term){
     const match = data.filter(str => keywords.some(word => str.includes(word) && !Xregex.test(str)));
     const TOC = match[0].split(" ");//Table of Contents
     console.log(TOC);
+    pdfdata.TOC = TOC;
     let s = false;
     let format = false;
     let tempData = [];
@@ -459,8 +461,8 @@ async function findCalendar(data, term){
                 }
             }
         }
-        console.log("Built data set:");
-        console.log(row);
+        // console.log("Built data set:");
+        // console.log(row);
 
         const set = [];
         let tempWeek = "";
@@ -834,7 +836,7 @@ app.post("/extract-text", async (req, res) => {
     // console.log("Calendar:", calendar);
     // console.log(pdfdata);
     // console.log(pdfdata.calendar);
-    // console.log(pdfdata);
+    console.log(pdfdata);
     res.send(pdfdata);
 });
 
