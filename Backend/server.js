@@ -60,6 +60,34 @@ app.post('/api/login', async (req, res) => {
     }
 })
 
+app.post("/api/upload", async (req, res) => {
+    if (!req.files && !req.files.pdfFile) {
+        res.status(400);
+        res.end();
+    }
+
+    const token = req.headers['x-access-token'];
+    try{
+        const {payload, protectedHeader} = await jose.jwtVerify(token, new TextEncoder().encode('secret123'))
+        const userEmail = payload.email
+
+        console.log(req.files.pdfFile)
+
+        // console.log(token)
+        //console.log(req.body.extractedText)
+        
+        // await File.create({
+        //     email: userEmail,
+        //     thumbnail: req.body.thumbnail,
+        //     fileData: req.body.extractedText
+        // })
+        res.send('Success')
+    }
+    catch(err){
+        console.log(err)
+    }
+})
+
 app.listen(1337, () => {
     console.log('Server started on 1337')
 })

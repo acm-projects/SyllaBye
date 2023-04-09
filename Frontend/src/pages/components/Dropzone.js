@@ -6,17 +6,17 @@ import { Document, Page } from 'react-pdf';
 import "./Dropzone.css";
 
 function Dropzone({ onDrop, accept, open }) {
-    // const { getRootProps, getInputProps, isDragActive, acceptedFiles } =
-    // useDropzone({
-    //   accept: "./pdf",
-    //   onDrop,
-    // });
+  // const { getRootProps, getInputProps, isDragActive, acceptedFiles } =
+  // useDropzone({
+  //   accept: "./pdf",
+  //   onDrop,
+  // });
 
-    // const files = acceptedFiles.map((file) => (
-    // <li key={file.path}>
-    //   {file.path} - {file.size} bytes
-    // </li>
-    // ));
+  // const files = acceptedFiles.map((file) => (
+  //   <li key={file.path}>
+  //     {file.path} - {file.size} bytes
+  //   </li>
+  // ));
 
   const inpFile = document.getElementById('inpFile');
   // const btnUpload = document.getElementById('btnUpload');
@@ -39,6 +39,20 @@ function Dropzone({ onDrop, accept, open }) {
       return "Error";
     }
   }
+  // async function clickUpload() {
+  //   const formData = new FormData();
+  //   formData.append("pdfFile", inpFile.files[0]);
+  //   console.log(formData);
+  //   const res = await fetch("http://localhost:1337/api/upload", {
+  //     method: "post",
+  //     headers: {'x-access-token': localStorage.getItem('token'),}, 
+  //     body: formData
+  //   });
+
+  //   if(res){
+  //       return "Success";
+  //   }
+  // }
 
   // const inpFile = document.getElementById('inpFile');
   // // const btnUpload = document.getElementById('btnUpload');
@@ -62,30 +76,17 @@ function Dropzone({ onDrop, accept, open }) {
   //   }
   // }
 
-  // btnUpload.addEventListener("click", () => {
-  //   const formData = new FormData();
-  //   formData.append("pdfFile", inpFile.files[0]);
-  //   fetch("/extract-text", {
-  //       method: "post",
-  //       body: formData
-  //   }).then(response => {
-  //       return response.text();
-  //   }).then(extractedText => {
-  //       resultText.value = extractedText;
-  //   })
-  // });
-
   return (
     <div>
-      {/* <input type="file" id="inpFile"/>
+      <input type="file" id="inpFile"/>
       <input
         type="button"
         id="btnUpload"
         value="Upload"
         onClick={() => { clickUpload() }}
-      /> */}
-      <div {...getRootProps({ className: "dropzone" })}>
-        <input className="input-zone" {...getInputProps()} />
+      />
+      {/* <div {...getRootProps({ className: "dropzone" })}>
+        <input className="input-zone" id="inpFile" {...getInputProps()} onSubmit={clickUpload()}/>
         <div className="text-center">
           {isDragActive ? (
             <p className="dropzone-content">
@@ -102,9 +103,9 @@ function Dropzone({ onDrop, accept, open }) {
             Click to select files
           </button> }
           {/* <input type="file" id="inpFile"/>
-          <button type="button" id="btnUpload">Upload</button> */}
+          //<button type="button" id="btnUpload">Upload</button> 
         </div>
-      </div>
+      </div> */}
     </div>
   );
   // return (
