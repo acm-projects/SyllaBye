@@ -1,8 +1,4 @@
-import TeacherInfo from "./TeacherInfo";
-import Grades from "./Grades";
 import './FileDetails.css';
-import GradeDistribution from "./GradeDistribution";
-import Dates from "./Dates";
 import React from "react";
 import Popup from 'reactjs-popup';
 import ReactModal from 'react-modal';
@@ -10,6 +6,51 @@ import NavBar from "./NavBar"
 import Header from "./components/Header";
 import {useLocation} from 'react-router-dom';
 import {useEffect, useState, useCallback} from "react";
+import TeacherInfo from "./components/TeacherInfo";
+import Grades from "./components/Grades";
+import GradeDistribution from "./components/GradeDistribution";
+import Dates from "./components/Dates";
+
+// class FileDetails extends React.Component{
+//     constructor(props){
+//         super(props);
+//         this.state = {classInfo: [], grades: [], numGrades: 0, gradeDistribution: [], dates: []};
+//         this.state.classInfo.push({field: 'Name', info: 'Rahul Karthik'});
+//         this.state.classInfo.push({field: 'Email', info: 'rk@gmail.com'});
+//         this.state.classInfo.push({field: 'Class times', info: 'Tuesday & Thursday, 8:30am - 9:45am'});
+//         this.state.classInfo.push({field: 'Office hours', info: '4:00pm - 5:15pm'});
+//         this.state.classInfo.push({field: 'Classroom', info: 'ECSS 2.410'});
+//         this.state.grades.push([]);
+//         this.state.grades.push([]);
+//         this.state.grades.push([]);
+//         this.state.grades.push([]);
+//         this.state.grades.push([]);
+//         this.state.grades[Math.floor(this.state.numGrades/3)].push({range: '97-100', grade: 'A+'});
+//         this.state.numGrades = this.state.numGrades + 1;
+//         this.state.grades[Math.floor(this.state.numGrades/3)].push({range: '94-96', grade: 'A'});
+//         this.state.numGrades++;
+//         this.state.grades[Math.floor(this.state.numGrades/3)].push({range: '90-92', grade: 'A-'});
+//         this.state.numGrades++;
+//         this.state.grades[Math.floor(this.state.numGrades/3)].push({range: '87-89', grade: 'B+'});
+//         this.state.numGrades++;
+//         this.state.grades[Math.floor(this.state.numGrades/3)].push({range: '83-86', grade: 'B'});
+//         this.state.numGrades++;
+//         this.state.grades[Math.floor(this.state.numGrades/3)].push({range: '80-82', grade: 'B-'});
+//         this.state.numGrades++;
+//         this.state.grades[Math.floor(this.state.numGrades/3)].push({range: '77-79', grade: 'C+'});
+//         this.state.numGrades++;
+//         this.state.grades[Math.floor(this.state.numGrades/3)].push({range: '73-76', grade: 'C'});
+//         this.state.numGrades++;
+//         this.state.grades[Math.floor(this.state.numGrades/3)].push({range: '70-72', grade: 'C-'});
+//         this.state.numGrades++;
+//         this.state.grades[Math.floor(this.state.numGrades/3)].push({range: '67-69', grade: 'D+'});
+//         this.state.numGrades++;
+//         this.state.grades[Math.floor(this.state.numGrades/3)].push({range: '63-66', grade: 'D'});
+//         this.state.numGrades++;
+//         this.state.grades[Math.floor(this.state.numGrades/3)].push({range: '60-62', grade: 'D-'});
+//         this.state.numGrades++;
+//         this.state.grades[Math.floor(this.state.numGrades/3)].push({range: '0-60', grade: 'F'});
+//         this.state.numGrades++;
 
 function FileDetails(){
     const {state} = useLocation();

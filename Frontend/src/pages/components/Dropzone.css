@@ -1,50 +1,104 @@
+:root {
+  --lightestGrey: #FBFFF9;
+  --lightestGreen: #EDF6EF;
+  --mediumGreen: #E0EAE2;
+  --mediumDarkGreen: #4B6350;
+  --darkGreen: #263928;
+}
+
 .dropzone {
-    text-align: center;
-    padding: 1%;
-    border: 3px rgb(35, 74, 45) dashed;
-    width: 95%;
-    height: 80%;
-    margin: 1%;
-    border-radius: 6px;
-  }
-  
-  .btn {
-    border: none;
-    text-align: center;
-    background-color: rgb(223, 232, 223);
-    padding: 10px 10px 10px 10px;
-    border-radius: 12px;
-    color: rgb(35, 61, 43);
-    font-weight: 500;
-    font-size: medium;
-    font-family: 'Inter';
-    transition-duration: 1s;
-  }
-  
-  .dropzone-content {
-    margin: 1%;
-  }
+  text-align: center;
+  padding: 1%;
+  border: 3px rgb(35, 74, 45) dashed;
+  width: 95%;
+  height: 80%;
+  margin: 1%;
+  border-radius: 6px;
+  transition: .5s;
+  /* overflow: hidden; */
+}
 
-  p {
-    color: #263928;
-  }
+.dropzone:hover{background-color: var(--lightestGreen); transition: .5s;}
 
-  button {
-    color:#263928;
-    background-color:#e7eae5;
-    border: none;
-    height: 60px;
-    width: 200px;
-    font-family: 'Inter';
-    font-size: 20px;
-    font-weight: 500;
+.btn {
+  border: none;
+  text-align: center;
+  background-color: rgb(223, 232, 223);
+  padding: 10px 10px 10px 10px;
+  border-radius: 12px;
+  color: rgb(35, 61, 43);
+  font-weight: 500;
+  font-size: medium;
+  font-family: 'Inter';
+  transition-duration: 1s;
+
+  flex-direction: column;
+  align-items: center;
+  padding: 15px 5px 10px 5px;
+  margin-top: 0px;
+  cursor: pointer;
+  border: 2px solid var(--darkGreen);
+  border-color: var(--darkGreen);
+
+  /* position: absolute; */
   
-    display:inline-block;
-    
-    opacity: 1;
-    transition: 1s;
   
-  }
+   /* Darkest Green */
   
-  button:hover {opacity: .8}
-  button:hover {background-color:#d2d9cc;}
+  /* Writing */
+  
+   background: #FBFFF9;
+  border-radius: 5px;
+  color:#263928;
+  font-size: 1.2rem;
+  /* Inside auto layout  */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+
+  float: right; 
+
+
+
+}
+
+.dropzone-content {
+  margin: 1%;
+}
+
+p {
+  color: #263928;
+  font-family: 'Inter';
+
+  /* overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block; 
+    float: right; */
+}
+
+button {
+  color:#263928;
+  background-color:#e7eae5;
+  border: none;
+  height: 0px;
+  width: 200px;
+  font-family: 'Inter';
+  font-size: 20px;
+  font-weight: 500;
+
+
+
+  display:inline-block;
+  
+  opacity: 1;
+  transition: 1s;
+
+  background: none;
+  
+
+}
+
+button:hover {background: none;}
+button:hover {background-color:none;} 
+

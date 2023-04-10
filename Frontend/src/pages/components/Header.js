@@ -1,15 +1,52 @@
+import "./Header.css";
+import React, {useEffect} from "react";
+import {useNavigate} from 'react-router-dom'
+import logo from './../../syllabyelogo.png';
+
+
 const Header = () => {
+
+  const navigate = useNavigate()
+
+  async function logout() {
+//      localStorage.removeItem('token')
+//      navigate('/login')
+  }
+
+//  useEffect(() => {
+//      const token = localStorage.getItem('token')
+//      if(token){
+//          const user = jose.decodeJwt(token)
+//          if(!user){
+//              localStorage.removeItem('token')
+//              navigate('/login')
+//          }
+//          else{
+//              //
+//          }
+//      }
+//      else{
+//          navigate('/login')
+//      }
+//  }, [])
+
+
+    async function logout() {
+        localStorage.removeItem('token')
+        navigate('/login')
+    }
+
     return (
+
       <header>
-        <h1>SyllaBye</h1>
+        <img src={logo}/>
         <nav>
           <button class="headerBtn"> Home </button>
-          <button class="headerBtn"> Calendar </button>
-          <button class="headerBtn"> Settings </button>
+          <button onClick={logout} class="headerBtn">Logout</button>
         </nav>
       </header>
     )
-  }
+}
   
   export default Header
   

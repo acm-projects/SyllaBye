@@ -1,25 +1,30 @@
+:root {
+    --lightestGrey: #FBFFF9;
+    --lightestGreen: #EDF6EF;
+    --mediumGreen: #E0EAE2;
+    --mediumDarkGreen: #4B6350;
+    --darkGreen: #263928;
+}
+
 header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: flex-start;
   
-    gap: 200px;
-  
     width: 100%;
-    height: 10%;
+    height: 12vh;
   
-    display: flex;
     order: 0;
     align-self: stretch;
     flex-grow: 0;
   
-    background: #e7eae5;
+    background: var(--lightestGreen);
 }
 
 h1 {
     width: 150px;
-    height: 60px;
+    height: 8%;
 
     font-family: 'Inter';
     font-style: normal;
@@ -32,9 +37,10 @@ h1 {
     align-items: center;
     letter-spacing: 0.01em;
 
-    margin-top: 0px;
+    margin-top: 5vh;
+    margin-left: 5vh;
 
-    color: #263928;
+    color: var(--darkGreen);
 
     flex: none;
     order: 0;
@@ -58,7 +64,7 @@ h2 {
     align-items: center;
     letter-spacing: 0.01em;
 
-    color: #263928;
+    color: var(--darkGreen);
 
     flex: none;
     order: 0;
@@ -66,14 +72,16 @@ h2 {
 }
 
 .headerBtn {
-    color:#263928;
-    background-color:#e7eae5;
+    
+    color: var(--darkGreen);
+    background-color: var(--lightestGreen);
     border: none;
-    height: max-content;
-    width: 80%;
+    height: 12vh;
+    width: 20vh;
     font-family: 'Inter';
     font-size: 20px;
     font-weight: 500;
+    text-align:center;
 
     display:inline-block;
 
@@ -83,8 +91,8 @@ h2 {
 }
 
 button {
-    color:#263928;
-    background-color:#e7eae5;
+    color: var(--darkGreen);
+    background-color: var(--lightestGreen);
     border: none;
     height: 60px;
     width: 200px;
@@ -95,9 +103,16 @@ button {
     display:inline-block;
     
     opacity: 1;
-    transition: 1s;
+    transition: .6s;
   
 }
-  
-button:hover {opacity: .8}
-button:hover {background-color:#d2d9cc;}
+
+.headerBtn:hover{
+    background-color: var(--mediumGreen);
+}
+
+img {
+    height: 10vh;
+    margin-top: 1vh;
+    margin-left: 1vh;
+}

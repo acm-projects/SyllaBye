@@ -1,18 +1,20 @@
 import './Register.css'
 import {useState} from 'react'
 import {useNavigate} from 'react-router-dom'
-
+import logo from './../syllabyelogo.png';
 
 function Register() {
     const navigate = useNavigate()
-    function handleLoginAsk(e){
-        e.preventDefault();
-        navigate('/login');
-    }
+
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [vPassword, setVPassword] = useState('');
+
+    function handleLoginAsk(e){
+        e.preventDefault();
+        navigate('/login');
+    }
 
     async function registeredUser(event) {
         event.preventDefault()
@@ -39,7 +41,7 @@ function Register() {
         <div className="App">
             <header className="App-header">
                 <div className = "nameEnc">
-                    <label for="nameField" id="name">Syllabye</label>
+                    <label for="nameField" id="name"><img src={logo}/></label>
                 </div>
             </header>
             <div className = "Form">

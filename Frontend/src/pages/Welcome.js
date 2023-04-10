@@ -1,6 +1,7 @@
 import './Welcome.css';
 import Login from './Login';
 import {useNavigate} from 'react-router-dom';
+import logo from './../syllabyelogo.png';
 //import { Box } from '@mui/material';
 
 function Welcome() {
@@ -9,15 +10,17 @@ function Welcome() {
         e.preventDefault();
         navigate('/login');
     }
+
     function handleRegisterAsk(e){
         e.preventDefault();
         navigate('/register');
     }
+    
   return (
     <div className="App3">
         <header className="App-header3">
             <div className = "nameEnc3">
-                <label for="nameField3" id="name3">Syllabye</label>
+                <label for="nameField3" id="name3"><img src={logo}/></label>
             </div>
         </header>
         <div className = "Form3">
@@ -31,7 +34,7 @@ function Welcome() {
             </div>
         </div>
     </div>
-  );
+    );
 }
 
 export default Welcome;

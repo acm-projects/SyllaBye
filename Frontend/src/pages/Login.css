@@ -1,3 +1,11 @@
+:root {
+  --lightestGrey: #FBFFF9;
+  --lightestGreen: #EDF6EF;
+  --mediumGreen: #E0EAE2;
+  --mediumDarkGreen: #4B6350;
+  --darkGreen: #263928;
+}
+
 .App2{
   text-align: center;
 }
@@ -8,7 +16,7 @@
   padding: 0px;
   
   width: 100vw;
-  height: 15vh;
+  height: 13vh;
   
   /* Tiny Gray */
   background: #FBFFF9;
@@ -35,12 +43,11 @@
   flex-grow: 0;
   }
   #name2 {
-    font-size: 8vh;
   
   font-family: 'Inter';
   font-style: normal;
   font-weight: bold;
-  margin-top: 3vh;
+  margin-top: .6vh;
   /* font-weight: 700; */
  
   /* line-height: 120%; */
@@ -52,7 +59,7 @@
   letter-spacing: 0.01em;
   
   /* Darkest Green */
-  color: #263928;
+  color: var(--darkGreen);
   
   
   /* Inside auto layout */
@@ -66,14 +73,15 @@ flex-direction: column;
 justify-content: center;
 align-items: center;
 padding-top: 2vh;
+padding-bottom: 2vh;
 
 width: 100vw;
 
 height: 75vh;
 /* position: absolute; */
 /* papers */
-background: linear-gradient(0deg, rgba(194, 255, 211, 0.2), rgba(194, 255, 211, 0.2)), url(backgroundimage.jpg);
-
+background: linear-gradient(0deg, rgba(194, 255, 211, 0.2), rgba(194, 255, 211, 0.2)), url(background.jpg) no-repeat center center fixed;
+background-size:cover;
 /* Inside auto layout */
 flex: none;
 order: 1;
@@ -82,10 +90,12 @@ flex-grow: 0;
   .RealForm2{
     width: 40%;
 height: 90%;
+height: 95%;
+
 align-self: center;
 /* Tiny Gray */
-background: #FBFFF9;
-border: 1px black;
+background: var(--lightestGrey);
+border: 1px var(--darkGreen);
 border-radius: 30px;
 
 /* Inside auto layout */
@@ -99,6 +109,9 @@ width: 420px;
 height: 400px;
   } */
 
+.RealForm2::-webkit-scrollbar {
+    display: none;
+}
 #signin{
  
   
@@ -106,12 +119,12 @@ height: 400px;
   /* width: 182px;
   height: 10px;
   left: 255px; */
-  margin-top: 5%;
+  margin-top: 3.6%;
   margin-bottom: 8%;
   font-family: 'Inter';
   font-style: normal;
   font-weight: bold;
-  font-size: 5vh;
+  font-size: 5.5vh;
   /* line-height: 130%; */
   /* or 62px */
   /* display: flex; */
@@ -121,25 +134,29 @@ height: 400px;
   margin-right: auto; */
   
   /* Darkest Green */
-  color: #263928;
+  color: var(--darkGreen);
 
 }
 .labels2{
   font-weight: bold;
   margin-bottom: 2%;
+  margin-right: 47%;
+  color: var(--darkGreen);
 }
 .inputs2{
-  height: 3vh;
+  height: 3.2vh;
     margin-left: auto;
     margin-right: auto;
+    font-family: 'Inter';
 
     margin-bottom: 1%;
     width: 60%;
-    border-color: #263928;
+    border-color: var(--darkGreen);
+    border-radius: 6px;
 }
 #noAccount{
   font-size: 15px;
-  color: #263928;
+  color: var(--darkGreen);
   font-weight: bold;
   margin-top: 0%;
   margin-bottom: 0vh;
@@ -156,11 +173,11 @@ margin-bottom: 0%;
 cursor: pointer;
 
 
-background: #263928;
-border-color: #FBFFF9;
+background: var(--darkGreen);
+border-color: var(--lightestGrey);
 border-radius: 5px;
 color:white;
-font-size: 1rem;
+font-size: 1.2rem;
 /* Inside auto layout  */
 flex: none;
 order: 0;
@@ -177,16 +194,19 @@ margin-bottom: 5%;
 cursor: pointer;
 
 
-background: #FBFFF9;
+background: var(--lightestGrey);
 border-radius: 5px;
-border-color: #263928;
-color:#263928;
-font-size: 1rem;
+border-color: var(--darkGreen);
+color: var(--darkGreen);
+font-size: 1.2rem;
 /* Inside auto layout  */
 flex: none;
 order: 0;
 flex-grow: 0;
 }
+
+
+
 label, input {display: block;}
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {

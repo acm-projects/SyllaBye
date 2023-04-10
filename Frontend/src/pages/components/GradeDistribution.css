@@ -1,0 +1,36 @@
+.box3{
+    display: inline-block;
+    width: 35vw;
+    height: 40vh;
+    margin-left: 2vw;
+    margin-top: 2vh;
+    align-self: center;
+    /* Tiny Gray */
+    background: #E0EAE2;
+    border: 1px black;
+    border-radius: 15px;
+    overflow-y: scroll;
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+#namelabel3{
+    padding-top: 2vh;
+    font-weight: bold;
+    text-align: center;
+    
+    font-size: 3vw;
+}
+.table3{
+    border: 1px solid black;
+    margin-left: 10%;
+    margin-top: 5%;
+    width: 80%;
+    font-weight: bold;
+    font-size: 1.8vh;
+}
+#itemForFields{
+    border: 1px solid black;
+    width: 80%;
+}
