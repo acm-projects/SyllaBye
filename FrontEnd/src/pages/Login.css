@@ -1,0 +1,239 @@
+:root {
+  --lightestGrey: #FBFFF9;
+  --lightestGreen: #EDF6EF;
+  --mediumGreen: #E0EAE2;
+  --mediumDarkGreen: #4B6350;
+  --darkGreen: #263928;
+}
+
+.App2{
+  text-align: center;
+}
+.App-header2 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  
+  width: 100vw;
+  height: 13vh;
+  
+  /* Tiny Gray */
+  background: #FBFFF9;
+  
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  }
+  .nameEnc2{
+  /* flex-direction: row; */
+
+  /* padding: 24px 29px; */
+  
+  
+  width: 100vw;
+  height: 10vh;
+  
+  
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+  }
+  #name2 {
+  
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: bold;
+  margin-top: .6vh;
+  /* font-weight: 700; */
+ 
+  /* line-height: 120%; */
+  /* margin-right: auto; */
+  /* identical to box height, or 60px */
+  /* display: flex; */
+ 
+  text-align: center;
+  letter-spacing: 0.01em;
+  
+  /* Darkest Green */
+  color: var(--darkGreen);
+  
+  
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  }
+  .Form2{
+    display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+padding-top: 2vh;
+padding-bottom: 2vh;
+
+width: 100vw;
+
+height: 75vh;
+/* position: absolute; */
+/* papers */
+background: linear-gradient(0deg, rgba(194, 255, 211, 0.2), rgba(194, 255, 211, 0.2)), url(background.jpg) no-repeat center center fixed;
+background-size:cover;
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+  }
+  .RealForm2{
+    width: 40%;
+height: 90%;
+height: 95%;
+
+align-self: center;
+/* Tiny Gray */
+background: var(--lightestGrey);
+border: 1px var(--darkGreen);
+border-radius: 30px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+overflow-y: scroll;
+}
+/* .RealForm {
+width: 420px;
+height: 400px;
+  } */
+
+.RealForm2::-webkit-scrollbar {
+    display: none;
+}
+#signin{
+ 
+  
+  /* position: absolute; */
+  /* width: 182px;
+  height: 10px;
+  left: 255px; */
+  margin-top: 3.6%;
+  margin-bottom: 8%;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: bold;
+  font-size: 5.5vh;
+  /* line-height: 130%; */
+  /* or 62px */
+  /* display: flex; */
+  /* align-items: center;
+  text-align: center; */
+  /* margin-left: auto;
+  margin-right: auto; */
+  
+  /* Darkest Green */
+  color: var(--darkGreen);
+
+}
+.labels2{
+  font-weight: bold;
+  margin-bottom: 2%;
+  margin-right: 47%;
+  color: var(--darkGreen);
+}
+.inputs2{
+  height: 3.2vh;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: 'Inter';
+
+    margin-bottom: 1%;
+    width: 60%;
+    border-color: var(--darkGreen);
+    border-radius: 6px;
+}
+#noAccount{
+  font-size: 15px;
+  color: var(--darkGreen);
+  font-weight: bold;
+  margin-top: 0%;
+  margin-bottom: 0vh;
+}
+#signinButton{
+  /* display: flex; */
+flex-direction: column;
+align-items: center;
+padding: 2%;
+margin-top: 1%;
+margin-left: auto;
+margin-right: auto;
+margin-bottom: 0%;
+cursor: pointer;
+
+
+background: var(--darkGreen);
+border-color: var(--lightestGrey);
+border-radius: 5px;
+color:white;
+font-size: 1.2rem;
+/* Inside auto layout  */
+flex: none;
+order: 0;
+flex-grow: 0;
+}
+#signupButton2{
+  flex-direction: column;
+align-items: center;
+padding: 2%;
+margin-top: 1%;
+margin-left: auto;
+margin-right: auto;
+margin-bottom: 5%;
+cursor: pointer;
+
+
+background: var(--lightestGrey);
+border-radius: 5px;
+border-color: var(--darkGreen);
+color: var(--darkGreen);
+font-size: 1.2rem;
+/* Inside auto layout  */
+flex: none;
+order: 0;
+flex-grow: 0;
+}
+
+
+
+label, input {display: block;}
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+/* .App-header {
+  background-color: #E0EAE2;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+} */
+
+/* .App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+} */

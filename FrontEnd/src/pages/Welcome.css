@@ -1,0 +1,230 @@
+:root {
+  --lightestGrey: #FBFFF9;
+  --lightestGreen: #EDF6EF;
+  --mediumGreen: #E0EAE2;
+  --mediumDarkGreen: #4B6350;
+  --darkGreen: #263928;
+}
+
+
+.App3{
+  text-align: center;
+}
+.App-header3 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  
+  width: 100vw;
+  height: 13vh;
+  
+  /* Tiny Gray */
+  background: #FBFFF9;
+  
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  }
+  .nameEnc3{
+  /* flex-direction: row; */
+
+  /* padding: 24px 29px; */
+  
+  
+  width: 100vw;
+  height: 10vh;
+  
+  
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+  }
+  #name3 {
+    font-size: 8vh;
+  
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: bold;
+  margin-top: .6vh;
+  /* font-weight: 700; */
+ 
+  /* line-height: 120%; */
+  /* margin-right: auto; */
+  /* identical to box height, or 60px */
+  /* display: flex; */
+ 
+  text-align: center;
+  letter-spacing: 0.01em;
+  
+  /* Darkest Green */
+  color: #263928;
+  
+  
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  }
+  .Form3{
+    display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+padding-top: 8vh;
+padding-bottom: 11vh;
+
+width: 100vw;
+
+height: 60vh;
+/* position: absolute; */
+/* papers */
+background: linear-gradient(0deg, rgba(194, 255, 211, 0.2), rgba(194, 255, 211, 0.2)), url(background.jpg) no-repeat center center fixed;
+background-size:cover;
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+  }
+  .RealForm3{
+    width: 40%;
+height: 90%;
+align-self: center;
+/* Tiny Gray */
+background: #FBFFF9;
+border: 1px var(--darkGreen);
+border-radius: 30px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+  }
+  
+  #signin2{
+    /* Sign Up */
+  
+  /* position: absolute; */
+  /* width: 182px;
+  height: 10px;
+  left: 255px; */
+  margin-top: 8vh;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: bold;
+  font-size: 3.25vw;
+  /* line-height: 130%; */
+  /* or 62px */
+  /* display: flex; */
+  /* align-items: center;
+  text-align: center; */
+  /* margin-left: auto;
+  margin-right: auto; */
+  
+  /* Darkest Green */
+  color: #263928;
+  
+  }
+  #welcomeMessage{
+    padding-top: 2vh;
+  padding-right: 2vw;
+  padding-left: 2vw;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: bold;
+  font-size: 3.0vh;
+  color: var(--mediumDarkGreen);
+  }
+  .Buttons{
+    padding-left: 2vw;
+    padding-right: 2vw;
+    display:inline-flex;
+    padding-top: 6vh;
+    /* cursor: pointer; */
+  }
+  #signinButton2{
+    /* display: flex; */
+    flex-direction: column;
+  align-items: center;
+  padding: 15px;
+  margin-top: 10px;
+ margin-left: 10px;
+ cursor: pointer;
+
+  /* position: absolute; */
+  
+  
+   /* Darkest Green */
+  
+  /* Writing */
+  
+  background: #FBFFF9;
+border-radius: 5px;
+border-color: #263928;
+color:#263928;
+font-size: 1.2rem;
+/* Inside auto layout  */
+flex: none;
+order: 0;
+flex-grow: 0;
+  }
+  #signupButton3{
+    /* display: flex; */
+  flex-direction: column;
+  align-items: center;
+  padding: 15px;
+  margin-top: 10px;
+ margin-left: 10px;
+ cursor: pointer;
+ 
+  /* position: absolute; */
+  
+  
+   /* Darkest Green */
+  
+  /* Writing */
+  
+  background: #263928;
+  border-radius: 5px;
+  color:white;
+  font-size: 1.2rem;
+  /* Inside auto layout  */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  }
+
+  label, input {display: block;}
+  @media (prefers-reduced-motion: no-preference) {
+    .App-logo {
+      animation: App-logo-spin infinite 20s linear;
+    }
+  }
+  
+  /* .App-header {
+    background-color: #E0EAE2;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+  } */
+  
+  /* .App-link {
+    color: #61dafb;
+  }
+  
+  @keyframes App-logo-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  } */
+  
