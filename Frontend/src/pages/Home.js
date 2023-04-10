@@ -9,6 +9,8 @@ import * as jose from 'jose'
 import {useNavigate} from 'react-router-dom'
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
+let extractedText = null
+
 async function extract(file, thumbnail){
     const formData = new FormData()
     formData.append("pdfFile", file)
@@ -17,7 +19,7 @@ async function extract(file, thumbnail){
         body: formData
     });
 
-    const extractedText = await res.json();
+    extractedText = await res.json();
     if (extractedText) {
         const formData2 = new FormData()
         formData2.append("text", JSON.stringify(extractedText))
@@ -61,40 +63,34 @@ function Home() {
 
     const [images, setImages] = useState([]);
 
-
-  const onDrop = useCallback((acceptedFiles) => {
-    acceptedFiles.map((file) => {
-      const reader = new FileReader();
-      reader.onload = function (e) {
-        const fileType = file.type.split('/')[0];
-        
-        if (fileType === 'image') { // display warning for no PDF file
-          console.log("image uploaded");
-          // process image files
-          // setImages((prevState) => [
-          //   ...prevState,
-          //   { id: cuid(), src: e.target.result, name: file },
-          // ])
-          ;
-        } else if (fileType === 'application' && file.type.split('/')[1] === 'pdf') {
-          // process pdf files
-          const pdfData = new Uint8Array(e.target.result);
-          pdfjs.getDocument(pdfData).promise.then((pdfDocument) => {
-            pdfDocument.getPage(1).then((pdfPage) => {
-              const viewport = pdfPage.getViewport({ scale: 0.5 });
-              const canvas = document.createElement('canvas');
-              const context = canvas.getContext('2d');
-              canvas.height = viewport.height;
-              canvas.width = viewport.width;
-              document.body.appendChild(canvas); // Add canvas to DOM for debugging purposes
-              pdfPage.render({ canvasContext: context, viewport: viewport }).promise.then(() => {
-                const thumbnail = canvas.toDataURL();
-                document.body.removeChild(canvas); // Remove canvas from DOM after rendering
-                console.log(`Thumbnail generated for PDF file: ${file.name}`);
-                setImages((prevState) => [
-                    ...prevState,
-                    { id: cuid(), src: thumbnail, name: file.name },
-                  ]);
+    const onDrop = useCallback((acceptedFiles) => {
+        acceptedFiles.map((file) => {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            const fileType = file.type.split('/')[0];
+            if (fileType === 'image') { // display warning for no PDF file
+            // process image files
+            } 
+            else if (fileType === 'application' && file.type.split('/')[1] === 'pdf') {
+            // process pdf files
+            const pdfData = new Uint8Array(e.target.result);
+            pdfjs.getDocument(pdfData).promise.then((pdfDocument) => {
+                pdfDocument.getPage(1).then((pdfPage) => {
+                const viewport = pdfPage.getViewport({ scale: 0.5 });
+                const canvas = document.createElement('canvas');
+                const context = canvas.getContext('2d');
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+                document.body.appendChild(canvas); // Add canvas to DOM for debugging purposes
+                pdfPage.render({ canvasContext: context, viewport: viewport }).promise.then(async() => {
+                    const thumbnail = canvas.toDataURL();
+                    await extract(file, thumbnail)
+                    document.body.removeChild(canvas); // Remove canvas from DOM after rendering
+                    console.log(`Thumbnail generated for PDF file: ${file.name}`);
+                    setImages((prevState) => [
+                        ...prevState,
+                        { id: cuid(), src: thumbnail, name: extractedText.courseName },
+                    ]);
                     }).catch((error) => {
                     console.error(`Error rendering PDF page: ${error}`);
                     });
