@@ -72,24 +72,8 @@ function Home() {
         reader.onload = function (e) {
             const fileType = file.type.split('/')[0];
             if (fileType === 'image') { // display warning for no PDF file
-            // process image files
-            setImages((prevState) => [
-                ...prevState,
-                { id: cuid(), src: e.target.result, name: file },
-            ]);
-            var courseName = 'CS 3345';
-                var classInfo = [];
-                classInfo.push({field: 'Name', info: 'Virat Kohli' + num});
-                var grades = [];
-                grades.push({range: '94-100', grade: 'A'});
-                var gradeDistribution = [];
-                gradeDistribution.push({field: 'Homework', weight: '35%'});
-                var dates = [];
-                num++;
-                setClasses((prevState) => [
-                  ...prevState,
-                  {classID: prevState.classID + 1, course: courseName, classInfo: classInfo, grades: grades, gradeDistribution: gradeDistribution, dates: dates},
-                ]);
+              // process image files
+              
             } else if (fileType === 'application' && file.type.split('/')[1] === 'pdf') {
             // process pdf files
             const pdfData = new Uint8Array(e.target.result);
@@ -120,8 +104,8 @@ function Home() {
                 classInfo.push({field: "Class times", info: extractedText.meetings})
                 var grades = [];
                 grades.push({range: '94-100', grade: 'A'});
-                var gradeDistribution = [];
-                gradeDistribution.push({field: 'Homework', weight: '35%'});
+                var gradeDistribution = extractedText.grades;
+                // gradeDistribution.push({field: 'Homework', weight: '35%'});
                 var dates = [];
                 num++;
                 setClasses((prevState) => [
