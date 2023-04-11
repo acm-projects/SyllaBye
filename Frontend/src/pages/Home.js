@@ -70,11 +70,8 @@ function Home() {
             const fileType = file.type.split('/')[0];
             if (fileType === 'image') { // display warning for no PDF file
             // process image files
-            setImages((prevState) => [
-                ...prevState,
-                { id: cuid(), src: e.target.result, name: file },
-            ]);
-            } else if (fileType === 'application' && file.type.split('/')[1] === 'pdf') {
+            } 
+            else if (fileType === 'application' && file.type.split('/')[1] === 'pdf') {
             // process pdf files
             const pdfData = new Uint8Array(e.target.result);
             pdfjs.getDocument(pdfData).promise.then((pdfDocument) => {
@@ -85,7 +82,7 @@ function Home() {
                 canvas.height = viewport.height;
                 canvas.width = viewport.width;
                 document.body.appendChild(canvas); // Add canvas to DOM for debugging purposes
-                pdfPage.render({ canvasContext: context, viewport: viewport }).promise.then(async () => {
+                pdfPage.render({ canvasContext: context, viewport: viewport }).promise.then(async() => {
                     const thumbnail = canvas.toDataURL();
                     await extract(file, thumbnail)
                     document.body.removeChild(canvas); // Remove canvas from DOM after rendering
