@@ -35,6 +35,21 @@ app.post('/api/register', async (req, res) => {
     }
 })
 
+app.post('/api/google-auth', async (req, res) => {
+    try{
+        //Add here
+        await User.create({
+            name: req.body.name,
+            email: req.body.email,
+            password: req.body.token,
+        })
+        res.json({status: 'ok'})
+    }
+    catch(err){
+        res.json({status: 'error', error: 'Duplicate account'})
+    }
+})
+
 app.post('/api/login', async (req, res) => {
     
     const user = await User.findOne({
