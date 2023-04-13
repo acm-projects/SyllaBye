@@ -41,7 +41,8 @@ async function extract(file, thumbnail){
     }
 }
 
-function Home() {
+function Home(){
+    const [images, setImages] = useState([]);
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -53,15 +54,25 @@ function Home() {
                 navigate('/login')
             }
             else{
-                //
+                const files = fetch("http://localhost:1337/api/files", {
+                    method: "GET",
+                    headers: {"x-access-token" : localStorage.getItem("token"),},
+                    }).then((res) => {
+                        return res.json()
+                    }).then((res) => {
+                        res.forEach((file) => {
+                            setImages((prevState) => [
+                                ...prevState,
+                                { id: cuid(), src: file.thumbnail, name: file.fileData.courseName },
+                            ]);
+                        })
+                    });
             }
         }
         else{
             navigate('/login')
         }
     }, [])
-
-    const [images, setImages] = useState([]);
 
     const onDrop = useCallback((acceptedFiles) => {
         acceptedFiles.map((file) => {

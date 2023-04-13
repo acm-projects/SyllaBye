@@ -6,30 +6,7 @@ import logo from './../../syllabyelogo.png';
 
 const Header = () => {
 
-  const navigate = useNavigate()
-
-  async function logout() {
-//      localStorage.removeItem('token')
-//      navigate('/login')
-  }
-
-//  useEffect(() => {
-//      const token = localStorage.getItem('token')
-//      if(token){
-//          const user = jose.decodeJwt(token)
-//          if(!user){
-//              localStorage.removeItem('token')
-//              navigate('/login')
-//          }
-//          else{
-//              //
-//          }
-//      }
-//      else{
-//          navigate('/login')
-//      }
-//  }, [])
-
+    const navigate = useNavigate()
 
     async function logout() {
         localStorage.removeItem('token')
@@ -38,13 +15,13 @@ const Header = () => {
 
     return (
 
-      <header>
-        <img src={logo}/>
-        <nav>
-          <button class="headerBtn"> Home </button>
-          <button onClick={logout} class="headerBtn">Logout</button>
-        </nav>
-      </header>
+        <header>
+            <img src={logo}/>
+            <nav>
+            <button class="headerBtn"> Home </button>
+            <button onClick={logout} class="headerBtn">Logout</button>
+            </nav>
+        </header>
     )
 }
   

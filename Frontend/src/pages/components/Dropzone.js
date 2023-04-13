@@ -8,7 +8,7 @@ function Dropzone({ onDrop, accept, open }) {
 
   const { getRootProps, getInputProps, isDragActive, acceptedFiles, fileRejections } =
     useDropzone({
-      accept: {"image/pdf":['.pdf']}
+      accept: "./pdf", onDrop,
     });
 
   const files = acceptedFiles.map((file) => (
