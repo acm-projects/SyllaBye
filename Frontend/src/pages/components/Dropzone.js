@@ -90,9 +90,9 @@ function Dropzone({ onDrop, accept, open }) {
             </p>
             )}
           
-          { <button id="smolBtn" onClick={open}>
+          { <div id="smolBtn" onClick={open}>
             
-          </button> }
+          </div> }
           {/* <input type="file" id="inpFile"/>
           <button type="button" id="btnUpload">Upload</button> */}
         </div>

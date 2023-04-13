@@ -1,8 +1,12 @@
 import React from "react";
+import trash from "./delete-icon.png";
 
 const Image = ({ image }) => {
   return (
+
+    
     <div className="file-item">
+      <button className="delete"></button>
       {image.isPdf ? (
         <div className="pdf-icon">PDF</div>
       ) : (
@@ -12,7 +16,10 @@ const Image = ({ image }) => {
           className="file-img"
         />
       )}
+
+      
       <button type="button" className="pdf-label">{image.name}</button>
+      
       
     </div>
   );

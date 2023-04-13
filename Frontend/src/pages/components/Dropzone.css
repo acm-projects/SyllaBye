@@ -95,6 +95,8 @@ button {
   transition: 1s;
 
   background: none;
+
+  height: 0px;
   
 
 }
