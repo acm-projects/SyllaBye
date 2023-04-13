@@ -14,6 +14,7 @@ let extractedText = null;
 async function extract(file, thumbnail){
     const formData = new FormData()
     formData.append("pdfFile", file)
+    // console.log("test");
     const res = await fetch("http://localhost:1338/extract-text", {
         method: "post",
         body: formData
@@ -51,9 +52,6 @@ function Home() {
             if(!user){
                 localStorage.removeItem('token')
                 navigate('/login')
-            }
-            else{
-                //
             }
         }
         else{

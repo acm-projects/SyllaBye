@@ -50,6 +50,7 @@ const pdfdata = {
     meetings: "",
     courseNum: "",
     courseName: "",
+    courseDescription: "",
     term: "",
     grades: [],
     TOC: [],
@@ -358,12 +359,61 @@ async function findCourseName(course) {
             const courseName = courseData.data[0].title;
             return courseName;
         }
+        else{
+            return "Course name not found";
+        }
     }
     else{
         return "Course name not found";
     }
-    // const courseName = courseData.data[0].title;
 }  
+
+async function findCourseDescription(course){
+    if(!course) return "Course description not found";
+    const val = course.trim().split(" ");
+    // console.log(val);
+    let num = [];
+    let courseNum = "";
+    let subject = "";
+    if (val.length < 2){
+        let Prefix = val[0].split(RegExp(/\d{4}\.\d+/));
+        let NUM = course.split(Prefix[0]);
+        num = NUM[1].split(".");
+        courseNum = num[0];
+        subject = Prefix[0];
+    }
+    else{
+        num = val[1].split(".");
+        courseNum = num[0];
+        subject = val[0];
+    }
+    
+    if (subject.includes("/")){
+        const sub = subject.split("/");
+        subject = sub[0];
+    }
+
+    const res = await fetch(`https://api.utdnebula.com/course?course_number=${courseNum}&subject_prefix=${subject}`, {
+        method: 'GET',
+        headers: {
+            'x-api-key': process.env.NEBULA_API_KEY,
+            'Accept': 'application/json',
+        },
+    });
+    const courseData = await res.json();
+    if(courseData.data){
+        if(courseData.data[0].description){
+            const courseDescription = courseData.data[0].description;
+            return courseDescription;
+        }
+        else{
+            return "Course description not found";
+        }
+    }
+    else{
+        return "Course description not found";
+    }
+}
 
 function findGrades(data){
     const keywords = ["%"];
@@ -948,6 +998,7 @@ app.post("/extract-text", async (req, res) => {
     let courseNum = findCourseNum(JD);
     pdfdata.courseNum = courseNum;
     pdfdata.courseName = await findCourseName(courseNum);
+    pdfdata.courseDescription = await findCourseDescription(courseNum);
     pdfdata.term = findTerm(JD);
     pdfdata.grades = findGrades(JD);
     pdfdata.calendar = await findCalendar(JD, pdfdata.term);
