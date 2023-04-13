@@ -2,12 +2,24 @@ import './Login.css';
 import {useState} from 'react'
 import {useNavigate} from 'react-router-dom'
 import logo from './../syllabyelogo.png';
+// import { GoogleOAuthProvider } from '@react-oauth/google';
+// import { GoogleLogin } from '@react-oauth/google';
+// import jwt_decode from 'jwt-decode';
 
 function Login() {
     const navigate = useNavigate()
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+
+    // const handleSuccess = (response) => {
+    //     // Store the authentication information in a cookie or local storage
+    //     navigate('/home');
+    // };
+
+    // const handleError = (error) => {
+    //     console.error('Authentication error:', error);
+    // };
 
     function handleRegisterAsk(e){
         e.preventDefault();
@@ -73,6 +85,13 @@ function Login() {
                         <br />
                         <input id="signupButton2" type="submit" value="Sign Up" onClick={handleRegisterAsk}/>
                     </form>
+                    {/* <GoogleOAuthProvider clientId="436198478288-32tmdiqkg6t268a0i7hpagokfgt0e2eo.apps.googleusercontent.com">
+                        <GoogleLogin
+                            className="google-login"
+                            onSuccess={handleSuccess}
+                            onFailure={handleError}
+                        />
+                    </GoogleOAuthProvider>' */}
                 </div>
             </div>
         </div>

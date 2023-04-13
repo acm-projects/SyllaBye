@@ -5,6 +5,7 @@ import Register from './pages/Register'
 import Login from './pages/Login'
 import Home from './pages/Home'
 import FileDetails from './pages/FileDetails'
+import CalendarPg from './pages/CalendarPg'
 
 
 const App = () => {
@@ -17,6 +18,7 @@ const App = () => {
                     <Route path ="/login" element={<Login />} />
                     <Route path ="/home" element={<Home />} />
                     <Route path="/details" element={<FileDetails />}/>
+                    <Route path="/calendar" element={<CalendarPg />}/>
                 </Routes>
             </Router>
         </div>

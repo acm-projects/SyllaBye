@@ -200,7 +200,15 @@ order: 0;
 flex-grow: 0;
 }
 
-
+.google-login{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2%;
+  margin-bottom: 2%;
+  cursor: pointer;
+}
 
 label, input {display: block;}
 @media (prefers-reduced-motion: no-preference) {

@@ -96,12 +96,12 @@ function Dropzone({ onDrop, accept, open }) {
           {/* <input type="file" id="inpFile"/>
           <button type="button" id="btnUpload">Upload</button> */}
         </div>
-        {/* <aside>
+        {/* { <aside>
         <h4>Accepted files</h4>
         <ul>{acceptedFileItems}</ul>
         <h4>Rejected files</h4>
         <ul>{fileRejectionItems}</ul>
-      </aside> */}
+      </aside> } */}
       </div>
     </div>
   );
