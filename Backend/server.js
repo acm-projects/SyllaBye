@@ -120,8 +120,19 @@ app.get('/api/files', async (req, res) => {
         const files = await File.find({
             email: userEmail,
         })
+        
+        if(files.size == 0){
+            res.json([])
+        }
+        else{
+            const data = []
+            files.forEach((file) => {
+                data.push(file)
+            })
 
-        res.json(files)
+            res.json(data)
+        }
+        
     }
     catch(err){
         console.log(err)
