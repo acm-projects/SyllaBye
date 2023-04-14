@@ -2,11 +2,16 @@ import './Login.css';
 import {useState} from 'react'
 import {useNavigate} from 'react-router-dom'
 import logo from './../syllabyelogo.png';
-// import { GoogleOAuthProvider } from '@react-oauth/google';
-// import { GoogleLogin } from '@react-oauth/google';
-// import jwt_decode from 'jwt-decode';
+import { gapi } from 'gapi-script';
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import { GoogleLogin } from '@react-oauth/google';
 
 function Login() {
+    var CLIENT_ID = "436198478288-32tmdiqkg6t268a0i7hpagokfgt0e2eo.apps.googleusercontent.com";
+    var API_KEY = "AIzaSyDa5yff8QIDY9dgLuT8ZAlfJBbheJ7dAto";
+    var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
+    var SCOPES = "https://www.googleapis.com/auth/calendar.events";
+
     const navigate = useNavigate()
 
     const [email, setEmail] = useState('')
@@ -51,6 +56,57 @@ function Login() {
         }
     }
 
+    async function googleAuth() {
+        gapi.load('client:auth2', () => {
+            gapi.client.init({
+                apiKey: API_KEY,
+                clientId: CLIENT_ID,
+                discoveryDocs: DISCOVERY_DOCS,
+                scope: SCOPES,
+            }).then(() => {
+                gapi.auth2.getAuthInstance().signIn().then(async () => {
+                    const google = await gapi.auth2.getAuthInstance().currentUser
+                    const googleUser = await google.get().getBasicProfile();
+                    const userName = googleUser.getName();
+                    const userEmail = googleUser.getEmail();
+
+                    console.log(userName);
+                    console.log(userEmail);
+
+                    const response = await fetch('http://localhost:1337/api/google-auth-login', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            name: userName,
+                            email: userEmail,
+                        }),
+                    })
+
+                    const data = await response.json();
+                    console.log(data);
+
+                    for (let i = 0; i < localStorage.length; i++) {
+                        const key = localStorage.key(i);
+                        if (key.startsWith('token')) {
+                          console.log(localStorage.getItem(key));
+                        }
+                    }
+
+                    if(data.status === 'ok'){
+                        console.log("Works")
+                        localStorage.setItem('token', data.user)
+                        navigate('/home')
+                    }
+                    else if(data.status === 'error'){
+                        alert("You already have an account with this email. Please login instead.")
+                    }
+                })
+            })
+        })
+    }
+
     return (
         <div className="App2">
             <header className="App-header2">
@@ -85,13 +141,14 @@ function Login() {
                         <br />
                         <input id="signupButton2" type="submit" value="Sign Up" onClick={handleRegisterAsk}/>
                     </form>
-                    {/* <GoogleOAuthProvider clientId="436198478288-32tmdiqkg6t268a0i7hpagokfgt0e2eo.apps.googleusercontent.com">
+                    <GoogleOAuthProvider clientId="436198478288-32tmdiqkg6t268a0i7hpagokfgt0e2eo.apps.googleusercontent.com">
                         <GoogleLogin
-                            className="google-login"
-                            onSuccess={handleSuccess}
-                            onFailure={handleError}
+                            onSuccess={googleAuth}
+                            onError={() => {
+                                console.log('Login Failed');
+                            }}
                         />
-                    </GoogleOAuthProvider>' */}
+                    </GoogleOAuthProvider>
                 </div>
             </div>
         </div>

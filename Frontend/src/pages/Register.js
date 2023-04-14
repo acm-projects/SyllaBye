@@ -3,6 +3,8 @@ import {useState} from 'react'
 import {useNavigate} from 'react-router-dom'
 import logo from './../syllabyelogo.png';
 import { gapi } from 'gapi-script';
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import { GoogleLogin } from '@react-oauth/google';
 
 
 function Register() {
@@ -46,39 +48,127 @@ function Register() {
     }
 
     async function googleAuth() {
-        gapi.load('client:auth2', async () => {
+        gapi.load('client:auth2', () => {
             gapi.client.init({
                 apiKey: API_KEY,
                 clientId: CLIENT_ID,
                 discoveryDocs: DISCOVERY_DOCS,
                 scope: SCOPES,
-            })
+            }).then(() => {
+                gapi.auth2.getAuthInstance().signIn().then(async () => {
+                    const google = await gapi.auth2.getAuthInstance().currentUser
+                    const googleToken = await google.get().getAuthResponse().id_token;
+                    const googleUser = await google.get().getBasicProfile();
+                    const userName = googleUser.getName();
+                    const userEmail = googleUser.getEmail();
 
-            const googleToken = await gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().id_token;
-            const googleUser = await gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile();
-            console.log(googleToken);
-            console.log(googleUser);
+                    console.log(googleToken);
+                    console.log(userName);
+                    console.log(userEmail);
 
-            const response = await fetch('http://localhost:1337/api/google-auth', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    token: googleToken,
-                    name: googleUser.getName(),
-                    email: googleUser.getEmail()
+                    const response = await fetch('http://localhost:1337/api/google-auth-register', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            name: userName,
+                            email: userEmail,
+                            password: googleToken,
+                        }),
+                    })
+
+                    const data = await response.json();
+                    console.log(data);
+
+                    for (let i = 0; i < localStorage.length; i++) {
+                        const key = localStorage.key(i);
+                        if (key.startsWith('token')) {
+                          console.log(localStorage.getItem(key));
+                        }
+                    }
+
+                    if(data.status === 'ok'){
+                        console.log("Works")
+                        localStorage.setItem('token', data.user)
+                        navigate('/home')
+                    }
+                    else if(data.status === 'error'){
+                        alert("You already have an account with this email. Please login instead.")
+                    }
                 })
             })
-            
-            const data = await response.json()
-        
-            if(data.status === 'ok'){
-                localStorage.setItem('token', googleToken);
-                navigate('/home')
-            }
         })
     }
+
+
+            // const google = await gapi.auth2.getAuthInstance().currentUser
+            // const googleToken = await google.get().getAuthResponse().id_token;
+            // const googleUser = await google.get().getBasicProfile();
+            // const userName = googleUser.getName();
+            // const userEmail = googleUser.getEmail();
+
+
+
+
+
+            // console.log(await gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile());
+            // const googleUser = await gapi.auth2.getAuthInstance().currentUser.get();
+            // // console.log(googleUser);
+
+            
+            // // console.log(googleToken);
+            // const userName = await googleUser.getBasicProfile().getName();
+            // console.log(userName);
+            // const googleToken = googleUser.getAuthResponse().id_token;
+            // const userEmail = googleUser.getBasicProfile().getEmail();
+            // console.log(googleUser);
+            // console.log(googleToken);
+            // console.log(userName);
+            // console.log(userEmail);
+
+
+            // const googleToken = await gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().id_token;
+            // const googleUser = await gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile();
+            // const userName = await gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile().getName();
+            // const userEmail = await gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile().getEmail();
+
+            // const response = await fetch('http://localhost:1337/api/google-auth-register', {
+            //     method: 'POST',
+            //     headers: {
+            //         'Content-Type': 'application/json'
+            //     },
+            //     body: JSON.stringify({
+            //         token: googleToken,
+            //         name: userName,
+            //         email: userEmail,
+            //     })
+            // })
+            
+    //         const response = await fetch('http://localhost:1337/api/google-auth-register', {
+    //             method: 'POST',
+    //             headers: {
+    //                 'Content-Type': 'application/json'
+    //             },
+    //             body: JSON.stringify({
+    //                 token: gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().id_token,
+    //                 name: gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile().getName(),
+    //                 email: gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile().getEmail(),
+    //             })
+    //         })
+
+    //         const data = await response.json()
+
+    //         if(data.status === 'ok'){
+    //             console.log("Works")
+    //             localStorage.setItem('token', data.user)
+    //             navigate('/home')
+    //         }
+    //         else if(data.status === 'error'){
+    //             alert("You already have an account with this email. Please login instead.")
+    //         }
+    //     })
+    // }
 
     return (
         <div className="App">
@@ -126,30 +216,14 @@ function Register() {
                         />
                         <br />
                         <input id="signupButton" type="submit" value="Sign Up"/>
-                        <button id="googleAuthButton" onClick={googleAuth} style={{
-                            background: 'white',
-                            color: 'rgba(0, 0, 0, .54)',
-                            boxShadow: '0 3px 4px 0 rgba(0, 0, 0, .25)',
-                            borderRadius: '2px',
-                            border: 'solid 1px rgba(0, 0, 0, .12)',
-                            fontWeight: '500',
-                            fontSize: '14px',
-                            height: '36px',
-                            width: '200px',
-                            padding: '0 16px',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            cursor: 'pointer',
-                            margin: '16px 0',
-                        }}>
-                            <img
-                                src="https://developers.google.com/identity/images/g-logo.png"
-                                alt="Google Logo"
-                                style={{ marginRight: '8px' }}
+                        <GoogleOAuthProvider clientId="436198478288-32tmdiqkg6t268a0i7hpagokfgt0e2eo.apps.googleusercontent.com">
+                            <GoogleLogin
+                                onSuccess={googleAuth}
+                                onError={() => {
+                                    console.log('Login Failed');
+                                }}
                             />
-                            Sign up with Google
-                        </button>
+                        </GoogleOAuthProvider>
                     </form>
                     <p id = "yesAccount">Already have an account?</p>
                     <br />

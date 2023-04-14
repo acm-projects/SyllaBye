@@ -31,22 +31,31 @@ app.post('/api/register', async (req, res) => {
         res.json({status: 'ok'})
     }
     catch(err){
-        res.json({status: 'error', error: 'Duplicate email'})
+        res.json({status: 'error', error: err})
     }
 })
 
-app.post('/api/google-auth', async (req, res) => {
+app.post('/api/google-auth-register', async (req, res) => {
     try{
         //Add here
         await User.create({
             name: req.body.name,
             email: req.body.email,
-            password: req.body.token,
+            password: req.body.password,
         })
-        res.json({status: 'ok'})
+        // res.json({status: 'ok'})
+        const token = await new jose.SignJWT({
+            name: req.body.name,
+            email: req.body.email,
+        })
+            .setProtectedHeader({alg: 'HS256'})
+            .setIssuedAt()
+            .sign(new TextEncoder().encode(process.env.JWTKey))
+
+        return res.json({status: 'ok', user: token})
     }
     catch(err){
-        res.json({status: 'error', error: 'Duplicate account'})
+        res.json({status: 'error', error: err})
     }
 })
 
@@ -74,6 +83,28 @@ app.post('/api/login', async (req, res) => {
     }
     else{
         return res.json({status: 'error', user: false})
+    }
+})
+
+app.post('/api/google-auth-login', async (req, res) => {
+
+    try{
+        const user = await User.findOne({
+            email: req.body.email,
+        })
+
+        const token = await new jose.SignJWT({
+            name: user.name,
+            email: user.email,
+        })
+            .setProtectedHeader({alg: 'HS256'})
+            .setIssuedAt()
+            .sign(new TextEncoder().encode(process.env.JWTKey))
+
+        return res.json({status: 'ok', user: token})
+    }
+    catch(err){
+        res.json({status: 'error', error: err})
     }
 })
 
