@@ -58,16 +58,16 @@ function Home(){
                 const files = fetch("http://localhost:1337/api/files", {
                     method: "GET",
                     headers: {"x-access-token" : localStorage.getItem("token"),},
-                    }).then((res) => {
-                        return res.json()
-                    }).then((res) => {
-                        res.forEach((file) => {
-                            setImages((prevState) => [
-                                ...prevState,
-                                { id: cuid(), src: file.thumbnail, name: file.fileData.courseName },
-                            ]);
-                        })
-                    });
+                }).then((res) => {
+                    return res.json()
+                }).then((res) => {
+                    res.forEach((file) => {
+                        setImages((prevState) => [
+                            ...prevState,
+                            { id: cuid(), src: file.thumbnail, name: file.fileData.courseName },
+                        ]);
+                    })
+                });
             }
         }
         else{
