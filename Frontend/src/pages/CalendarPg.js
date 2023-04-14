@@ -23,24 +23,43 @@ const CalendarPg = () => {
 
             gapi.client.load('calendar', 'v3', () => console.log('bam!'))
 
-            gapi.auth2.getAuthInstance().signIn();
+            gapi.auth2.getAuthInstance().isSignedIn.listen(() => {
+                const request = gapi.client.calendar.events.list({
+                    calendarId: 'primary',
+                    timeMin: (new Date()).toISOString(),
+                    showDeleted: false,
+                    singleEvents: true,
+                    maxResults: 10,
+                    orderBy: 'startTime',
+                })
 
-            const request = gapi.client.calendar.events.list({
-                calendarId: 'primary',
-                timeMin: (new Date()).toISOString(),
-                showDeleted: false,
-                singleEvents: true,
-                maxResults: 10,
-                orderBy: 'startTime',
+                request.execute(event => {
+                    const calendarEmbedUrl = "https://calendar.google.com/calendar/embed?src=" + event.result.items[0].creator.email + "&ctz=America%2FNew_York";
+                    const calendarFrame = document.createElement('iframe');
+                    calendarFrame.setAttribute('src', calendarEmbedUrl);
+                    calendarFrame.setAttribute('style', 'border-width:0; width:40%; height:60vh; framework:0');
+                    document.getElementById('calendar-container').appendChild(calendarFrame);
+                })
             })
 
-            request.execute(event => {
-                const calendarEmbedUrl = "https://calendar.google.com/calendar/embed?src=" + event.result.items[0].creator.email + "&ctz=America%2FNew_York";
-                const calendarFrame = document.createElement('iframe');
-                calendarFrame.setAttribute('src', calendarEmbedUrl);
-                calendarFrame.setAttribute('style', 'border-width:0; width:40%; height:60vh; framework:0');
-                document.getElementById('calendar-container').appendChild(calendarFrame);
-            })
+            // gapi.auth2.getAuthInstance().signIn();
+
+            // const request = gapi.client.calendar.events.list({
+            //     calendarId: 'primary',
+            //     timeMin: (new Date()).toISOString(),
+            //     showDeleted: false,
+            //     singleEvents: true,
+            //     maxResults: 10,
+            //     orderBy: 'startTime',
+            // })
+
+            // request.execute(event => {
+            //     const calendarEmbedUrl = "https://calendar.google.com/calendar/embed?src=" + event.result.items[0].creator.email + "&ctz=America%2FNew_York";
+            //     const calendarFrame = document.createElement('iframe');
+            //     calendarFrame.setAttribute('src', calendarEmbedUrl);
+            //     calendarFrame.setAttribute('style', 'border-width:0; width:40%; height:60vh; framework:0');
+            //     document.getElementById('calendar-container').appendChild(calendarFrame);
+            // })
         })
     }, [])
 
