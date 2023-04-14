@@ -18,7 +18,7 @@ app.use(express.json())
 app.use("/", express.static("public"));
 
 mongoose.set('strictQuery', true);
-mongoose.connect(process.env.mongoURL)
+mongoose.connect(process.env.MongoURL)
 
 app.post('/api/register', async (req, res) => {
     try{
@@ -33,6 +33,17 @@ app.post('/api/register', async (req, res) => {
     catch(err){
         res.json({status: 'error', error: 'Duplicate email'})
     }
+})
+
+app.get('/api/google-auth-keys', async (req, res) => {
+    const keys = {
+        CLIENT_ID : process.env.ClientID,
+        API_KEY : process.env.APIKey,
+        DISCOVERY_DOCS : process.env.DiscoveryDocs,
+        SCOPES : process.env.Scopes
+    }
+
+    res.json(keys)
 })
 
 app.post('/api/google-auth', async (req, res) => {

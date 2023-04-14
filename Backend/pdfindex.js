@@ -32,7 +32,7 @@ app.use("/", express.static("public"));
 app.use(fileUpload());
 
 mongoose.set('strictQuery', true);
-mongoose.connect(process.env.mongoURL)
+mongoose.connect(process.env.MongoURL)
 
 const rmp = {
     name: "",

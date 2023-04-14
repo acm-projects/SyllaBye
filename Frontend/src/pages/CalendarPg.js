@@ -1,14 +1,21 @@
 import { React, useEffect, useState } from 'react';
-import { GoogleOAuthProvider } from '@react-oauth/google';
-import { GoogleLogin } from '@react-oauth/google';
-import jwt_decode from 'jwt-decode';
 import { gapi } from 'gapi-script';
 
-const CalendarPg = () => {
-    var CLIENT_ID = "436198478288-32tmdiqkg6t268a0i7hpagokfgt0e2eo.apps.googleusercontent.com";
-    var API_KEY = "AIzaSyDa5yff8QIDY9dgLuT8ZAlfJBbheJ7dAto";
-    var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
-    var SCOPES = "https://www.googleapis.com/auth/calendar.events";
+function CalendarPg() {
+    var CLIENT_ID
+    var API_KEY
+    var DISCOVERY_DOCS
+    var SCOPES
+
+    const res = fetch("http://localhost:1337/api/google-auth-keys", {
+        method: "GET",
+    }).then((res) => res.json()
+    ).then((res) => {
+        CLIENT_ID = res.CLIENT_ID
+        API_KEY = res.API_KEY
+        DISCOVERY_DOCS = res.DISCOVERY_DOCS
+        SCOPES = res.SCOPES
+    });
 
     useEffect(() => {
         gapi.load('client:auth2', () => {
@@ -17,30 +24,32 @@ const CalendarPg = () => {
             gapi.client.init({
                 apiKey: API_KEY,
                 clientId: CLIENT_ID,
-                discoveryDocs: DISCOVERY_DOCS,
+                discoveryDocs: [DISCOVERY_DOCS],
                 scope: SCOPES,
             })
 
             gapi.client.load('calendar', 'v3', () => console.log('bam!'))
 
-            gapi.auth2.getAuthInstance().signIn();
+            console.log("GAPI:" + gapi)
+            
+            console.log(gapi.client.calendars)
 
-            const request = gapi.client.calendar.events.list({
-                calendarId: 'primary',
-                timeMin: (new Date()).toISOString(),
-                showDeleted: false,
-                singleEvents: true,
-                maxResults: 10,
-                orderBy: 'startTime',
-            })
-
-            request.execute(event => {
-                const calendarEmbedUrl = "https://calendar.google.com/calendar/embed?src=" + event.result.items[0].creator.email + "&ctz=America%2FNew_York";
-                const calendarFrame = document.createElement('iframe');
-                calendarFrame.setAttribute('src', calendarEmbedUrl);
-                calendarFrame.setAttribute('style', 'border-width:0; width:40%; height:60vh; framework:0');
-                document.getElementById('calendar-container').appendChild(calendarFrame);
-            })
+            // const request = gapi.client.calendars.events.list({
+            //     calendarId: 'primary',
+            //     timeMin: (new Date()).toISOString(),
+            //     showDeleted: false,
+            //     singleEvents: true,
+            //     maxResults: 10,
+            //     orderBy: 'startTime',
+            // })
+            
+            // request.execute(event => {
+            //     const calendarEmbedUrl = "https://calendar.google.com/calendar/embed?src=" + event.result.items[0].creator.email + "&ctz=America%2FNew_York";
+            //     const calendarFrame = document.createElement('iframe');
+            //     calendarFrame.setAttribute('src', calendarEmbedUrl);
+            //     calendarFrame.setAttribute('style', 'border-width:0; width:40%; height:60vh; framework:0');
+            //     document.getElementById('calendar-container').appendChild(calendarFrame);
+            // })
         })
     }, [])
 
@@ -53,7 +62,7 @@ const CalendarPg = () => {
             gapi.client.init({
                 apiKey: API_KEY,
                 clientId: CLIENT_ID,
-                discoveryDocs: DISCOVERY_DOCS,
+                discoveryDocs: [DISCOVERY_DOCS],
                 scope: SCOPES,
             })
     
