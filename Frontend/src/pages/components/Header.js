@@ -13,12 +13,21 @@ const Header = () => {
         navigate('/login')
     }
 
+    async function home() {
+        navigate('/home')
+    }
+
+    async function calendar() {
+        navigate('/calendar')
+    }
+
     return (
 
         <header>
             <img src={logo}/>
             <nav>
-            <button class="headerBtn"> Home </button>
+            <button onClick={calendar} class="headerBtn">Calendar</button>
+            <button onClick={home} class="headerBtn">Home</button>
             <button onClick={logout} class="headerBtn">Logout</button>
             </nav>
         </header>
