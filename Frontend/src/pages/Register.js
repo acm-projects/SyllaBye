@@ -8,10 +8,20 @@ import { GoogleLogin } from '@react-oauth/google';
 
 
 function Register() {
-    var CLIENT_ID = "436198478288-32tmdiqkg6t268a0i7hpagokfgt0e2eo.apps.googleusercontent.com";
-    var API_KEY = "AIzaSyDa5yff8QIDY9dgLuT8ZAlfJBbheJ7dAto";
-    var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
-    var SCOPES = "https://www.googleapis.com/auth/calendar.events";
+    var CLIENT_ID
+    var API_KEY
+    var DISCOVERY_DOCS
+    var SCOPES
+
+    const res = fetch("http://localhost:1337/api/google-auth-keys", {
+        method: "GET",
+    }).then((res) => res.json()
+    ).then((res) => {
+        CLIENT_ID = res.CLIENT_ID
+        API_KEY = res.API_KEY
+        DISCOVERY_DOCS = res.DISCOVERY_DOCS
+        SCOPES = res.SCOPES
+    });
     
     const navigate = useNavigate()
 
@@ -52,7 +62,7 @@ function Register() {
             gapi.client.init({
                 apiKey: API_KEY,
                 clientId: CLIENT_ID,
-                discoveryDocs: DISCOVERY_DOCS,
+                discoveryDocs: [DISCOVERY_DOCS],
                 scope: SCOPES,
             }).then(() => {
                 gapi.auth2.getAuthInstance().signIn().then(async () => {
