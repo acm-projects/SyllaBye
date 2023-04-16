@@ -99,6 +99,10 @@ app.get('/api/getCalendarID', async (req, res) => {
     catch(err){
         res.json({status: 'error', error: err})
     }
+<<<<<<< HEAD
+
+=======
+>>>>>>> c3ccb50bd9299a2bec09157ed3e1fdc144d77b07
 })
 
 app.post('/api/login', async (req, res) => {
@@ -159,7 +163,6 @@ app.post('/api/upload', upload1.fields([upload2.single({ name: 'text' }), { name
         }
     }
     catch(err){
-        console.log("THERE IS AN ERROR\n\n\n")
         console.log(err)
     }
 

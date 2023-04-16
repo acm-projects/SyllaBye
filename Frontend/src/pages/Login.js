@@ -144,6 +144,7 @@ function Login() {
                     </form>
                     <GoogleOAuthProvider clientId="436198478288-efo40fbhrj324kk9uktqfr20tthrt5dk.apps.googleusercontent.com">
                         <GoogleLogin
+                            id = "googleButton"
                             onSuccess={googleAuth}
                             onError={() => {
                                 console.log('Login Failed');
