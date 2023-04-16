@@ -659,7 +659,7 @@ async function findCalendar(data, term){
                 if(!temp[0].includes("/")){
                     tempWeek = temp[0];
                     for(let j = 1; j < temp.length; j++){
-                        if((temp[j].includes("/") && RegExp(/\d/).test(temp[j])) || dateKeywords.some(word => (temp[j] == word))){
+                        if((temp[j].includes("/") && RegExp(/\d/).test(temp[j]) && !temp[j].includes("Ch")) || dateKeywords.some(word => (temp[j] == word))){
                             dateStatus = true;
                             if(temp[j].includes("/")){// Dates that are 01/30
                                 if(ImportantKeywords.some(word => temp[j+1].includes(word))){ // 01/30 Exams

@@ -27,15 +27,6 @@ function Login() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
-    // const handleSuccess = (response) => {
-    //     // Store the authentication information in a cookie or local storage
-    //     navigate('/home');
-    // };
-
-    // const handleError = (error) => {
-    //     console.error('Authentication error:', error);
-    // };
-
     function handleRegisterAsk(e){
         e.preventDefault();
         navigate('/register');
@@ -151,7 +142,7 @@ function Login() {
                         <br />
                         <input id="signupButton2" type="submit" value="Sign Up" onClick={handleRegisterAsk}/>
                     </form>
-                    <GoogleOAuthProvider clientId="436198478288-32tmdiqkg6t268a0i7hpagokfgt0e2eo.apps.googleusercontent.com">
+                    <GoogleOAuthProvider clientId="436198478288-efo40fbhrj324kk9uktqfr20tthrt5dk.apps.googleusercontent.com">
                         <GoogleLogin
                             onSuccess={googleAuth}
                             onError={() => {

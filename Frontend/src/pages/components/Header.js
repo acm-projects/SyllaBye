@@ -18,16 +18,16 @@ const Header = () => {
     }
 
     async function calendar() {
-        navigate('/calendar')
+        window.location.replace("http://localhost:3000/calendar")
     }
 
     return (
 
         <header>
-            <img src={logo}/>
+            <a href='http://localhost:3000/home'> <img src={logo}/> </a>
             <nav>
-            <button onClick={calendar} class="headerBtn">Calendar</button>
-            <button onClick={home} class="headerBtn">Home</button>
+            <button onClick={home} class="headerBtn"> Home </button>
+            <button onClick={calendar} class="headerBtn"> Calendar </button>
             <button onClick={logout} class="headerBtn">Logout</button>
             </nav>
         </header>
@@ -35,4 +35,3 @@ const Header = () => {
 }
   
   export default Header
-  
