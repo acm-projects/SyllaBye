@@ -226,7 +226,7 @@ function Register() {
                         />
                         <br />
                         <input id="signupButton" type="submit" value="Sign Up"/>
-                        <GoogleOAuthProvider clientId="436198478288-32tmdiqkg6t268a0i7hpagokfgt0e2eo.apps.googleusercontent.com">
+                        <GoogleOAuthProvider clientId="436198478288-efo40fbhrj324kk9uktqfr20tthrt5dk.apps.googleusercontent.com">
                             <GoogleLogin
                                 onSuccess={googleAuth}
                                 onError={() => {
