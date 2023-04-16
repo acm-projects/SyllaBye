@@ -70,6 +70,38 @@ app.post('/api/google-auth-register', async (req, res) => {
     }
 })
 
+app.post('/api/postCalendarID', async (req, res) => {
+    const token = req.headers['x-access-token'];
+
+    try{
+        const {payload, protectedHeader} = await jose.jwtVerify(token, new TextEncoder().encode(process.env.JWTKey))
+        const userEmail = payload.email
+
+        await User.findOneAndUpdate({email: userEmail}, {calendarID: req.body.calendarID})
+
+    }
+    catch(err){
+        res.json({status: 'error', error: err})
+    }
+})
+
+app.get('/api/getCalendarID', async (req, res) => {
+    const token = req.headers['x-access-token'];
+
+    try{
+        const {payload, protectedHeader} = await jose.jwtVerify(token, new TextEncoder().encode(process.env.JWTKey))
+        const userEmail = payload.email
+
+        const result = await User.findOne({email: userEmail})
+
+        res.json({status: 'ok', calendarID: result.calendarID})
+    }
+    catch(err){
+        res.json({status: 'error', error: err})
+    }
+
+})
+
 app.post('/api/login', async (req, res) => {
     
     const user = await User.findOne({
@@ -128,7 +160,6 @@ app.post('/api/upload', upload1.fields([upload2.single({ name: 'text' }), { name
         }
     }
     catch(err){
-        console.log("THERE IS AN ERROR\n\n\n")
         console.log(err)
     }
 

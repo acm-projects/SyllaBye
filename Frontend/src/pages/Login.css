@@ -200,14 +200,10 @@ order: 0;
 flex-grow: 0;
 }
 
-.google-login{
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  margin-top: 2%;
-  margin-bottom: 2%;
-  cursor: pointer;
+#googleButton {
+    width: 100%; /* set the width of the iframe */
+    height: 400px; /* set the height of the iframe */
+    border: 50px;
 }
 
 label, input {display: block;}

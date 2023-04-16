@@ -27,15 +27,6 @@ function Login() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
-    // const handleSuccess = (response) => {
-    //     // Store the authentication information in a cookie or local storage
-    //     navigate('/home');
-    // };
-
-    // const handleError = (error) => {
-    //     console.error('Authentication error:', error);
-    // };
-
     function handleRegisterAsk(e){
         e.preventDefault();
         navigate('/register');
@@ -153,6 +144,7 @@ function Login() {
                     </form>
                     <GoogleOAuthProvider clientId="436198478288-32tmdiqkg6t268a0i7hpagokfgt0e2eo.apps.googleusercontent.com">
                         <GoogleLogin
+                            id = "googleButton"
                             onSuccess={googleAuth}
                             onError={() => {
                                 console.log('Login Failed');
