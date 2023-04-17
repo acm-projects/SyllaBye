@@ -82,11 +82,12 @@ function Register() {
                             type="password"  
                         />
                         <br />
-                        <input id="signupButton" type="submit" value="Sign Up"/>
+                        <input className='Buttons' id="signupButton" type="submit" value="Sign Up"/>
                     </form>
-                    <p id = "yesAccount">Already have an account?</p>
+                    <p id = "yesAccount">Already have an account? </p>
+                    <input className='Buttons' id="signinButton3" type="submit" value="Click here to sign in." onClick={handleLoginAsk}/>
+
                     <br />
-                    <input id="signinButton3" type="submit" value="Sign In" onClick={handleLoginAsk}/>
                 </div>
             </div>
         </div>
