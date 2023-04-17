@@ -220,13 +220,13 @@ app.post('/api/delete', async (req, res) => {
         const userEmail = payload.email
         
         // console.log(req.body.thumbnail)
-        // console.log(userEmail)
         const resp = File.findOne({
             email: userEmail,
             thumbnail: req.body.thumbnail,
         })
         .then((file) => {
             file.remove()
+            res.json({status: 'ok'})
         })
         .catch((err) => {
             console.log(err)
