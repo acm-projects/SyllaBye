@@ -20,16 +20,16 @@ function CalendarPg() {
         SCOPES = res.SCOPES
     });
 
-    const Cres = fetch("http://localhost:1337/api/getCalendarID", {
-        method: "GET",
-        headers: {"x-access-token" : localStorage.getItem("token"),},
-    }).then((res) => res.json()
-    ).then((res) => {
-        calendarID = res.calendarID
-    });
+    // const Cres = fetch("http://localhost:1337/api/getCalendarID", {
+    //     method: "GET",
+    //     headers: {"x-access-token" : localStorage.getItem("token"),},
+    // }).then((res) => res.json()
+    // ).then((res) => {
+    //     calendarID = res.calendarID
+    // });
 
     useEffect(() => {
-        gapi.load('client:auth2', () => {
+        gapi.load('client:auth2', async () => {
             console.log('loaded client')
 
             gapi.client.init({
@@ -41,6 +41,13 @@ function CalendarPg() {
 
             gapi.client.load('calendar', 'v3', () => console.log('bam!'))
 
+            const cres = await fetch("http://localhost:1337/api/getCalendarID", {
+                method: "GET",
+                headers: {"x-access-token" : localStorage.getItem("token"),},
+            })
+            const cdata = await cres.json();
+            calendarID = cdata.calendarID
+
             if (calendarID == null) {
                 gapi.auth2.getAuthInstance().isSignedIn.listen(() => {
                     try{
@@ -49,7 +56,7 @@ function CalendarPg() {
                         let calendarEmbedUrl = "https://calendar.google.com/calendar/embed?src=" + userEmail + "&ctz=America%2FCentral";
                         const calendarFrame = document.createElement('iframe');
                         calendarFrame.setAttribute('src', calendarEmbedUrl);
-                        calendarFrame.setAttribute('style', 'border-width:0; width:40%; height:60vh; framework:0');
+                        calendarFrame.setAttribute('style', 'border-width:0; width:100vw; height:100vh; framework:0');
                         document.getElementById('calendar-container').appendChild(calendarFrame);
                     }
                     catch(err){
@@ -65,7 +72,7 @@ function CalendarPg() {
                         let calendarEmbedUrl = "https://calendar.google.com/calendar/embed?src=" + userEmail  + "&src=" + calendarID + "&ctz=America%2FCentral";
                         const calendarFrame = document.createElement('iframe');
                         calendarFrame.setAttribute('src', calendarEmbedUrl);
-                        calendarFrame.setAttribute('style', 'border-width:0; width:40%; height:60vh; framework:0');
+                        calendarFrame.setAttribute('style', 'border-width:0; width:100vw; height:100vh; framework:0');
                         document.getElementById('calendar-container').appendChild(calendarFrame);
                     }
                     catch(err){
@@ -349,7 +356,7 @@ function CalendarPg() {
                 let calendarEmbedUrl = "https://calendar.google.com/calendar/embed?src=" + userEmail  + "&src=" + calendarID + "&ctz=America%2FCentral";
                 const calendarFrame = document.createElement('iframe');
                 calendarFrame.setAttribute('src', calendarEmbedUrl);
-                calendarFrame.setAttribute('style', 'border-width:0; width:40%; height:60vh; framework:0');
+                calendarFrame.setAttribute('style', 'border-width:0; width:100vw; height:100vh; framework:0');
                 const oldCalendarFrame = document.getElementById('calendar-container').getElementsByTagName('iframe')[0];
                 oldCalendarFrame.parentNode.removeChild(oldCalendarFrame);
                 document.getElementById('calendar-container').appendChild(calendarFrame);
