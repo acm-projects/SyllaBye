@@ -226,7 +226,7 @@ function Register() {
                             type="password"  
                         />
                         <br />
-                        <input id="signupButton" type="submit" value="Sign Up"/>
+                        <input id="signupButton" className="Buttons" type="submit" value="Sign Up"/>
                         
                     </form>
                     <GoogleOAuthProvider clientId="436198478288-efo40fbhrj324kk9uktqfr20tthrt5dk.apps.googleusercontent.com">
@@ -238,8 +238,8 @@ function Register() {
                         />
                     </GoogleOAuthProvider>
                     <p id = "yesAccount">Already have an account?</p>
+                    <input className='Buttons' id="signinButton3" type="submit" value="Click here to sign in." onClick={handleLoginAsk}/>
                     <br />
-                    <input id="signinButton3" type="submit" value="Sign In" onClick={handleLoginAsk}/>
                 </div>
             </div>
         </div>

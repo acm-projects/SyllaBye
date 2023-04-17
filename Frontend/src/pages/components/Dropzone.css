@@ -47,7 +47,7 @@
   
   /* Writing */
   
-   background: #FBFFF9;
+  background: #FBFFF9;
   border-radius: 5px;
   color:#263928;
   font-size: 1.2rem;
@@ -95,8 +95,14 @@ button {
   transition: 1s;
 
   background: none;
+
+  height: 0px;
   
 
+}
+
+.smolBtn{
+  height: 0px;
 }
 
 button:hover {background: none;}
