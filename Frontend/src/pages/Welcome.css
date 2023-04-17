@@ -139,7 +139,7 @@ flex-grow: 0;
   color: var(--mediumDarkGreen);
   }
   .Buttons{
-    padding-left: 2vw;
+    padding-left: 1vw;
     padding-right: 2vw;
     display:inline-flex;
     padding-top: 6vh;
@@ -149,9 +149,9 @@ flex-grow: 0;
     /* display: flex; */
     flex-direction: column;
   align-items: center;
-  padding: 15px;
-  margin-top: 10px;
- margin-left: 10px;
+  padding: 2.2vh;
+  margin-top: 1vh;
+ margin-left: 1vh;
  cursor: pointer;
 
   /* position: absolute; */
@@ -175,9 +175,9 @@ flex-grow: 0;
     /* display: flex; */
   flex-direction: column;
   align-items: center;
-  padding: 15px;
-  margin-top: 10px;
- margin-left: 10px;
+  padding: 2vh;
+  margin-top: 1vh;
+ margin-left: 1vh;
  cursor: pointer;
  
   /* position: absolute; */

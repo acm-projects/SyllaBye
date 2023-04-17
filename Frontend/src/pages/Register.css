@@ -86,7 +86,7 @@ flex-grow: 0;
   .RealForm{
     
     width: 40%;
-height: 95%;
+height: 90%;
 align-self: center;
 /* Tiny Gray */
 background: #FBFFF9;
@@ -111,7 +111,7 @@ overflow-y: scroll;
   /* width: 182px;
   height: 10px;
   left: 255px; */
-  margin-top: 2%;
+  margin-top: 6%;
   margin-bottom: 2%;
   font-family: 'Inter';
   font-style: normal;
@@ -148,31 +148,40 @@ overflow-y: scroll;
     font-family: 'Inter';
   } 
   #yesAccount{
-    font-size: 15px;
+    font-size: 1rem;
     color: #263928;
     font-weight: bold;
-    margin-top: 0%;
-    margin-bottom: 0vh;
+    margin-top: 10%;
+    margin-bottom: 0%;
+  }
+  .Buttons{
+    padding-left: 1vw;
+    padding-right: 2vw;
+    display:inline-flex;
+    padding-top: 6vh;
+    /* cursor: pointer; */
   }
   #signupButton{
     /* display: flex; */
   /* flex-direction: column; */
-  padding: 2%;
-  margin-left: auto;
-  margin-right: auto;
-  cursor: pointer;
-  margin-bottom: 2vh;
+  flex-direction: column;
+  align-items: center;
+  padding: 2vh;
+  margin-top: 1vh;
+ margin-left: 1vh;
+ cursor: pointer;
+ 
   /* position: absolute; */
+  
   
    /* Darkest Green */
   
   /* Writing */
   
   background: #263928;
-  border-radius: 1vh;
+  border-radius: 5px;
   color:white;
   font-size: 1.2rem;
-  margin-top: 1vh;
   /* Inside auto layout  */
   flex: none;
   order: 0;
@@ -180,24 +189,31 @@ overflow-y: scroll;
   }
   #signinButton3{
     flex-direction: column;
-align-items: center;
-padding: 2%;
-margin-top: 1%;
-margin-left: auto;
-margin-right: auto;
-margin-bottom: 3%;
-cursor: pointer;
+  align-items: center;
+  padding: 0vh;
+  padding-top: 0vh;
+  margin-top: 0vh;
+ margin-left: 1vh;
+ cursor: pointer;
+ font-weight: bold;
 
-
-background: #FBFFF9;
-border-radius: 5px;
-border-color: #263928;
+  /* position: absolute; */
+  
+  
+   /* Darkest Green */
+  
+  /* Writing */
+  
+  background: #FBFFF9;
+  border: none;
 color:#263928;
-font-size: 1.2rem;
+font-size: 1rem;
 /* Inside auto layout  */
 flex: none;
 order: 0;
 flex-grow: 0;
+  
+
 
   }
 
