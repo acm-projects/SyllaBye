@@ -133,17 +133,19 @@ function Login() {
                             class="inputs2"
                             value = {password}
                             onChange = {(e) => setPassword(e.target.value)}
-                            type="text"  
+                            type="password"  
                         />
                         <br />
-                        <input id="signinButton" type="submit" value="Sign In"/>
+                        <input className='Buttons' id="signinButton" type="submit" value="Sign In"/>
                         <br />
                         <p id = "noAccount">Don't have an account?</p>
+                        <input className='Buttons' id="signupButton2" type="submit" value="Click here to sign up." onClick={handleRegisterAsk}/>
                         <br />
-                        <input id="signupButton2" type="submit" value="Sign Up" onClick={handleRegisterAsk}/>
+                        
                     </form>
                     <GoogleOAuthProvider clientId="436198478288-efo40fbhrj324kk9uktqfr20tthrt5dk.apps.googleusercontent.com">
                         <GoogleLogin
+                            id = "googleButton"
                             onSuccess={googleAuth}
                             onError={() => {
                                 console.log('Login Failed');

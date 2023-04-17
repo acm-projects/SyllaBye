@@ -89,7 +89,7 @@ flex-grow: 0;
   }
   .RealForm2{
     width: 40%;
-height: 95%;
+height: 90%;
 
 align-self: center;
 /* Tiny Gray */
@@ -114,7 +114,7 @@ overflow-y: scroll;
   /* width: 182px;
   height: 10px;
   left: 255px; */
-  margin-top: 3.6%;
+  margin-top: 5%;
   margin-bottom: 8%;
   font-family: 'Inter';
   font-style: normal;
@@ -150,64 +150,74 @@ overflow-y: scroll;
     border-radius: 6px;
 }
 #noAccount{
-  font-size: 15px;
-  color: var(--darkGreen);
-  font-weight: bold;
-  margin-top: 0%;
-  margin-bottom: 0vh;
+  font-size: 1rem;
+    color: #263928;
+    font-weight: bold;
+    margin-top: 10%;
+    margin-bottom: 0%;
+}
+.Buttons{
+padding-left: 1vw;
+    padding-right: 2vw;
+    display:inline-flex;
+    padding-top: 6vh;
 }
 #signinButton{
   /* display: flex; */
-flex-direction: column;
-align-items: center;
-padding: 2%;
-margin-top: 1%;
-margin-left: auto;
-margin-right: auto;
-margin-bottom: 0%;
-cursor: pointer;
-
-
-background: var(--darkGreen);
-border-color: var(--lightestGrey);
-border-radius: 5px;
-color:white;
-font-size: 1.2rem;
-/* Inside auto layout  */
-flex: none;
-order: 0;
-flex-grow: 0;
+  flex-direction: column;
+  align-items: center;
+  padding: 2vh;
+  margin-top: 1vh;
+ margin-left: 1vh;
+ cursor: pointer;
+ 
+  /* position: absolute; */
+  
+  
+   /* Darkest Green */
+  
+  /* Writing */
+  
+  background: #263928;
+  border-radius: 5px;
+  color:white;
+  font-size: 1.2rem;
+  /* Inside auto layout  */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
 }
 #signupButton2{
   flex-direction: column;
-align-items: center;
-padding: 2%;
-margin-top: 1%;
-margin-left: auto;
-margin-right: auto;
-margin-bottom: 5%;
-cursor: pointer;
+  align-items: center;
+  padding: 0vh;
+  padding-top: 0vh;
+  margin-top: 0vh;
+ margin-left: 1vh;
+ cursor: pointer;
+ font-weight: bold;
 
-
-background: var(--lightestGrey);
-border-radius: 5px;
-border-color: var(--darkGreen);
-color: var(--darkGreen);
-font-size: 1.2rem;
+  /* position: absolute; */
+  
+  
+   /* Darkest Green */
+  
+  /* Writing */
+  
+  background: #FBFFF9;
+  border: none;
+color:#263928;
+font-size: 1rem;
 /* Inside auto layout  */
 flex: none;
 order: 0;
 flex-grow: 0;
 }
 
-.google-login{
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  margin-top: 2%;
-  margin-bottom: 2%;
-  cursor: pointer;
+#googleButton {
+    width: 100%; /* set the width of the iframe */
+    height: 400px; /* set the height of the iframe */
+    border: 50px;
 }
 
 label, input {display: block;}

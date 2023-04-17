@@ -159,7 +159,6 @@ app.post('/api/upload', upload1.fields([upload2.single({ name: 'text' }), { name
         }
     }
     catch(err){
-        console.log("THERE IS AN ERROR\n\n\n")
         console.log(err)
     }
 
