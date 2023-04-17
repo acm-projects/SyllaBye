@@ -1,12 +1,39 @@
 import React from "react";
 import trash from "./delete-icon.png";
+import { useHistory } from 'react-router-dom';
 
 const Image = ({ image }) => {
+
+  const history = useHistory();
+
+  const deleteImage = () => {
+    console.log("ran")
+    fetch("http://localhost:1337/api/delete", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-access-token": localStorage.getItem("token"),
+      },
+      body: JSON.stringify({ thumbnail: image.src }),
+    }).then((res) => {
+      // window.location.reload();
+      // history.go(0);
+      console.log(res);
+      return res.json();
+    }).then((res) => {
+      if (res) {
+        console.log("Deleted");
+      } else {
+        console.log("Error");
+      }
+    });
+  };
+
   return (
 
     
     <div className="file-item">
-      <button className="delete"></button>
+      <button className="delete" onClick={deleteImage}></button>
       {image.isPdf ? (
         <div className="pdf-icon">PDF</div>
       ) : (
