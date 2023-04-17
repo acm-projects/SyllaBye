@@ -218,6 +218,7 @@ function Register() {
                         <br />
                         <label for="verifypwField" class = "labels" id = "verifypw">Verify password</label>
                         {/* <br /> */}
+                        
                         <input 
                             class = "inputs"
                             value = {vPassword}
@@ -226,15 +227,16 @@ function Register() {
                         />
                         <br />
                         <input id="signupButton" type="submit" value="Sign Up"/>
-                        <GoogleOAuthProvider clientId="436198478288-efo40fbhrj324kk9uktqfr20tthrt5dk.apps.googleusercontent.com">
-                            <GoogleLogin
-                                onSuccess={googleAuth}
-                                onError={() => {
-                                    console.log('Login Failed');
-                                }}
-                            />
-                        </GoogleOAuthProvider>
+                        
                     </form>
+                    <GoogleOAuthProvider clientId="436198478288-efo40fbhrj324kk9uktqfr20tthrt5dk.apps.googleusercontent.com">
+                        <GoogleLogin
+                            onSuccess={googleAuth}
+                            onError={() => {
+                                console.log('Login Failed');
+                            }}
+                        />
+                    </GoogleOAuthProvider>
                     <p id = "yesAccount">Already have an account?</p>
                     <br />
                     <input id="signinButton3" type="submit" value="Sign In" onClick={handleLoginAsk}/>
