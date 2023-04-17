@@ -370,8 +370,8 @@ function CalendarPg() {
         <main>
             <Header/>
             <div>  
-                <button onClick={handleClick}>Click</button>
                 <div id="calendar-container"></div>
+                <button onClick={handleClick} class="Events">Add Events</button>
             </div>
         </main>
     )
