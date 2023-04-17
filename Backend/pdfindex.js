@@ -32,7 +32,7 @@ app.use("/", express.static("public"));
 app.use(fileUpload());
 
 mongoose.set('strictQuery', true);
-mongoose.connect(process.env.mongoURL)
+mongoose.connect(process.env.MongoURL)
 
 const rmp = {
     name: "",
@@ -50,6 +50,7 @@ const pdfdata = {
     meetings: "",
     courseNum: "",
     courseName: "",
+    courseDescription: "",
     term: "",
     grades: [],
     TOC: [],
@@ -81,10 +82,10 @@ async function findProfessorEmail(data, name) {
         const Rwords = ["Email Address", "Email", "email", ":"];//Removed words
         const Rregex = new RegExp(Rwords.join("|"), "gi");
         if (Rregex.test(match)) {
-            const email = match.replace(Rregex, "").trim();
+            const email = match.replace(Rregex, "").trim().substring(0, match.indexOf(".edu") + 4);
             return email;
         }
-        return match;
+        return match.substring(0, match.indexOf(".edu") + 4);
     }
     else {
         const Rwords = ["Dr.", "Mr.", "Ms.", "Mrs.", "Professor", "professor", "Name", "name"];//Removed words
@@ -101,9 +102,13 @@ async function findProfessorEmail(data, name) {
             },
         })
         const profData = await res.json();
-        const email = profData.data[0].email;
-        if (email) {
-            return email;
+        if(profData.data){
+            if(profData.data[0].email){
+                return profData.data[0].email;
+            }
+            else{
+                return "Professor email not found";
+            }
         }
         else{
             return "Professor email not found";
@@ -111,10 +116,10 @@ async function findProfessorEmail(data, name) {
     }
 }
 
-function findProfessorPhone(data){
+async function findProfessorPhone(data, name){
     const keywords = ["Phone number", "Office Phone", "Phone", "phone"];
     const match = data.filter(str => keywords.some(word => str.includes(word)));
-    if (match) {
+    if (match && RegExp(/\d/).test(match[0])) {
         const Rwords = ["Office Phone", "Phone", ":"];//Removed words
         const Rregex = new RegExp(Rwords.join("|"), "gi");
         if(Rregex.test(match[0])){
@@ -128,7 +133,33 @@ function findProfessorPhone(data){
             return "Professor's phone number not found";
         }
     }
-    return "Professor's phone number not found";
+    else{
+        const Rwords = ["Dr.", "Mr.", "Ms.", "Mrs.", "Professor", "professor", "Name", "name"];//Removed words
+        const Rregex = new RegExp(Rwords.join("|"), "gi");
+        const n = name.replace(Rregex, "").trim();
+        const prof = n.split(" ");
+        const firstName = prof[0];
+        const lastName = prof[1];
+        const res = await fetch(`https://api.utdnebula.com/professor?first_name=${firstName}&last_name=${lastName}`, {
+            method: 'GET',
+            headers: {
+                'x-api-key': process.env.NEBULA_API_KEY,
+                'Accept': 'application/json',
+            },
+        })
+        const profData = await res.json();
+        if(profData.data){
+            if(profData.data[0].phone){
+                return profData.data[0].phone;
+            }
+            else{
+                return "Professor's phone number not found";
+            }
+        }
+        else{
+            return "Professor's phone number not found";
+        }
+    }
 }
 
 async function findOfficeLocation(data, name) {
@@ -146,10 +177,19 @@ async function findOfficeLocation(data, name) {
         },
     });
     const courseData = await res.json();
-    if(courseData.data[0].office){
-        const courseName = courseData.data[0].office.building + " " + courseData.data[0].office.room;
-        return courseName;
+    if(courseData.data){
+        if(courseData.data[0].office){
+            const courseName = courseData.data[0].office.building + " " + courseData.data[0].office.room;
+            return courseName;
+        }
     }
+    else{
+        return "Professor's office location not found";
+    }
+    // if(courseData.data[0].office){
+    //     const courseName = courseData.data[0].office.building + " " + courseData.data[0].office.room;
+    //     return courseName;
+    // }
     
     const keywords = ["Office Location", "ECSS", "Office", "office", "Location", "location"];
     const Xwords = ["Meetings", "allocation", "Phone"];//Excluded words
@@ -227,7 +267,42 @@ function findCourseNum(data) {
     const regex = new RegExp(keywords.map(keyword => (typeof keyword === 'string' ? keyword : keyword.source)).join("|"), "gi");
     // const match = data.filter(str => (/\d{4}/).test(str));
     const match = data.filter(str => regex.test(str));
-    if (match) {
+    // console.log(match);
+    // const split = match[0].split(" ");
+    // console.log(split);
+    let num = "";
+    let prefix = "";
+    if(match[0].trim().includes(" ")){
+        console.log()
+        const split = match[0].trim().split(" ");
+        // console.log(split);
+        for(let i = 0; i < split.length; i++){
+            if(RegExp(/\d{4}\.\d+/).test(split[i])){
+                if(split[i].length > 8){
+                    return split[i];
+                }
+                else{
+                    num = split[i];
+                }
+                break;
+            }
+        }
+        for(let i = 0; i < split.length; i++){
+            // console.log(split[i]);
+            if(split[i] != num){
+                if(split[i].includes("-")){
+                    const temp = split[i].split("-");
+                    // console.log("prefix: " + temp);
+                    prefix = temp[0];
+                }
+                else{
+                    prefix = split[i];
+                }
+            }
+        }
+        return prefix + " " + num;
+    }
+    else if(match) {
         const Rwords = ["Course Syllabus", "Course Number", "Course", "Number", ":"];//Removed words
         const Rregex = new RegExp(Rwords.join("|"), "gi");
         let number = match[0]
@@ -246,6 +321,7 @@ function findCourseNum(data) {
 }
 
 async function findCourseName(course) {
+    // console.log("course: " + course);
     if(!course) return "Course name not found";
     const val = course.trim().split(" ");
     // console.log(val);
@@ -278,15 +354,73 @@ async function findCourseName(course) {
         },
     });
     const courseData = await res.json();
-    const courseName = courseData.data[0].title;
-    return courseName;
+    if(courseData.data){
+        if(courseData.data[0].title){
+            const courseName = courseData.data[0].title;
+            return courseName;
+        }
+        else{
+            return "Course name not found";
+        }
+    }
+    else{
+        return "Course name not found";
+    }
 }  
+
+async function findCourseDescription(course){
+    if(!course) return "Course description not found";
+    const val = course.trim().split(" ");
+    // console.log(val);
+    let num = [];
+    let courseNum = "";
+    let subject = "";
+    if (val.length < 2){
+        let Prefix = val[0].split(RegExp(/\d{4}\.\d+/));
+        let NUM = course.split(Prefix[0]);
+        num = NUM[1].split(".");
+        courseNum = num[0];
+        subject = Prefix[0];
+    }
+    else{
+        num = val[1].split(".");
+        courseNum = num[0];
+        subject = val[0];
+    }
+    
+    if (subject.includes("/")){
+        const sub = subject.split("/");
+        subject = sub[0];
+    }
+
+    const res = await fetch(`https://api.utdnebula.com/course?course_number=${courseNum}&subject_prefix=${subject}`, {
+        method: 'GET',
+        headers: {
+            'x-api-key': process.env.NEBULA_API_KEY,
+            'Accept': 'application/json',
+        },
+    });
+    const courseData = await res.json();
+    if(courseData.data){
+        if(courseData.data[0].description){
+            const courseDescription = courseData.data[0].description;
+            return courseDescription;
+        }
+        else{
+            return "Course description not found";
+        }
+    }
+    else{
+        return "Course description not found";
+    }
+}
 
 function findGrades(data){
     const keywords = ["%"];
     const match = data.filter(str => str.includes("%"));
     const Rwords = ['Grade Components:', 'Grade Components', 'Grading Scale:', 'Grading Scale', 'Grades', 'Grade', 'Grading'];
     const Rregex = new RegExp(Rwords.join("|"), "gi");
+    // console.log(match);
     if (match) {
         const grades = [];
         for (let i = 0; i < match.length; i++) {
@@ -295,17 +429,48 @@ function findGrades(data){
             }
             const components = match[i].split(/\s+/);
             let s = "";
+            let s2 = "";
             let j = 0;
+            // console.log(components);
             while (j < components.length) {
                 if (j < components.length - 1 && !components[j].includes("%")) {
                     if (s.length == 0) {
-                        s += components[j];
+                        s = components[j];
                     } else {
-                        s += " " + components[j];
+                        if(s.includes("%")){
+                            s2 = s;
+                            s = components[j];
+                        }
+                        else{
+                            s += " " + components[j];
+                        }
                     }
-                } else {
-                    grades.push(s);
-                    grades.push(components[j]);
+                }
+                else if (components[j].includes("%")) {
+                    if (s.length == 0) {
+                        s2 = components[j];
+                    }
+                    else{
+                        if(j == components.length - 1){
+                            grades.push(s);
+                            grades.push(components[j]);
+                        }
+                        else{
+                            s += " " + components[j];
+                        }
+                    }
+                }
+                else{
+                    if(s2.length > 0){
+                        let temp = s + " " + components[j];
+                        grades.push(temp.trim());
+                        grades.push(s2);
+                    }
+                    else{
+                        grades.push(s);
+                        grades.push(components[j]);
+                    }
+                    s = "";
                 }
                 j++;
             }
@@ -399,13 +564,13 @@ function findTerm(data){
 // } //AI Calendar function
 
 async function findCalendar(data, term){
-    const keywords = ["Date"];
+    const keywords = ["Date", "Week"];
     // const regex = new RegExp(keywords.join("|"), "gi");
     const Xwords = ["Important", ":", "Post"];
     const Xregex = new RegExp(Xwords.join("|"), "gi");
     const match = data.filter(str => keywords.some(word => str.includes(word) && !Xregex.test(str)));
     const TOC = match[0].split(" ");//Table of Contents
-    console.log(TOC);
+    // console.log(TOC);
     pdfdata.TOC = TOC;
     let s = false;
     let format = false;
@@ -414,7 +579,7 @@ async function findCalendar(data, term){
     // tempStrData.push(match[0]);
     data.forEach(obj => {
         if(s){
-            if(obj.includes("_____________________")){
+            if(obj.includes("_____________________") || (obj == "List of Topics")){
                 s = false;
             }
             // if((obj.includes("/") || obj.includes("Jan ")) && obj.length < 6){
@@ -434,11 +599,14 @@ async function findCalendar(data, term){
         let row = [];
         let str = "";
         for(let i = 0; i < tempStrData.length; i++){
-            if(((tempStrData[i][0] == Weekcounter.toString() || (tempStrData[i][0] + tempStrData[i][1]) == Weekcounter.toString()))){ //Maybe want to check if that value doesnt have "/" as it could mean theirs no weeks
-                                                                                                                                      // and instead its just dates
+            if(((tempStrData[i][0] == Weekcounter.toString() || (tempStrData[i][0] + tempStrData[i][1]) == Weekcounter.toString()))){ //Maybe want to check if that value doesnt have "/" as it could mean theirs no weeks and instead its just dates
                 Weekcounter++;
                 if(str != ("")){
                     row.push(str.trim());
+                    if(i == tempStrData.length - 1){ //Not adding week 17 from stats pdf
+                        str = tempStrData[i];
+                        row.push(str.trim());
+                    }
                 }
 
                 if(tempStrData[i][tempStrData[i].length - 1] != (" ")){
@@ -446,6 +614,9 @@ async function findCalendar(data, term){
                 }
                 else{
                     str = tempStrData[i];
+                    if(i == tempStrData.length - 1){ //Not adding week 17 from stats pdf
+                        row.push(str.trim());
+                    }
                 }
             }
             else{
@@ -476,19 +647,19 @@ async function findCalendar(data, term){
         const ReadingKeywords = ["Chapter", "Chapters", "Chp.", "Chp", "Ch.", "Ch", "chp.", "chp", "ch.", "ch", "Appendix", "Appendices", "appendix", "appendices", "Reading", "Readings", "reading", "readings"];
         const Reading2ndKeywords = ["Chp.", "Ch.", "A.", "chp.", "ch.", "a."];
         const AssignmentKeywords = ["Assignment", "Assignments", "assignment", "assignments", "Homework", "homework", "HW", "hw"];
-        const ImportantKeywords = ["Exams", "Exam", "Tests", "Test", "Midterms", "Midterm", "Finals", "Final", "exams", "exam", "tests", "test", "midterms", "midterm", "finals", "final"];
+        const ImportantKeywords = ["Exams", "Exam", "Tests", "Test", "Midterms", "Midterm", "Finals", "Final", "Quizes", "Quiz", "exams", "exam", "tests", "test", "midterms", "midterm", "finals", "final", "quizes", "quiz"];
         const TopicKeywords = ["Review", "review"];
         const X2Words = ["TBA", "--"]
         //Add case sensitivity .toLowerCase() later
 
-        console.log("Parsing data set:\n");
+        // console.log("Parsing data set:\n");
         for(let i = 0; i < row.length; i++){
             const temp = row[i].split(" ");
-            if(RegExp(/\d/).test(temp[0])){
+            if(RegExp(/\d/).test(temp[0]) && !temp[0].includes("/")){ // Week 1
                 if(!temp[0].includes("/")){
                     tempWeek = temp[0];
                     for(let j = 1; j < temp.length; j++){
-                        if((temp[j].includes("/") && RegExp(/\d/).test(temp[j])) || dateKeywords.some(word => (temp[j] == word))){
+                        if((temp[j].includes("/") && RegExp(/\d/).test(temp[j]) && !temp[j].includes("Ch")) || dateKeywords.some(word => (temp[j] == word))){
                             dateStatus = true;
                             if(temp[j].includes("/")){// Dates that are 01/30
                                 if(ImportantKeywords.some(word => temp[j+1].includes(word))){ // 01/30 Exams
@@ -637,63 +808,63 @@ async function findCalendar(data, term){
                                 }
                             }
                         }
-                        else if(ReadingKeywords.some(word => (temp[j] == word)) || Reading2ndKeywords.some(word2 => temp[j].includes(word2))){ // Chapter/Reading/Appendix
-                            if(RegExp(/\d/).test(temp[j])){ //Chp.1
-                                if(temp[j].includes(",")){ //Chp.1,
-                                    if(j+1 < temp.length){
-                                        if(RegExp(/\d/).test(temp[j+1]) && !Reading2ndKeywords.some(word2 => temp[j+1].includes(word2))){ //Chp.1, 2
-                                            tempReading.push(temp[j].replace(",", "").trim() + " " + temp[j+1].replace(",", "").trim());
-                                            j++;
-                                        }
-                                        else{
-                                            tempReading.push(temp[j].replace(",", "").trim());
-                                        }
-                                    }
-                                    else{
-                                        tempReading.push(temp[j].replace(",", "").trim());
-                                    }
-                                }
-                                else{
-                                    tempReading.push(temp[j].replace(",", "").trim());
-                                }
-                            }
-                            else if(j+1 < temp.length){ //Chp. ...
-                                if(RegExp(/\d/).test(temp[j+1])){ //Chp. 1
-                                    if(temp[j+1].includes(",")){ //Chp. 1,
-                                        if(j+2 < temp.length){
-                                            if(RegExp(/\d/).test(temp[j+2]) && !Reading2ndKeywords.some(word2 => temp[j+2].includes(word2))){ //Chp. 1, 2
-                                                tempReading.push(temp[j].replace(",", "").trim() + " " + temp[j+1].replace(",", "").trim() + ", " + temp[j+2].replace(",", "").trim());
-                                                j+=2;
-                                            }
-                                            else{ //Chp. 1, 2
-                                                tempReading.push(temp[j].replace(",", "").trim() + " " + temp[j+1].replace(",", "").trim());
-                                                j++;
-                                            }
-                                        }
-                                        else{
-                                            tempReading.push(temp[j].replace(",", "").trim() + " " + temp[j+1].replace(",", "").trim());
-                                            j++;
-                                        }
-                                    }
-                                    else{
-                                        tempReading.push(temp[j].replace(",", "").trim() + " " + temp[j+1].replace(",", "").trim());
-                                        j++;
-                                    }
-                                }
-                                else{
-                                    if(temp[j+1].length == 1 && !RegExp(/\d/).test(temp[j+1])){ //Appendix A
-                                        tempReading.push(temp[j].replace(",", "").trim() + " " + temp[j+1].replace(",", "").trim());
-                                        j++;
-                                    }
-                                    else{
-                                        tempReading.push(temp[j].replace(",", "").trim());
-                                    }
-                                }
-                            }
-                            else{
-                                tempReading.push(temp[j].replace(",", "").trim());
-                            }
-                        }
+                        // else if(ReadingKeywords.some(word => (temp[j] == word)) || Reading2ndKeywords.some(word2 => temp[j].includes(word2))){ // Chapter/Reading/Appendix
+                        //     if(RegExp(/\d/).test(temp[j])){ //Chp.1
+                        //         if(temp[j].includes(",")){ //Chp.1,
+                        //             if(j+1 < temp.length){
+                        //                 if(RegExp(/\d/).test(temp[j+1]) && !Reading2ndKeywords.some(word2 => temp[j+1].includes(word2))){ //Chp.1, 2
+                        //                     tempReading.push(temp[j].replace(",", "").trim() + " " + temp[j+1].replace(",", "").trim());
+                        //                     j++;
+                        //                 }
+                        //                 else{
+                        //                     tempReading.push(temp[j].replace(",", "").trim());
+                        //                 }
+                        //             }
+                        //             else{
+                        //                 tempReading.push(temp[j].replace(",", "").trim());
+                        //             }
+                        //         }
+                        //         else{
+                        //             tempReading.push(temp[j].replace(",", "").trim());
+                        //         }
+                        //     }
+                        //     else if(j+1 < temp.length){ //Chp. ...
+                        //         if(RegExp(/\d/).test(temp[j+1])){ //Chp. 1
+                        //             if(temp[j+1].includes(",")){ //Chp. 1,
+                        //                 if(j+2 < temp.length){
+                        //                     if(RegExp(/\d/).test(temp[j+2]) && !Reading2ndKeywords.some(word2 => temp[j+2].includes(word2))){ //Chp. 1, 2
+                        //                         tempReading.push(temp[j].replace(",", "").trim() + " " + temp[j+1].replace(",", "").trim() + ", " + temp[j+2].replace(",", "").trim());
+                        //                         j+=2;
+                        //                     }
+                        //                     else{ //Chp. 1, 2
+                        //                         tempReading.push(temp[j].replace(",", "").trim() + " " + temp[j+1].replace(",", "").trim());
+                        //                         j++;
+                        //                     }
+                        //                 }
+                        //                 else{
+                        //                     tempReading.push(temp[j].replace(",", "").trim() + " " + temp[j+1].replace(",", "").trim());
+                        //                     j++;
+                        //                 }
+                        //             }
+                        //             else{
+                        //                 tempReading.push(temp[j].replace(",", "").trim() + " " + temp[j+1].replace(",", "").trim());
+                        //                 j++;
+                        //             }
+                        //         }
+                        //         else{
+                        //             if(temp[j+1].length == 1 && !RegExp(/\d/).test(temp[j+1])){ //Appendix A
+                        //                 tempReading.push(temp[j].replace(",", "").trim() + " " + temp[j+1].replace(",", "").trim());
+                        //                 j++;
+                        //             }
+                        //             else{
+                        //                 tempReading.push(temp[j].replace(",", "").trim());
+                        //             }
+                        //         }
+                        //     }
+                        //     else{
+                        //         tempReading.push(temp[j].replace(",", "").trim());
+                        //     }
+                        // }
                         else if(AssignmentKeywords.some(word => (temp[j] == word))){
                             if(RegExp(/\d/).test(temp[j])){
                                 tempAssignment.push(temp[j]);
@@ -726,33 +897,32 @@ async function findCalendar(data, term){
                                 tempImportant[tempImportant.length - 1] += " -- " + "TBA";
                             }
                         }
-                        else{
-                            if(!X2Words.some(word => (temp[j] == word))){
-                                if(dateStatus){
-                                    dateStatus = false;
-                                    if(tempTopic != ""){
-                                        tempTopic += " | " + temp[j];
-                                    }
-                                    else{
-                                        tempTopic = temp[j];
-                                    }
-                                }
-                                else{
-                                    if(tempTopic != ""){
-                                        tempTopic += " " + temp[j];
-                                    }
-                                    else{
-                                        tempTopic = temp[j];
-                                    }
-                                }
-                            }
-                        }
+                        // else{
+                        //     if(!X2Words.some(word => (temp[j] == word))){
+                        //         if(dateStatus){
+                        //             dateStatus = false;
+                        //             if(tempTopic != ""){
+                        //                 tempTopic += " | " + temp[j];
+                        //             }
+                        //             else{
+                        //                 tempTopic = temp[j];
+                        //             }
+                        //         }
+                        //         else{
+                        //             if(tempTopic != ""){
+                        //                 tempTopic += " " + temp[j];
+                        //             }
+                        //             else{
+                        //                 tempTopic = temp[j];
+                        //             }
+                        //         }
+                        //     }
+                        // }
                     }
                 }
-                // else{
-                //     for(let j = 0; j < temp.length; j++){
-                //     }
-                // }
+                else if ((RegExp(/\d/).test(temp[0]) && temp[0].includes("/")) || dateKeywords.some(word => (temp[j] == word))){
+                    //add above code to this
+                }
             }
             if(tempWeek == ""){
                 tempWeek = "None";
@@ -772,11 +942,17 @@ async function findCalendar(data, term){
             if(tempImportant.length == 0){
                 tempImportant.push("None");
             }
+            // set.push({
+            //     week: tempWeek,
+            //     date: tempDate,
+            //     topic: tempTopic,
+            //     reading: tempReading,
+            //     assignment: tempAssignment,
+            //     important: tempImportant
+            // })
             set.push({
                 week: tempWeek,
                 date: tempDate,
-                topic: tempTopic,
-                reading: tempReading,
                 assignment: tempAssignment,
                 important: tempImportant
             })
@@ -787,7 +963,8 @@ async function findCalendar(data, term){
             tempAssignment = [];
             tempImportant = [];
         }
-    pdfdata.calendar = set;
+    // console.log(set);
+    // pdfdata.calendar = set;
     // console.log(set);
     return set;
 }
@@ -814,13 +991,14 @@ app.post("/extract-text", async (req, res) => {
     let professornName = findProfessorName(JD);
     pdfdata.professorName = professornName;
     pdfdata.professorEmail = await findProfessorEmail(JD, professornName);
-    pdfdata.professorPhone = findProfessorPhone(JD);
+    pdfdata.professorPhone = await findProfessorPhone(JD, professornName);
     pdfdata.officeLocation = await findOfficeLocation(JD, professornName);
     pdfdata.officeHours = await findOfficeHours(JD, professornName);
     pdfdata.meetings = findMeetings(JD);
     let courseNum = findCourseNum(JD);
     pdfdata.courseNum = courseNum;
     pdfdata.courseName = await findCourseName(courseNum);
+    pdfdata.courseDescription = await findCourseDescription(courseNum);
     pdfdata.term = findTerm(JD);
     pdfdata.grades = findGrades(JD);
     pdfdata.calendar = await findCalendar(JD, pdfdata.term);

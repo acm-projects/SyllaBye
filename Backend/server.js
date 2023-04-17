@@ -18,7 +18,18 @@ app.use(express.json())
 app.use("/", express.static("public"));
 
 mongoose.set('strictQuery', true);
-mongoose.connect(process.env.mongoURL)
+mongoose.connect(process.env.MongoURL)
+
+app.get('/api/google-auth-keys', async (req, res) => {
+    const keys = {
+        CLIENT_ID : process.env.ClientID,
+        API_KEY : process.env.APIKey,
+        DISCOVERY_DOCS : process.env.DiscoveryDocs,
+        SCOPES : process.env.Scopes
+    }
+
+    res.json(keys)
+})
 
 app.post('/api/register', async (req, res) => {
     try{
@@ -31,7 +42,62 @@ app.post('/api/register', async (req, res) => {
         res.json({status: 'ok'})
     }
     catch(err){
-        res.json({status: 'error', error: 'Duplicate email'})
+        res.json({status: 'error', error: err})
+    }
+})
+
+app.post('/api/google-auth-register', async (req, res) => {
+    try{
+        //Add here
+        await User.create({
+            name: req.body.name,
+            email: req.body.email,
+            password: req.body.password,
+        })
+        // res.json({status: 'ok'})
+        const token = await new jose.SignJWT({
+            name: req.body.name,
+            email: req.body.email,
+        })
+            .setProtectedHeader({alg: 'HS256'})
+            .setIssuedAt()
+            .sign(new TextEncoder().encode(process.env.JWTKey))
+
+        return res.json({status: 'ok', user: token})
+    }
+    catch(err){
+        res.json({status: 'error', error: err})
+    }
+})
+
+app.post('/api/postCalendarID', async (req, res) => {
+    const token = req.headers['x-access-token'];
+
+    try{
+        const {payload, protectedHeader} = await jose.jwtVerify(token, new TextEncoder().encode(process.env.JWTKey))
+        const userEmail = payload.email
+
+        await User.findOneAndUpdate({email: userEmail}, {calendarID: req.body.calendarID})
+
+    }
+    catch(err){
+        res.json({status: 'error', error: err})
+    }
+})
+
+app.get('/api/getCalendarID', async (req, res) => {
+    const token = req.headers['x-access-token'];
+
+    try{
+        const {payload, protectedHeader} = await jose.jwtVerify(token, new TextEncoder().encode(process.env.JWTKey))
+        const userEmail = payload.email
+
+        const result = await User.findOne({email: userEmail})
+
+        res.json({status: 'ok', calendarID: result.calendarID})
+    }
+    catch(err){
+        res.json({status: 'error', error: err})
     }
 })
 
@@ -62,6 +128,28 @@ app.post('/api/login', async (req, res) => {
     }
 })
 
+app.post('/api/google-auth-login', async (req, res) => {
+
+    try{
+        const user = await User.findOne({
+            email: req.body.email,
+        })
+
+        const token = await new jose.SignJWT({
+            name: user.name,
+            email: user.email,
+        })
+            .setProtectedHeader({alg: 'HS256'})
+            .setIssuedAt()
+            .sign(new TextEncoder().encode(process.env.JWTKey))
+
+        return res.json({status: 'ok', user: token})
+    }
+    catch(err){
+        res.json({status: 'error', error: err})
+    }
+})
+
 app.post('/api/upload', upload1.fields([upload2.single({ name: 'text' }), { name: 'thumbnail' }]), async (req, res) => {
     try{
         if (!req.body) {
@@ -71,7 +159,6 @@ app.post('/api/upload', upload1.fields([upload2.single({ name: 'text' }), { name
         }
     }
     catch(err){
-        console.log("THERE IS AN ERROR\n\n\n")
         console.log(err)
     }
 
@@ -105,8 +192,19 @@ app.get('/api/files', async (req, res) => {
         const files = await File.find({
             email: userEmail,
         })
+        
+        if(files.size == 0){
+            res.json([])
+        }
+        else{
+            const data = []
+            files.forEach((file) => {
+                data.push(file)
+            })
 
-        res.json(files)
+            res.json(data)
+        }
+        
     }
     catch(err){
         console.log(err)

@@ -214,7 +214,11 @@ order: 0;
 flex-grow: 0;
 }
 
-
+#googleButton {
+    width: 100%; /* set the width of the iframe */
+    height: 400px; /* set the height of the iframe */
+    border: 50px;
+}
 
 label, input {display: block;}
 @media (prefers-reduced-motion: no-preference) {

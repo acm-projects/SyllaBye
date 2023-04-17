@@ -9,11 +9,12 @@ import * as jose from 'jose'
 import {useNavigate} from 'react-router-dom'
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
-let extractedText = null
+let extractedText = null;
 
 async function extract(file, thumbnail){
     const formData = new FormData()
     formData.append("pdfFile", file)
+    // console.log("test");
     const res = await fetch("http://localhost:1338/extract-text", {
         method: "post",
         body: formData
@@ -41,7 +42,8 @@ async function extract(file, thumbnail){
     }
 }
 
-function Home() {
+function Home(){
+    const [images, setImages] = useState([]);
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -53,15 +55,25 @@ function Home() {
                 navigate('/login')
             }
             else{
-                //
+                const files = fetch("http://localhost:1337/api/files", {
+                    method: "GET",
+                    headers: {"x-access-token" : localStorage.getItem("token"),},
+                }).then((res) => {
+                    return res.json()
+                }).then((res) => {
+                    res.forEach((file) => {
+                        setImages((prevState) => [
+                            ...prevState,
+                            { id: cuid(), src: file.thumbnail, name: file.fileData.courseName },
+                        ]);
+                    })
+                });
             }
         }
         else{
             navigate('/login')
         }
     }, [])
-
-    const [images, setImages] = useState([]);
 
     const onDrop = useCallback((acceptedFiles) => {
         acceptedFiles.map((file) => {
