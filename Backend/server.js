@@ -212,6 +212,31 @@ app.get('/api/files', async (req, res) => {
     }
 })
 
+app.post('/api/delete', async (req, res) => {
+    try{
+        const token = req.headers['x-access-token'];
+
+        const {payload, protectedHeader} = await jose.jwtVerify(token, new TextEncoder().encode(process.env.JWTKey))
+        const userEmail = payload.email
+        
+        // console.log(req.body.thumbnail)
+        const resp = File.findOne({
+            email: userEmail,
+            thumbnail: req.body.thumbnail,
+        })
+        .then((file) => {
+            file.remove()
+            res.json({status: 'ok'})
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+    }
+    catch(err){
+        console.log(err)
+    }
+})
+
 app.listen(1337, () => {
     console.log('Server started on 1337')
 })

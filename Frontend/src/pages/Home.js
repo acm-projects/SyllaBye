@@ -121,6 +121,12 @@ function Home(){
         });
     }, []);
 
+    const onDelete = useCallback((id) => {
+        if(id !== "null"){
+            setImages((prevState) => prevState.filter((image) => image.id !== id));
+        }
+    }, []);
+
     return (
         <main className="App">
 
@@ -134,7 +140,7 @@ function Home(){
             }}
         />
 
-        <ImageGrid images={images}/>
+        <ImageGrid images={images} onDelete={onDelete}/>
 
         </main>
     );

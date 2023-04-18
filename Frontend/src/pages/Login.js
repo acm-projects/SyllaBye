@@ -137,13 +137,8 @@ function Login() {
                         />
                         <br />
                         <input className='Buttons' id="signinButton" type="submit" value="Sign In"/>
-                        <br />
-                        <p id = "noAccount">Don't have an account?</p>
-                        <input className='Buttons' id="signupButton2" type="submit" value="Click here to sign up." onClick={handleRegisterAsk}/>
-                        <br />
-                        
-                    </form>
-                    <GoogleOAuthProvider clientId="436198478288-efo40fbhrj324kk9uktqfr20tthrt5dk.apps.googleusercontent.com">
+                        <p className="or"> or </p>
+                        <GoogleOAuthProvider className='Buttons' clientId="436198478288-efo40fbhrj324kk9uktqfr20tthrt5dk.apps.googleusercontent.com">
                         <GoogleLogin
                             id = "googleButton"
                             onSuccess={googleAuth}
@@ -152,6 +147,12 @@ function Login() {
                             }}
                         />
                     </GoogleOAuthProvider>
+                        <p id = "noAccount">Don't have an account?</p>
+                        <input className='Buttons' id="signupButton2" type="submit" value="Click here to sign up." onClick={handleRegisterAsk}/>
+                        <br />
+                        
+                    </form>
+                    
                 </div>
             </div>
         </div>

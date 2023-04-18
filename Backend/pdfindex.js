@@ -59,11 +59,11 @@ const pdfdata = {
 
 
 function findProfessorName(data) {
-    const keywords = ["Professor", "professor" , "Name", "name", "Dr."];
+    const keywords = ["Instructor", "Professor", "professor" , "Name", "name", "Dr."];
     const Xwords = ["Professor Contact Information"];//Excluded words
     const match = data.filter(str => keywords.some(word => str.includes(word) && !str.includes(Xwords)));
     if (match) {
-        const Rwords = ["professor", "Name", ":"];//Removed words
+        const Rwords = ["Instructor", "professor", "Name", ":"];//Removed words
         const Rregex = new RegExp(Rwords.join("|"), "gi");
         if(Rregex.test(match[0])){
             const name = match[0].replace(Rregex, "").trim();
@@ -267,9 +267,12 @@ function findCourseNum(data) {
     const regex = new RegExp(keywords.map(keyword => (typeof keyword === 'string' ? keyword : keyword.source)).join("|"), "gi");
     // const match = data.filter(str => (/\d{4}/).test(str));
     const match = data.filter(str => regex.test(str));
-    // console.log(match);
     // const split = match[0].split(" ");
     // console.log(split);
+    if(match[0].includes("Course:")){
+        match[0] = match[0].replace("Course:", "").trim();
+    }
+    // console.log(match);
     let num = "";
     let prefix = "";
     if(match[0].trim().includes(" ")){
@@ -294,9 +297,11 @@ function findCourseNum(data) {
                     const temp = split[i].split("-");
                     // console.log("prefix: " + temp);
                     prefix = temp[0];
+                    break;
                 }
                 else{
                     prefix = split[i];
+                    break;
                 }
             }
         }
@@ -424,6 +429,13 @@ function findGrades(data){
     if (match) {
         const grades = [];
         for (let i = 0; i < match.length; i++) {
+            // console.log(match[i].length);
+            if(match[i].length > 40){
+                continue;
+            }
+            if(match[i].includes("Total")){
+                continue;
+            }
             if(Rregex.test(match[i])){
                 match[i] = match[i].replace(Rregex, "").trim();
             }
@@ -564,11 +576,12 @@ function findTerm(data){
 // } //AI Calendar function
 
 async function findCalendar(data, term){
-    const keywords = ["Date", "Week"];
+    const keywords = ["Date", "Dates", "Week"];
     // const regex = new RegExp(keywords.join("|"), "gi");
-    const Xwords = ["Important", ":", "Post"];
+    const Xwords = ["Important", ":", "Post", "Printed", "Key"];
     const Xregex = new RegExp(Xwords.join("|"), "gi");
     const match = data.filter(str => keywords.some(word => str.includes(word) && !Xregex.test(str)));
+    console.log(match);
     const TOC = match[0].split(" ");//Table of Contents
     // console.log(TOC);
     pdfdata.TOC = TOC;
@@ -745,60 +758,62 @@ async function findCalendar(data, term){
                                     }
                                 }
                                 else{ //Jan 30
-                                    if(ImportantKeywords.some(word => temp[j+2].includes(word))){ //Jan 30 Exams
-                                        if(RegExp(/\d/).test(temp[j+2])){ //Jan 30 Exams1
-                                            if(j+3 < temp.length){ //Jan 30 Exams1 ...
-                                                if(TopicKeywords.some(word => temp[j+3].equals(word))){ //Jan 30 Exams1 Review
-                                                    tempDate.push(temp[j].trim() + " " + temp[j+1]);
-                                                    if(tempTopic != ("")){
-                                                        tempTopic += " " + temp[j+2] + " " + temp[j+3];
+                                    if(j+2 < temp.length){ //Jan 30 ...
+                                        if(ImportantKeywords.some(word => temp[j+2].includes(word))){ //Jan 30 Exams
+                                            if(RegExp(/\d/).test(temp[j+2])){ //Jan 30 Exams1
+                                                if(j+3 < temp.length){ //Jan 30 Exams1 ...
+                                                    if(TopicKeywords.some(word => temp[j+3].equals(word))){ //Jan 30 Exams1 Review
+                                                        tempDate.push(temp[j].trim() + " " + temp[j+1]);
+                                                        if(tempTopic != ("")){
+                                                            tempTopic += " " + temp[j+2] + " " + temp[j+3];
+                                                        }
+                                                        else{
+                                                            tempTopic = temp[j+2] + " " + temp[j+3];
+                                                        }
+                                                        j+=3;
                                                     }
-                                                    else{
-                                                        tempTopic = temp[j+2] + " " + temp[j+3];
+                                                    else{ //Jan 30 Exams1
+                                                        tempImportant.push(temp[j].replace(":", "").trim() + " " + temp[j+1] + " | " + temp[j+2]);
+                                                        j+=2;
                                                     }
-                                                    j+=3;
                                                 }
                                                 else{ //Jan 30 Exams1
                                                     tempImportant.push(temp[j].replace(":", "").trim() + " " + temp[j+1] + " | " + temp[j+2]);
                                                     j+=2;
                                                 }
                                             }
-                                            else{ //Jan 30 Exams1
-                                                tempImportant.push(temp[j].replace(":", "").trim() + " " + temp[j+1] + " | " + temp[j+2]);
-                                                j+=2;
-                                            }
-                                        }
-                                        else if (j+3 < temp.length){ //Jan 30 Exams ...
-                                            if(RegExp(/\d/).test(temp[j+3])){ //Jan 30 Exams 1
-                                                if(j+4 < temp.length){
-                                                    if(TopicKeywords.some(word => (temp[j+4] == word))){ //Jan 30 Exams 1 Review
-                                                        tempDate.push(temp[j].trim() + " " + temp[j+1]);
-                                                        if(tempTopic != ("")){
-                                                            tempTopic += " " + temp[j+2] + " " + temp[j+3] + " " + temp[j+4];
+                                            else if (j+3 < temp.length){ //Jan 30 Exams ...
+                                                if(RegExp(/\d/).test(temp[j+3])){ //Jan 30 Exams 1
+                                                    if(j+4 < temp.length){
+                                                        if(TopicKeywords.some(word => (temp[j+4] == word))){ //Jan 30 Exams 1 Review
+                                                            tempDate.push(temp[j].trim() + " " + temp[j+1]);
+                                                            if(tempTopic != ("")){
+                                                                tempTopic += " " + temp[j+2] + " " + temp[j+3] + " " + temp[j+4];
+                                                            }
+                                                            else{
+                                                                tempTopic = temp[j+2] + " " + temp[j+3] + " " + temp[j+4];
+                                                            }
+                                                            j+=4;
                                                         }
-                                                        else{
-                                                            tempTopic = temp[j+2] + " " + temp[j+3] + " " + temp[j+4];
+                                                        else{ //Jan 30 Exams 1
+                                                            tempImportant.push(temp[j].replace(":", "").trim() + " " + temp[j+1] + " | " + temp[j+2] + " " + temp[j+3]);
+                                                            j+=3;
                                                         }
-                                                        j+=4;
                                                     }
                                                     else{ //Jan 30 Exams 1
                                                         tempImportant.push(temp[j].replace(":", "").trim() + " " + temp[j+1] + " | " + temp[j+2] + " " + temp[j+3]);
                                                         j+=3;
                                                     }
                                                 }
-                                                else{ //Jan 30 Exams 1
-                                                    tempImportant.push(temp[j].replace(":", "").trim() + " " + temp[j+1] + " | " + temp[j+2] + " " + temp[j+3]);
-                                                    j+=3;
+                                                else{ //Jan 30 Exams (no ...)
+                                                    tempImportant.push(temp[j].replace(":", "").trim() + " " + temp[j+1] + " | " + temp[j+2]);
+                                                    j+=2;
                                                 }
                                             }
-                                            else{ //Jan 30 Exams (no ...)
+                                            else{ //Jan 30 Exams
                                                 tempImportant.push(temp[j].replace(":", "").trim() + " " + temp[j+1] + " | " + temp[j+2]);
                                                 j+=2;
                                             }
-                                        }
-                                        else{ //Jan 30 Exams
-                                            tempImportant.push(temp[j].replace(":", "").trim() + " " + temp[j+1] + " | " + temp[j+2]);
-                                            j+=2;
                                         }
                                     }
                                     else{ //Jan 30
@@ -956,6 +971,7 @@ async function findCalendar(data, term){
                 assignment: tempAssignment,
                 important: tempImportant
             })
+            console.log(set);
             tempWeek = "";
             tempDate = [];
             tempTopic = "";
