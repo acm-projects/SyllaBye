@@ -3,6 +3,8 @@
 }
 .wrapper{
     display: flex;
+    /* position: absolute;
+    float: right; */
 }
 .imagegrid{
     display: inline-block;

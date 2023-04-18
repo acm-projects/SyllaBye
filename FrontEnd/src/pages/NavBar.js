@@ -5,7 +5,6 @@ function NavBar(props){
     return(
         <div className = "navBar">
             <div className="userInfo">
-            <img src = "backgroundimage.jpg" id = "pfp"></img>
             <label id="nameuser">{props.username}</label>
             </div>
         <table className = "classList">

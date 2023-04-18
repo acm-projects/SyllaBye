@@ -1,6 +1,6 @@
 import './Welcome.css';
 import Login from './Login';
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import logo from './../syllabyelogo.png';
 //import { Box } from '@mui/material';
 

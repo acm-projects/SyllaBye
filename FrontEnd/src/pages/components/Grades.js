@@ -4,7 +4,7 @@ function Grades(props){
     return(
     <div className = "box2">
         <label id="namelabel2">Grades</label>
-        <button className="addItem" onChange = {props.addField}>+</button>
+        {/* <button className="addItem" onChange = {props.addField}>+</button> */}
         <table className="tables">
            {props.items.map(item => (
                     <tr>

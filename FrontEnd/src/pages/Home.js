@@ -66,6 +66,7 @@ function Home() {
 
     const [images, setImages] = useState([]);
     const [classes, setClasses] = useState([]);
+    
     const onDrop = useCallback((acceptedFiles) => {
         acceptedFiles.map((file) => {
         const reader = new FileReader();
@@ -106,7 +107,7 @@ function Home() {
                 grades.push({range: '94-100', grade: 'A'});
                 var gradeDistribution = extractedText.grades;
                 // gradeDistribution.push({field: 'Homework', weight: '35%'});
-                var dates = [];
+                var dates = extractedText.calendar;
                 num++;
                 setClasses((prevState) => [
                   ...prevState,
