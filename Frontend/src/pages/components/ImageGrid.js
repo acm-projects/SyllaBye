@@ -1,32 +1,25 @@
 import React from "react";
 import trash from "./delete-icon.png";
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router';
 
-const Image = ({ image }) => {
+const Image = ({ image, onDelete }) => {
 
-  const history = useHistory();
+  // const history = useHistory();
 
-  const deleteImage = () => {
+  async function deleteImage() {
     console.log("ran")
-    fetch("http://localhost:1337/api/delete", {
+    const res = await fetch("http://localhost:1337/api/delete", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "x-access-token": localStorage.getItem("token"),
       },
       body: JSON.stringify({ thumbnail: image.src }),
-    }).then((res) => {
-      // window.location.reload();
-      // history.go(0);
-      console.log(res);
-      return res.json();
-    }).then((res) => {
-      if (res) {
-        console.log("Deleted");
-      } else {
-        console.log("Error");
-      }
-    });
+    })
+    
+    if(res){
+      onDelete(image.id);
+    }
   };
 
   return (
@@ -52,10 +45,11 @@ const Image = ({ image }) => {
   );
 };
 
-const ImageGrid = ({ images }) => {
 
+function ImageGrid({ images, onDelete }) {
+  
   const renderImage = (image) => {
-    return <Image image={image} key={`${image.id}-image`} /> ;
+    return <Image image={image} key={`${image.id}-image`} onDelete={onDelete}/> ;
   };
 
   return (
