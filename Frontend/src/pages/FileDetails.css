@@ -1,6 +1,13 @@
-.firstrow{
+ .firstrow{
     display:flex;
 }
 .secondrow{
     display:flex;
+}
+
+.info{
+    margin-left: 5vw;
+}
+.detailComps{
+    display: flex;
 }

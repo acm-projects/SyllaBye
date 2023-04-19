@@ -1,0 +1,31 @@
+.elements{
+    margin-left: 5vw;
+}
+/* .wrapper{
+    display: flex;
+    position: absolute; comment this out
+    float: right; comment this out 
+} */
+.imagegrid{
+    display: inline-block;
+}
+.wrapper{
+    max-width: auto;
+    display: flex;
+    flex-wrap: wrap;
+}
+.navbar,
+.imagegrid,
+.dropzone{
+    display: inline-block;
+
+}
+.navbar{
+    order: 3;
+}
+.dropzone{
+    order: 2;
+}
+.imagegrid{
+    order: 1;
+}

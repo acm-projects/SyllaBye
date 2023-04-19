@@ -61,7 +61,7 @@ const pdfdata = {
 function findProfessorName(data) {
     const keywords = ["Instructor", "Professor", "professor" , "Name", "name", "Dr."];
     const Xwords = ["Professor Contact Information"];//Excluded words
-    const match = data.filter(str => keywords.some(word => str.includes(word) && !str.includes(Xwords)));
+    const match = data.filter(str => keywords.some(word => str.includes(word) && !str.includes(Xwords) && (str.trim()).length != word.length));
     if (match) {
         const Rwords = ["Instructor", "professor", "Name", ":"];//Removed words
         const Rregex = new RegExp(Rwords.join("|"), "gi");
@@ -212,7 +212,7 @@ async function findOfficeHours(data, name) {
     const Xwords = ["Meetings"];
     const match = data.filter(str => keywords.some(word => str.includes(word) && !str.includes(Xwords)));
     if (match) {
-        const Rwords = ["Office Hours", "Hours"];//Removed words
+        const Rwords = ["Office Hours", "Hours", ":"];//Removed words
         const Rregex = new RegExp(Rwords.join("|"), "gi");
         if(Rregex.test(match[0])){
             const hours = match[0].replace(Rregex, "").trim();
@@ -221,7 +221,7 @@ async function findOfficeHours(data, name) {
         return match[0];
     }
     else{
-        const Rwords = ["Dr.", "Mr.", "Ms.", "Mrs.", "Professor", "professor", "Name", "name"];//Removed words
+        const Rwords = ["Dr.", "Mr.", "Ms.", "Mrs.", "Professor", "professor", "Name", "name", ":"];//Removed words
         const Rregex = new RegExp(Rwords.join("|"), "gi");
         const n = name.replace(Rregex, "").trim();
         const prof = n.split(" ");
@@ -276,12 +276,18 @@ function findCourseNum(data) {
     let num = "";
     let prefix = "";
     if(match[0].trim().includes(" ")){
-        console.log()
         const split = match[0].trim().split(" ");
-        // console.log(split);
+        console.log(split);
         for(let i = 0; i < split.length; i++){
             if(RegExp(/\d{4}\.\d+/).test(split[i])){
                 if(split[i].length > 8){
+                    for(let j = 0; j < split[i].length; j++){
+                        if(split[i][j] == "."){
+                            prefix = split[i].substring(0, j-4);
+                            num = split[i].substring(j-4, split[i].length);
+                            return prefix + " " + num;
+                        }
+                    }
                     return split[i];
                 }
                 else{
@@ -305,6 +311,8 @@ function findCourseNum(data) {
                 }
             }
         }
+        console.log("prefix: " + prefix);
+        console.log("num: " + num);
         return prefix + " " + num;
     }
     else if(match) {
@@ -581,7 +589,7 @@ async function findCalendar(data, term){
     const Xwords = ["Important", ":", "Post", "Printed", "Key"];
     const Xregex = new RegExp(Xwords.join("|"), "gi");
     const match = data.filter(str => keywords.some(word => str.includes(word) && !Xregex.test(str)));
-    console.log(match);
+    // console.log(match);
     const TOC = match[0].split(" ");//Table of Contents
     // console.log(TOC);
     pdfdata.TOC = TOC;
@@ -971,7 +979,6 @@ async function findCalendar(data, term){
                 assignment: tempAssignment,
                 important: tempImportant
             })
-            console.log(set);
             tempWeek = "";
             tempDate = [];
             tempTopic = "";

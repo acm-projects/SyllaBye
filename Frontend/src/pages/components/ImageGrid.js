@@ -13,7 +13,6 @@ const Image = ({ image, onDelete }) => {
       body: JSON.stringify({ thumbnail: image.src }),
     })
 
-    console.log(res);
     if(res){
       onDelete(image.id);
     }
