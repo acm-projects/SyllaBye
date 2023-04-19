@@ -1,9 +1,9 @@
 .box{
     display: inline-block;
-    width: 35vw;
+    width: 39vw;
     height: 40vh;
     margin-left: 2vw;
-    margin-top: 10vh;
+    margin-top: 2vh;
     align-self: center;
     /* Tiny Gray */
     background: #E0EAE2;
@@ -17,6 +17,9 @@
     overflow-y: scroll;
     overflow-x: scroll;
 }
+.box::-webkit-scrollbar {
+    display: none;
+}
 /* .inlineForGood{
     display: flex;
     justify-content: space-between;
@@ -26,6 +29,8 @@
     text-align: center;
     font-size: 4vh;
     padding-top: 2vh;
+    font-family: 'Inter';
+    color: var(--darkGreen);
 }
 .infoList{
     margin-top: 5%;

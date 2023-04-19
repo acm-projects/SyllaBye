@@ -1,6 +1,6 @@
 .box3{
     display: inline-block;
-    width: 35vw;
+    width: 39vw;
     height: 40vh;
     margin-left: 2vw;
     margin-top: 2vh;
@@ -15,11 +15,15 @@
     order: 0;
     flex-grow: 0;
 }
+.box3::-webkit-scrollbar {
+    display: none;
+}
 #namelabel3{
     padding-top: 2vh;
     font-weight: bold;
     text-align: center;
-    
+    font-family: 'Inter';
+    color: var(--darkGreen);
     font-size: 4vh;
 }
 .table3{

@@ -1,9 +1,17 @@
+:root {
+    --lightestGrey: #FBFFF9;
+    --lightestGreen: #EDF6EF;
+    --mediumGreen: #E0EAE2;
+    --mediumDarkGreen: #4B6350;
+    --darkGreen: #263928;
+  }
+
 .box2{
     display: inline-block;
-    width: 35vw;
-    height: 40vh;
+    width: 32vw;
+    height: 52vh;
     margin-left: 2vw;
-    margin-top: 10vh;
+    margin-top: 2vh;
     align-self: center;
     /* Tiny Gray */
     background: #E0EAE2;
@@ -15,12 +23,19 @@
     flex: none;
     order: 0;
     flex-grow: 0;
+    padding: 2vh 4vw 2vh 3vw;
+}
+
+.box2::-webkit-scrollbar {
+    display: none;
 }
 #namelabel2{
     padding-top: 2vh;
     font-weight: bold;
     text-align: center;
     font-size: 4vh;
+    font-family: 'Inter';
+    color: var(--darkGreen);
 }
 .tables{
     border: 1px solid black;

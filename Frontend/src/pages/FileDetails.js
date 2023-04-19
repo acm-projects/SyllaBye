@@ -92,11 +92,11 @@ function FileDetails(){
                     <div className = "firstrow">
                         <TeacherInfo items={classInfo} addField = {addTeacherInfo}/>
                         <ReactModal isOpen = {showPopup} contentLabel = "Please Work"/>
-                        <Description items={description} addField = {addTeacherInfo}/>
+                        <GradeDistribution items={gradeDistribution} addField = {addTeacherInfo}/>
                     </div>
                     <div className = "secondrow">
-                        <GradeDistribution items={gradeDistribution} addField = {addTeacherInfo}/>
                         <Dates items={dates} addField = {addTeacherInfo}/>
+                        <Description items={description} addField = {addTeacherInfo}/>
                     </div>
                 </div>
             </div>

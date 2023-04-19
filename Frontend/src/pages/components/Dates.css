@@ -1,7 +1,7 @@
 .box4{
     display: inline-block;
-    width: 35vw;
-    height: 40vh;
+    width: 39vw;
+    height: 55vh;
     margin-left: 2vw;
     margin-top: 2vh;
     align-self: center;
@@ -15,11 +15,16 @@
     order: 0;
     flex-grow: 0;
 }
+.box4::-webkit-scrollbar {
+    display: none;
+}
 #namelabel4{
     padding-top: 2vh;
     font-weight: bold;
     text-align: center;
     font-size: 4vh;
+    font-family: 'Inter';
+    color: var(--darkGreen);
 }
 .table4{
     border: 1px solid black;
@@ -28,6 +33,9 @@
     width: 80%;
     font-weight: bold;
     font-size: 1.8vh;
+}
+.table4::-webkit-scrollbar {
+    display: none;
 }
 tr,td{
     border: 1px solid black;

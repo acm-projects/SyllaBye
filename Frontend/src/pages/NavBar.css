@@ -1,6 +1,15 @@
+:root {
+    --lightestGrey: #FBFFF9;
+    --lightestGreen: #EDF6EF;
+    --mediumGreen: #E0EAE2;
+    --mediumDarkGreen: #4B6350;
+    --darkGreen: #263928;
+  }
+
+
 .navBar{
     width: 15vw;
-    height: 100vh;
+    height: 170%;
     /* align-items: center; */
     /* margin-left: 0vw; */
     background-color: aqua;
@@ -11,32 +20,51 @@
     background: #E0EAE2;
     overflow-y: scroll;
     /* border-radius: 15px; */
+    position:absolute;
+    z-index:1;
+    top:12vh;
+    left: 0;
 }
 
+.navBar::-webkit-scrollbar {
+    display: none;
+}
 .classList{
     /* margin-left: 15%; */
     width: 100%;
 }
 .buttonForClassChange{
-    width: 100%;
-    font-size:2vw;
-    font-weight: bold;
+    width: 110%;
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+    font-size:1.7vw;
+    font-weight:500;
     /* color: red; */
     cursor: pointer;
     background-color: #E0EAE2;
     border: 0vw;
-    margin-bottom: 1vh;
+    margin-bottom: 0vh;
     text-align: left;
+    font-family: 'Inter';
+    color: var(--darkGreen);
+    transition: .5s;
+}
+.buttonForClassChange:hover{
+    background-color: var(--lightestGreen);
+    transition: .5s;
 }
 #tabledet{
     border: 0vw;
 }
 #nameuser{
-    text-align: right;
-    margin-left: 3.5vw;
-    font-size: 1.5vw;
+    text-align: left;
+    margin-left: 1vw;
+    font-size: 2vw;
     margin-top: 2vh;
     margin-bottom: 2vh;
+    font-family: 'Inter';
+    font-weight: 600;
+    color: var(--darkGreen);
 }
 #pfp{
     margin-left: 1vw;
