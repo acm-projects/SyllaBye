@@ -56,7 +56,7 @@ function CalendarPg() {
                         let calendarEmbedUrl = "https://calendar.google.com/calendar/embed?src=" + userEmail + "&ctz=America%2FCentral";
                         const calendarFrame = document.createElement('iframe');
                         calendarFrame.setAttribute('src', calendarEmbedUrl);
-                        calendarFrame.setAttribute('style', 'border-width:0; width:100vw; height:100vh; framework:0');
+                        calendarFrame.setAttribute('style', ' framework:0');
                         document.getElementById('calendar-container').appendChild(calendarFrame);
                     }
                     catch(err){
@@ -371,7 +371,7 @@ function CalendarPg() {
             <Header/>
             <div>  
                 <div id="calendar-container"></div>
-                <button onClick={handleClick} class="Events">Add Events</button>
+                <button className="eventBtn" onClick={handleClick} class="Events">Add Events</button>
             </div>
         </main>
     )
