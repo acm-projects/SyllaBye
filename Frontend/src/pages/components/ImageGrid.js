@@ -12,7 +12,6 @@ const Image = ({ image, onDelete }) => {
       },
       body: JSON.stringify({ thumbnail: image.src }),
     })
-
     if(res){
       onDelete(image.id);
     }
@@ -41,9 +40,8 @@ const Image = ({ image, onDelete }) => {
   );
 };
 
-
 function ImageGrid({ images, onDelete }) {
-
+  
   const renderImage = (image) => {
     return <Image image={image} key={`${image.id}-image`} onDelete={onDelete}/> ;
   };

@@ -116,17 +116,7 @@ function Home(){
                 const context = canvas.getContext('2d');
                 canvas.height = viewport.height;
                 canvas.width = viewport.width;
-                document.body.appendChild(canvas); // Add canvas to DOM for debugging purposes
-                // pdfPage.render({ canvasContext: context, viewport: viewport }).promise.then(async() => {
-                //     const thumbnail = canvas.toDataURL();
-                //     await extract(file, thumbnail)
-                //     document.body.removeChild(canvas); // Remove canvas from DOM after rendering
-                //     console.log(`Thumbnail generated for PDF file: ${file.name}`);
-                //     setImages((prevState) => [
-                //         ...prevState,
-                //         { id: cuid(), src: thumbnail, name: extractedText.courseName },
-                //     ]);
-                //     }).catch((error) => {
+                document.body.appendChild(canvas);
                 pdfPage.render({ canvasContext: context, viewport: viewport }).promise.then(async() => {
                     const thumbnail = canvas.toDataURL();
                     await extract(file, thumbnail)
@@ -212,24 +202,6 @@ function Home(){
                     </div>
                 </div>
         </main>
-    //     <main className="App">
-    //     <Header/>
-    //     <div className = "fullpage">
-    //         <div className = "wrapper">
-    //             <NavBar className = "navbar" username = "Rahul" items = {classes.map(c => c.course)} changeClass = {changeClass2} />
-    //             <div className = "elements">
-    //                 <Dropzone 
-    //                     onDrop={onDrop} 
-    //                     accept={"application.pdf"} 
-    //                     restrictions={{
-    //                     allowedExtensions: [".pdf"]
-    //                     }}
-    //                 />
-    //                 <ImageGrid images={images} onDelete={onDelete}/>
-    //             </div>
-    //         </div>
-    //     </div>
-    // </main>
     );
 }
 
