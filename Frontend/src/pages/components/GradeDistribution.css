@@ -2,7 +2,7 @@
     display: inline-block;
     width: 35vw;
     height: 40vh;
-    margin-left: 15vw;
+    margin-left: 2vw;
     margin-top: 2vh;
     align-self: center;
     /* Tiny Gray */
@@ -20,7 +20,7 @@
     font-weight: bold;
     text-align: center;
     
-    font-size: 3vw;
+    font-size: 4vh;
 }
 .table3{
     border: 1px solid black;
