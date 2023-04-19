@@ -227,8 +227,9 @@ function Register() {
                         />
                         <br />
                         <input id="signupButton" className="Buttons" type="submit" value="Sign Up"/>
-                        
+                        <p className="or"> or </p>
                     </form>
+                    <button className="googleBtn">
                     <GoogleOAuthProvider clientId="436198478288-efo40fbhrj324kk9uktqfr20tthrt5dk.apps.googleusercontent.com">
                         <GoogleLogin
                             onSuccess={googleAuth}
@@ -237,6 +238,7 @@ function Register() {
                             }}
                         />
                     </GoogleOAuthProvider>
+                    </button>
                     <p id = "yesAccount">Already have an account?</p>
                     <input className='Buttons' id="signinButton3" type="submit" value="Click here to sign in." onClick={handleLoginAsk}/>
                     <br />
