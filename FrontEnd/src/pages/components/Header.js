@@ -1,7 +1,7 @@
 import "./Header.css";
 import React, {useEffect} from "react";
 import {useNavigate} from 'react-router-dom'
-import logo from './../../syllabyelogo.png';
+import logo from '../../syllabyelogo.png';
 
 
 const Header = () => {

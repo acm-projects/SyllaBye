@@ -1,7 +1,7 @@
 import './Register.css'
 import {useState} from 'react'
 import {useNavigate} from 'react-router-dom'
-import logo from './../syllabyelogo.png';
+import logo from '../syllabyelogo.png';
 import { gapi } from 'gapi-script';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { GoogleLogin } from '@react-oauth/google';
