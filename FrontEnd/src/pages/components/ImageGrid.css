@@ -35,13 +35,38 @@ body {
   
   .pdf-label {
   
-      border-bottom-left-radius: 8px;
-      border-bottom-right-radius: 8px;
-      width: 102%;
-      background-color: var(--mediumGreen); 
-      margin-left: 1vh;
-      height: 60px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    width: 102%;
+    background-color: var(--mediumGreen); 
+    margin-left: 1vh;
+    height: 60px;
+    font-family: 'Inter';
+    font-size: 90%;
   
+  }
+
+  .delete{
+    position:absolute;
+    flex-direction: column;
+    height: 0vh;
+    width: 0vh;
+    padding: 2.5vh;
+    border-radius: 10px;
+    background-image:url("./delete-icon.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 65%;
+    transition: .5s;
+  }
+
+  .delete:hover{
+    background-color:#fc8888; 
+    transition: .5s;
+    background-image:url("./delete-icon.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 65%;
   }
 
   button {

@@ -2,14 +2,12 @@ import React from "react";
 import { useDropzone } from "react-dropzone";
 import "./Dropzone.css";
 import { Document, Page } from 'react-pdf';
-import "./Dropzone.css";
 
 function Dropzone({ onDrop, accept, open }) {
 
   const { getRootProps, getInputProps, isDragActive, acceptedFiles, fileRejections } =
     useDropzone({
-      accept: "./pdf",
-       onDrop
+      accept: "./pdf", onDrop,
     });
 
   const files = acceptedFiles.map((file) => (
@@ -89,25 +87,20 @@ function Dropzone({ onDrop, accept, open }) {
               <br></br>
               Only accepts PDF files. 
             </p>
-
-          )}
-          <button type="button" onClick={open} className="btn">
-            Click to select files
-          </button>
+            )}
           
-          { <button onClick={open}>
+          { <div id="smolBtn" onClick={open}>
             
-          </button> }
+          </div> }
           {/* <input type="file" id="inpFile"/>
           <button type="button" id="btnUpload">Upload</button> */}
-
         </div>
-        { <aside>
+        {/* { <aside>
         <h4>Accepted files</h4>
         <ul>{acceptedFileItems}</ul>
         <h4>Rejected files</h4>
         <ul>{fileRejectionItems}</ul>
-      </aside>}
+      </aside> } */}
       </div>
     </div>
   );

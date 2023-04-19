@@ -9,6 +9,7 @@
     display: inline-block;
     align-self: center;
     background: #E0EAE2;
+    overflow-y: scroll;
     /* border-radius: 15px; */
 }
 

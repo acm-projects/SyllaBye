@@ -1,9 +1,29 @@
 import React from "react";
-import './ImageGrid.css'
+import trash from "./delete-icon.png";
 
-const Image = ({ image }) => {
+const Image = ({ image, onDelete }) => {
+
+  async function deleteImage() {
+    const res = await fetch("http://localhost:1337/api/delete", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-access-token": localStorage.getItem("token"),
+      },
+      body: JSON.stringify({ thumbnail: image.src }),
+    })
+
+    console.log(res);
+    if(res){
+      onDelete(image.id);
+    }
+  };
+
   return (
+
+    
     <div className="file-item">
+      <button className="delete" onClick={deleteImage}></button>
       {image.isPdf ? (
         <div className="pdf-icon">PDF</div>
       ) : (
@@ -13,16 +33,22 @@ const Image = ({ image }) => {
           className="file-img"
         />
       )}
+
+      
       <button type="button" className="pdf-label">{image.name}</button>
+      
       
     </div>
   );
 };
 
-const ImageGrid = ({ images }) => {
 
+function ImageGrid({ images, onDelete }) {
+  for(var i = 0; i < images.length; i++){
+    console.log(images[i].id);
+  }
   const renderImage = (image) => {
-    return <Image image={image} key={`${image.id}-image`} />;
+    return <Image image={image} key={`${image.id}-image`} onDelete={onDelete}/> ;
   };
 
   return (
