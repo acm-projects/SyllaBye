@@ -14,8 +14,8 @@
     margin-top: 2vh;
     align-self: center;
     /* Tiny Gray */
-    background: #E0EAE2;
-    border: 1px black;
+    background: var(--lightestGreen);
+    border: 2px var(--darkGreen);
     border-radius: 15px;
     overflow-y: scroll;
     overflow-x: scroll;
@@ -38,7 +38,7 @@
     color: var(--darkGreen);
 }
 .tables{
-    border: 1px solid black;
+    border: 1px solid var(--darkGreen);
     margin-left: 10%;
     margin-top: 5%;
     width: 35%;
@@ -48,6 +48,9 @@
 }
 tr,td{
     border: 1px solid black;
+}
+p{
+    font-size: 2.3vh;
 }
 .range{
     width: 80%;

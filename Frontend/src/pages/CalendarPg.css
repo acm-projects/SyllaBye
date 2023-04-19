@@ -1,10 +1,18 @@
+:root {
+    --lightestGrey: #FBFFF9;
+    --lightestGreen: #EDF6EF;
+    --mediumGreen: #E0EAE2;
+    --mediumDarkGreen: #4B6350;
+    --darkGreen: #263928;
+  }
+
 .eventBtn{
 
-
+width:100%;
 
 }
 
 .calendarFrame{
-    border-width:0; width:80vw; height:100vh; 
+    
     
 }
