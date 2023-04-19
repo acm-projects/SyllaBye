@@ -116,8 +116,8 @@ overflow-y: scroll;
   /* width: 182px;
   height: 10px;
   left: 255px; */
-  margin-top: 5%;
-  margin-bottom: 8%;
+  margin-top: 3%;
+  margin-bottom: 5%;
   font-family: 'Inter';
   font-style: normal;
   font-weight: bold;
@@ -155,7 +155,7 @@ overflow-y: scroll;
   font-size: 1rem;
     color: #263928;
     font-weight: bold;
-    margin-top: 10%;
+    margin-top: 2.5%;
     margin-bottom: 0%;
 }
 .or{
@@ -172,11 +172,16 @@ overflow-y: scroll;
   justify-content: center;
   align-items: center;
 }
-.googleBtn{
-  align-items: center;
-  align-self: center;
-  justify-content: center;
+
+.googleBtn {
+  background: none;
+  margin: 0px;
 }
+
+.googleBtn:hover{
+  background:none;
+}
+
 #signinButton{
   /* display: flex; */
   flex-direction: column;
@@ -233,6 +238,8 @@ flex-grow: 0;
     width: 100%; /* set the width of the iframe */
     height: 400px; /* set the height of the iframe */
     border: 50px;
+    align-self: center;
+    text-align: center;
 }
 
 label, input {display: block;}
