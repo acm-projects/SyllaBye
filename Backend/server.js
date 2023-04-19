@@ -219,7 +219,6 @@ app.post('/api/delete', async (req, res) => {
         const {payload, protectedHeader} = await jose.jwtVerify(token, new TextEncoder().encode(process.env.JWTKey))
         const userEmail = payload.email
         
-        // console.log(req.body.thumbnail)
         const resp = File.findOne({
             email: userEmail,
             thumbnail: req.body.thumbnail,

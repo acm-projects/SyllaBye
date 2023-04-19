@@ -1,0 +1,48 @@
+.navBar{
+    width: 15vw;
+    height: 100vh;
+    /* align-items: center; */
+    /* margin-left: 0vw; */
+    background-color: aqua;
+    margin-left: 0vw;
+    margin-top: 0vh;
+    display: inline-block;
+    align-self: center;
+    background: #E0EAE2;
+    overflow-y: scroll;
+    /* border-radius: 15px; */
+}
+
+.classList{
+    /* margin-left: 15%; */
+    width: 100%;
+}
+.buttonForClassChange{
+    width: 100%;
+    font-size:2vw;
+    font-weight: bold;
+    /* color: red; */
+    cursor: pointer;
+    background-color: #E0EAE2;
+    border: 0vw;
+    margin-bottom: 1vh;
+    text-align: left;
+}
+#tabledet{
+    border: 0vw;
+}
+#nameuser{
+    text-align: right;
+    margin-left: 3.5vw;
+    font-size: 1.5vw;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+}
+#pfp{
+    margin-left: 1vw;
+
+}
+.userInfo{
+    display: flex;
+    margin-bottom: 2vh;
+}

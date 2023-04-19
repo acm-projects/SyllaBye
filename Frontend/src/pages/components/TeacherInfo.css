@@ -2,7 +2,7 @@
     display: inline-block;
     width: 35vw;
     height: 40vh;
-    margin-left: 15vw;
+    margin-left: 2vw;
     margin-top: 10vh;
     align-self: center;
     /* Tiny Gray */
@@ -17,10 +17,14 @@
     overflow-y: scroll;
     overflow-x: scroll;
 }
+/* .inlineForGood{
+    display: flex;
+    justify-content: space-between;
+} */
 #namelabel{
     font-weight: bold;
     text-align: center;
-    font-size: 3vw;
+    font-size: 4vh;
     padding-top: 2vh;
 }
 .infoList{
