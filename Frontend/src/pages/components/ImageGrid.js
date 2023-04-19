@@ -1,13 +1,9 @@
 import React from "react";
 import trash from "./delete-icon.png";
-// import { useHistory } from 'react-router';
 
 const Image = ({ image, onDelete }) => {
 
-  // const history = useHistory();
-
   async function deleteImage() {
-    console.log("ran")
     const res = await fetch("http://localhost:1337/api/delete", {
       method: "POST",
       headers: {
@@ -16,7 +12,6 @@ const Image = ({ image, onDelete }) => {
       },
       body: JSON.stringify({ thumbnail: image.src }),
     })
-    
     if(res){
       onDelete(image.id);
     }
@@ -44,7 +39,6 @@ const Image = ({ image, onDelete }) => {
     </div>
   );
 };
-
 
 function ImageGrid({ images, onDelete }) {
   

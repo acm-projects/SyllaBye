@@ -20,14 +20,6 @@ function CalendarPg() {
         SCOPES = res.SCOPES
     });
 
-    // const Cres = fetch("http://localhost:1337/api/getCalendarID", {
-    //     method: "GET",
-    //     headers: {"x-access-token" : localStorage.getItem("token"),},
-    // }).then((res) => res.json()
-    // ).then((res) => {
-    //     calendarID = res.calendarID
-    // });
-
     useEffect(() => {
         gapi.load('client:auth2', async () => {
             console.log('loaded client')
