@@ -1,7 +1,8 @@
 import "./Header.css";
 import React, {useEffect} from "react";
 import {useNavigate} from 'react-router-dom'
-import logo from './../../syllabyelogo.png';
+import longLogo from './../../syllabyelogo.png';
+import miniLogo from './../../miniLogo.png';
 
 
 const Header = () => {
@@ -24,9 +25,9 @@ const Header = () => {
     return (
 
         <header>
-            <a href='http://localhost:3000/home'> <img src={logo}/> </a>
+            <a href='http://localhost:3000/home'> <img className="miniLogo" src={miniLogo}/> </a>
+            <a > <img className="longLogo" src={longLogo}/> </a>
             <nav>
-            <button onClick={home} class="headerBtn"> Home </button>
             <button onClick={calendar} class="headerBtn"> Calendar </button>
             <button onClick={logout} class="headerBtn">Logout</button>
             </nav>

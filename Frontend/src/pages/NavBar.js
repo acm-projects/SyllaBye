@@ -5,7 +5,7 @@ function NavBar(props){
     return(
         <div className = "navBar">
             <div className="userInfo">
-            <label id="nameuser">{props.username}</label>
+            <label id="nameuser">{props.username}'s classes</label>
             </div>
         <table className = "classList">
             {props.items.map((item,i) => (
