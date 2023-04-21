@@ -18,7 +18,6 @@ let userName = null;
 async function extract(file, thumbnail){
     const formData = new FormData()
     formData.append("pdfFile", file)
-    // console.log("test");
     const res = await fetch("http://localhost:1338/extract-text", {
         method: "post",
         body: formData
@@ -116,17 +115,7 @@ function Home(){
                 const context = canvas.getContext('2d');
                 canvas.height = viewport.height;
                 canvas.width = viewport.width;
-                document.body.appendChild(canvas); // Add canvas to DOM for debugging purposes
-                // pdfPage.render({ canvasContext: context, viewport: viewport }).promise.then(async() => {
-                //     const thumbnail = canvas.toDataURL();
-                //     await extract(file, thumbnail)
-                //     document.body.removeChild(canvas); // Remove canvas from DOM after rendering
-                //     console.log(`Thumbnail generated for PDF file: ${file.name}`);
-                //     setImages((prevState) => [
-                //         ...prevState,
-                //         { id: cuid(), src: thumbnail, name: extractedText.courseName },
-                //     ]);
-                //     }).catch((error) => {
+                document.body.appendChild(canvas);
                 pdfPage.render({ canvasContext: context, viewport: viewport }).promise.then(async() => {
                     const thumbnail = canvas.toDataURL();
                     await extract(file, thumbnail)
@@ -140,14 +129,9 @@ function Home(){
                     classInfo.push({field: "Office location", info: extractedText.officeLocation});
                     classInfo.push({field: "Office hours", info: extractedText.officeHours});
                     classInfo.push({field: "Class times", info: extractedText.meetings})
-                    // var grades = [];
-                    // grades.push({range: '94-100', grade: 'A'});
-                    var CourseDes = extractedText.courseDescription;
-                    
+                    var CourseDes = extractedText.courseDescription;                    
                     var gradeDistribution = extractedText.grades;
-                    // gradeDistribution.push({field: 'Homework', weight: '35%'});
                     var dates = extractedText.calendar;
-                    // num++;
                     var gridID = cuid();
                     setClasses((prevState) => [
                         ...prevState,
@@ -157,7 +141,6 @@ function Home(){
                         ...prevState,
                         { id: gridID, src: thumbnail, name: extractedText.courseName },
                     ]);
-                    // num++;
                 }).catch((error) => {
                     console.error(`Error rendering PDF page: ${error}`);
                     });
@@ -212,24 +195,6 @@ function Home(){
                     </div>
                 </div>
         </main>
-    //     <main className="App">
-    //     <Header/>
-    //     <div className = "fullpage">
-    //         <div className = "wrapper">
-    //             <NavBar className = "navbar" username = "Rahul" items = {classes.map(c => c.course)} changeClass = {changeClass2} />
-    //             <div className = "elements">
-    //                 <Dropzone 
-    //                     onDrop={onDrop} 
-    //                     accept={"application.pdf"} 
-    //                     restrictions={{
-    //                     allowedExtensions: [".pdf"]
-    //                     }}
-    //                 />
-    //                 <ImageGrid images={images} onDelete={onDelete}/>
-    //             </div>
-    //         </div>
-    //     </div>
-    // </main>
     );
 }
 
