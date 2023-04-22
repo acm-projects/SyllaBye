@@ -29,3 +29,11 @@
 .imagegrid{
     order: 1;
 }
+.elements{
+    display:flex;flex-direction:column;
+    margin-left: 15vw;
+    margin-top: 1vw;
+}
+.wrapper{
+    display:flex;flex-direction:row;
+}

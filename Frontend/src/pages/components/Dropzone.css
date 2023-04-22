@@ -10,11 +10,12 @@
   text-align: center;
   padding: 1%;
   border: 3px rgb(35, 74, 45) dashed;
-  width: 95%;
+  width: 90%;
   height: 80%;
   margin: 1%;
   border-radius: 6px;
   transition: .5s;
+  padding-bottom: 0px;
   /* overflow: hidden; */
 }
 

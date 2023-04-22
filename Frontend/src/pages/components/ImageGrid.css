@@ -11,7 +11,6 @@ body {
 }
 
 
-
 .file-list {
     /* border: 3px dotted black;  */
     display: grid;
@@ -21,6 +20,7 @@ body {
     margin-right: 3%;
     margin-left: 2%;
     margin-bottom: 0%;
+    margin-top: 3vw;
   }
   
   .file-list img {
