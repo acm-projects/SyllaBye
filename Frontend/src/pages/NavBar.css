@@ -6,6 +6,9 @@
     --darkGreen: #263928;
   }
 
+hr{
+    outline: solid var(--darkGreen);
+}
 
 .navBar{
     width: 13vw;

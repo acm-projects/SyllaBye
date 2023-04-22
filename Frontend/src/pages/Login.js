@@ -152,7 +152,7 @@ function Login() {
                         </button>
                         </div>
                         <p id = "noAccount">Don't have an account?</p>
-                        <input className='Buttons' id="signupButton2" type="submit" value="Click here to sign up." onClick={handleRegisterAsk}/>
+                        <input className='Buttons' id="signupButton2" type="submit" value="Click here to sign up!" onClick={handleRegisterAsk}/>
                         
                         
                     </form>

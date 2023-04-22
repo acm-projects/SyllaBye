@@ -1,6 +1,12 @@
 import { React, useEffect, useState } from 'react';
 import Header from "./components/Header";
 import { gapi } from 'gapi-script';
+import NavBar from "./NavBar.js";
+import FileDetails from "./FileDetails";
+import {useNavigate, BrowserRouter as Router, Routes, Route} from 'react-router-dom'
+
+let extractedText = null;
+let userName = null;
 
 function CalendarPg() {
     var CLIENT_ID
@@ -9,6 +15,9 @@ function CalendarPg() {
     var SCOPES
     var calendarID
     const dateKeywords = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+    const navigate = useNavigate()
+    const [classes, setClasses] = useState([]);
 
     const res = fetch("http://localhost:1337/api/google-auth-keys", {
         method: "GET",
@@ -48,7 +57,7 @@ function CalendarPg() {
                         let calendarEmbedUrl = "https://calendar.google.com/calendar/embed?src=" + userEmail + "&ctz=America%2FCentral";
                         const calendarFrame = document.createElement('iframe');
                         calendarFrame.setAttribute('src', calendarEmbedUrl);
-                        calendarFrame.setAttribute('style', 'border-width:0; width:90vw; height:90vh; framework:0');
+                        calendarFrame.setAttribute('style', 'border-width:0; width:100vw; height:90vh; framework:0');
                         document.getElementById('calendar-container').appendChild(calendarFrame);
                     }
                     catch(err){
@@ -64,7 +73,7 @@ function CalendarPg() {
                         let calendarEmbedUrl = "https://calendar.google.com/calendar/embed?src=" + userEmail  + "&src=" + calendarID + "&ctz=America%2FCentral";
                         const calendarFrame = document.createElement('iframe');
                         calendarFrame.setAttribute('src', calendarEmbedUrl);
-                        calendarFrame.setAttribute('style', 'border-width:0; width:90vw; height:90vh; framework:0');
+                        calendarFrame.setAttribute('style', 'border-width:0; width:70vw; height:85vh; padding-left:2vw; framework:0');
                         document.getElementById('calendar-container').appendChild(calendarFrame);
                     }
                     catch(err){
@@ -324,7 +333,7 @@ function CalendarPg() {
                 let calendarEmbedUrl = "https://calendar.google.com/calendar/embed?src=" + userEmail  + "&src=" + calendarID + "&ctz=America%2FCentral";
                 const calendarFrame = document.createElement('iframe');
                 calendarFrame.setAttribute('src', calendarEmbedUrl);
-                calendarFrame.setAttribute('style', 'border-width:0; width:90vw; height:90vh; framework:0');
+                calendarFrame.setAttribute('style', 'border-width:0; width:100vw; height:90vh; framework:0');
                 const oldCalendarFrame = document.getElementById('calendar-container').getElementsByTagName('iframe')[0];
                 oldCalendarFrame.parentNode.removeChild(oldCalendarFrame);
                 document.getElementById('calendar-container').appendChild(calendarFrame);
@@ -386,6 +395,15 @@ function CalendarPg() {
             }
         })
     }
+
+    function changeClass2(e){
+        <Route path = "/details" element = {<FileDetails />}/>
+        //navigate('/details');
+        // <FileDetails courses = {classes} index = {e.target.id} />
+        navigate('/details', {state: { courses : classes, index: e.target.id}});
+        
+    }
+
     return (
         <main>
             <Header/>
