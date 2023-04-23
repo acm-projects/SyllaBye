@@ -49,6 +49,7 @@ async function extract(file, thumbnail){
 function Home(){
     const [images, setImages] = useState([]);
     const [classes, setClasses] = useState([]);
+    const [classNms, setClassNms] = useState([]);
     const navigate = useNavigate()
     // var num = 0;
     useEffect(() => {
@@ -88,6 +89,10 @@ function Home(){
                         setImages((prevState) => [
                             ...prevState,
                             { id: gridID, src: file.thumbnail, name: file.fileData.courseName },
+                        ]);
+                        setClassNms((prevState) => [
+                            ...prevState,
+                            {name: "buttonForClassChange"}
                         ]);
                     })
                 });
@@ -147,6 +152,10 @@ function Home(){
                         ...prevState,
                         { id: gridID, src: thumbnail, name: extractedText.courseName },
                     ]);
+                    setClassNms((prevState) => [
+                        ...prevState,
+                        {name: "buttonForClassChange"}
+                    ]);
                     // num++;
                 }).catch((error) => {
                     console.error(`Error rendering PDF page: ${error}`);
@@ -177,10 +186,31 @@ function Home(){
         <Route path = "/details" element = {<FileDetails />}/>
         //navigate('/details');
         // <FileDetails courses = {classes} index = {e.target.id} />
-        navigate('/details', {state: { courses : classes, index: e.target.id}});
+        var classNms2 = [];
+        for(var i = 0; i < classNms.length; i++){
+            if(i == e.target.id){
+                classNms2.push({name: "clickedButton"});
+            }
+            else{
+                classNms2.push({name: "buttonForClassChange"});
+            }
+        }
+        setClassNms(classNms2);
+        navigate('/details', {state: { courses : classes, index: e.target.id, classNm: classNms2}});
         
     }
-
+    // function getClassNms(e){
+    //     var classNms = [];
+    //     for(var i = 0; i < classes.length; i++){
+    //         if(i == e.target.id){
+    //             classNms.push("clickedButton");
+    //         }
+    //         else{
+    //             classNms.push("buttonForClassChange");
+    //         }
+    //     }
+    //     return classNms;
+    // }
     return (
         <main className="App">
             <Header/>
@@ -188,7 +218,7 @@ function Home(){
                     <div className = "wrapper">
                         {/* <NavBar username = "Abel" items = {classes.map(c => c.course)} changeClass = {changeClass2} />
                          */}
-                        <NavBar username = {userName} items = {classes.map(c => c.course)} changeClass = {changeClass2} />
+                        <NavBar username = {userName} items = {classes.map(c => c.course)} classNm = {classNms} changeClass = {changeClass2} />
                         <div className = "elements">
                             <Dropzone 
                                 onDrop={onDrop} 
@@ -197,7 +227,7 @@ function Home(){
                                 allowedExtensions: [".pdf"]
                                 }}
                             />
-                            <ImageGrid images={images} onDelete={onDelete}/>
+                            <ImageGrid images={images} onDelete={onDelete} onNameClick = {changeClass2}/>
                         </div>
                     </div>
                 </div>

@@ -13,6 +13,7 @@ import Dates from "./components/Dates";
 import * as jose from 'jose'
 
 
+
 // class FileDetails extends React.Component{
 //     constructor(props){
 //         super(props);
@@ -65,16 +66,17 @@ function FileDetails(){
     else{
         navigate('/login')
     }
-    
 
     const {state} = useLocation();
-    const {courses, index} = state;
+    const {courses, index, classNm} = state;
     const [classInfo, setClassInfo] = useState(courses[index].classInfo);
     // const [grades, setGrades] = useState(courses[index].grades);
     const [description, setDescription] = useState(courses[index].description);
     const [gradeDistribution, setGradeDistribution] = useState(courses[index].gradeDistribution);
     const [dates, setDates] = useState(courses[index].dates);
     const [showPopup, setPopupStatus] = useState(false);
+    const [classNms, setClassNms] = useState(classNm);
+    
     // this.state = {classInfo: courses[index].classInfo, grades: courses[index].grades, gradeDistribution: courses[index].gradeDistribution, dates: courses[index].dates}
     // setClassInfo(courses[index].classInfo);
     // setGrades(courses[index].grades);
@@ -86,15 +88,39 @@ function FileDetails(){
         setDescription(courses[e.target.id].description);
         setGradeDistribution(courses[e.target.id].gradeDistribution);
         setDates(courses[e.target.id].dates);
+        var classNms2 = [];
+        for(var i = 0; i < classNms.length; i++){
+            if(i == e.target.id){
+                classNms2.push({name: "clickedButton"});
+            }
+            else{
+                classNms2.push({name: "buttonForClassChange"});
+            }
+        }
+        setClassNms(classNms2);
     }
     function addTeacherInfo(){
         setPopupStatus(!showPopup);
     }
+    
+    // function getClassNms(){
+    //     var classNms = [];
+    //     console.log("Buttons: " + courses.length);
+    //     for(var i = 0; i < courses.length; i++){
+    //         // if(i == e.target.id){
+    //         //     classNms.push("clickedButton");
+    //         // }
+    //         // else{
+    //             classNms.push("buttonForClassChange");
+    //         //}
+    //     }
+    //     return classNms;
+    // }
     return(
         <div className="page">
             <Header />
             <div className = "detailComps">
-                <NavBar username={userName} items = {courses.map(c => c.course)} id="navigationBar" changeClass={changeClass}/>
+                <NavBar username={userName} items = {courses.map(c => c.course)} id="navigationBar" classNm = {classNms} changeClass={changeClass}/>
                 <div className = "info">
                     <div className = "firstrow">
                         <TeacherInfo items={classInfo} addField = {addTeacherInfo}/>
