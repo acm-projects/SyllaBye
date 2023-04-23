@@ -2,17 +2,18 @@ import React, { useState, useCallback, useEffect} from "react";
 import Header from "./components/Header";
 import Dropzone from "./components/Dropzone";
 import ImageGrid from "./components/ImageGrid";
+import './Home.css';
 import './components/ImageGrid.css';
 import cuid from "cuid";
 import { pdfjs, Document, Page } from 'react-pdf';
-import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import * as jose from 'jose'
 import NavBar from "./NavBar";
 import FileDetails from "./FileDetails";
-import {useNavigate} from 'react-router-dom'
+import {useNavigate, BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 let extractedText = null;
+let userName = null;
 
 async function extract(file, thumbnail){
     const formData = new FormData()
@@ -48,8 +49,9 @@ async function extract(file, thumbnail){
 function Home(){
     const [images, setImages] = useState([]);
     const [classes, setClasses] = useState([]);
+    const [classNms, setClassNms] = useState([]);
     const navigate = useNavigate()
-    var num = 0;
+    // var num = 0;
     useEffect(() => {
         const token = localStorage.getItem('token')
         if(token){
@@ -59,6 +61,8 @@ function Home(){
                 navigate('/login')
             }
             else{
+                userName = user.name;
+
                 const files = fetch("http://localhost:1337/api/files", {
                     method: "GET",
                     headers: {"x-access-token" : localStorage.getItem("token"),},
@@ -74,22 +78,22 @@ function Home(){
                         classInfo.push({field: "Office location", info: file.fileData.officeLocation});
                         classInfo.push({field: "Office hours", info: file.fileData.officeHours});
                         classInfo.push({field: "Class times", info: file.fileData.meetings});
-                        var grades = [];
-                        grades.push({range: '94-100', grade: 'A'});
+                        var CourseDes = file.fileData.courseDescription;
                         var gradeDistribution = file.fileData.grades;
                         var dates = file.fileData.calendar;
-                        console.log(images[num]);
+                        var gridID = cuid();
                         setClasses((prevState) => [
                             ...prevState,
-                            {id: cuid(), classID: prevState.classID + 1, course: courseName, classInfo: classInfo, grades: grades, gradeDistribution: gradeDistribution, dates: dates}
+                            { id: gridID, classID: prevState.classID + 1, course: courseName, classInfo: classInfo, description: CourseDes, gradeDistribution: gradeDistribution, dates: dates}
                         ]);
                         setImages((prevState) => [
                             ...prevState,
-                            { id: cuid(), src: file.thumbnail, name: file.fileData.courseName },
+                            { id: gridID, src: file.thumbnail, name: file.fileData.courseName },
                         ]);
-                        
-                        
-                        num++;
+                        setClassNms((prevState) => [
+                            ...prevState,
+                            {name: "buttonForClassChange"}
+                        ]);
                     })
                 });
             }
@@ -117,37 +121,43 @@ function Home(){
                 const context = canvas.getContext('2d');
                 canvas.height = viewport.height;
                 canvas.width = viewport.width;
-                document.body.appendChild(canvas); // Add canvas to DOM for debugging purposes
+                document.body.appendChild(canvas);
                 pdfPage.render({ canvasContext: context, viewport: viewport }).promise.then(async() => {
                     const thumbnail = canvas.toDataURL();
                     await extract(file, thumbnail)
                     document.body.removeChild(canvas); // Remove canvas from DOM after rendering
                     console.log(`Thumbnail generated for PDF file: ${file.name}`);
                     var courseName = extractedText.courseNum;
-                var classInfo = [];
-                classInfo.push({field: 'Professor Name', info: extractedText.professorName});
-                classInfo.push({field: "Professor email", info: extractedText.professorEmail});
-                classInfo.push({field: "Professor phone", info: extractedText.professorPhone});
-                classInfo.push({field: "Office location", info: extractedText.officeLocation});
-                classInfo.push({field: "Office hours", info: extractedText.officeHours});
-                classInfo.push({field: "Class times", info: extractedText.meetings})
-                var grades = [];
-                grades.push({range: '94-100', grade: 'A'});
-                var gradeDistribution = extractedText.grades;
-                // gradeDistribution.push({field: 'Homework', weight: '35%'});
-                var dates = extractedText.calendar;
-                num++;
-                setClasses((prevState) => [
-                  ...prevState,
-                  {id: cuid(), classID: prevState.classID + 1, course: courseName, classInfo: classInfo, grades: grades, gradeDistribution: gradeDistribution, dates: dates},
-                ]);
+                    var classInfo = [];
+                    classInfo.push({field: 'Professor Name', info: extractedText.professorName});
+                    classInfo.push({field: "Professor email", info: extractedText.professorEmail});
+                    classInfo.push({field: "Professor phone", info: extractedText.professorPhone});
+                    classInfo.push({field: "Office location", info: extractedText.officeLocation});
+                    classInfo.push({field: "Office hours", info: extractedText.officeHours});
+                    classInfo.push({field: "Class times", info: extractedText.meetings})
+                    // var grades = [];
+                    // grades.push({range: '94-100', grade: 'A'});
+                    var CourseDes = extractedText.courseDescription;
+                    
+                    var gradeDistribution = extractedText.grades;
+                    // gradeDistribution.push({field: 'Homework', weight: '35%'});
+                    var dates = extractedText.calendar;
+                    // num++;
+                    var gridID = cuid();
+                    setClasses((prevState) => [
+                        ...prevState,
+                        {id: gridID, classID: prevState.classID + 1, course: courseName, classInfo: classInfo, description: CourseDes, gradeDistribution: gradeDistribution, dates: dates},
+                    ]);
                     setImages((prevState) => [
                         ...prevState,
-                        { id: cuid(), src: thumbnail, name: extractedText.courseName },
+                        { id: gridID, src: thumbnail, name: extractedText.courseName },
                     ]);
-                    
-                num++;
-                    }).catch((error) => {
+                    setClassNms((prevState) => [
+                        ...prevState,
+                        {name: "buttonForClassChange"}
+                    ]);
+                    // num++;
+                }).catch((error) => {
                     console.error(`Error rendering PDF page: ${error}`);
                     });
                 }).catch((error) => {
@@ -168,45 +178,59 @@ function Home(){
     const onDelete = useCallback((id) => {
         if(id !== "null"){
             setImages((prevState) => prevState.filter((image) => image.id !== id));
-            var dupClasses = [];
-            console.log(classes.length);
-            for(var i = 0; i < classes.length; i++){
-                if(images[i].id !== id){
-                    dupClasses.push(classes[i]);
-                }
-            }
-            console.log("Dup classes");
-            console.log(dupClasses);
-            setClasses(dupClasses);
-            num--;
+            setClasses((prevState) => prevState.filter((classInfo) => classInfo.id !== id));
         }
     }, []);
+    
     function changeClass2(e){
         <Route path = "/details" element = {<FileDetails />}/>
         //navigate('/details');
         // <FileDetails courses = {classes} index = {e.target.id} />
-        navigate('/details', {state: { courses : classes, index: e.target.id}});
+        var classNms2 = [];
+        for(var i = 0; i < classNms.length; i++){
+            if(i == e.target.id){
+                classNms2.push({name: "clickedButton"});
+            }
+            else{
+                classNms2.push({name: "buttonForClassChange"});
+            }
+        }
+        setClassNms(classNms2);
+        navigate('/details', {state: { courses : classes, index: e.target.id, classNm: classNms2}});
         
-      }
+    }
+    // function getClassNms(e){
+    //     var classNms = [];
+    //     for(var i = 0; i < classes.length; i++){
+    //         if(i == e.target.id){
+    //             classNms.push("clickedButton");
+    //         }
+    //         else{
+    //             classNms.push("buttonForClassChange");
+    //         }
+    //     }
+    //     return classNms;
+    // }
     return (
         <main className="App">
-
-        <Header/>
-        <div className = "fullpage">
-      <div className = "wrapper">
-      <NavBar className = "navbar" username = "Rahul" items = {classes.map(c => c.course)} changeClass = {changeClass2} />
-      <div className = "elements">
-      <Dropzone 
-          onDrop={onDrop} 
-          accept={"application.pdf"} 
-          restrictions={{
-          allowedExtensions: [".pdf"]
-          }}
-      />
-        <ImageGrid images={images} onDelete={onDelete}/>
-        </div>
-      </div>
-      </div>
+            <Header/>
+                <div className = "fullpage">
+                    <div className = "wrapper">
+                        {/* <NavBar username = "Abel" items = {classes.map(c => c.course)} changeClass = {changeClass2} />
+                         */}
+                        <NavBar username = {userName} items = {classes.map(c => c.course)} classNm = {classNms} changeClass = {changeClass2} />
+                        <div className = "elements">
+                            <Dropzone 
+                                onDrop={onDrop} 
+                                accept={"application.pdf"} 
+                                restrictions={{
+                                allowedExtensions: [".pdf"]
+                                }}
+                            />
+                            <ImageGrid images={images} onDelete={onDelete} onNameClick = {changeClass2}/>
+                        </div>
+                    </div>
+                </div>
         </main>
     );
 }

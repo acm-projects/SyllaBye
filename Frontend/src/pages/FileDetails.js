@@ -4,12 +4,15 @@ import Popup from 'reactjs-popup';
 import ReactModal from 'react-modal';
 import NavBar from "./NavBar"
 import Header from "./components/Header";
-import {useLocation} from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
 import {useEffect, useState, useCallback} from "react";
 import TeacherInfo from "./components/TeacherInfo";
-import Grades from "./components/Grades";
+import Description from "./components/Description";
 import GradeDistribution from "./components/GradeDistribution";
 import Dates from "./components/Dates";
+import * as jose from 'jose'
+
+
 
 // class FileDetails extends React.Component{
 //     constructor(props){
@@ -53,13 +56,27 @@ import Dates from "./components/Dates";
 //         this.state.numGrades++;
 
 function FileDetails(){
+    var userName = ""
+    const navigate = useNavigate()
+    const token = localStorage.getItem('token')
+    if(token){
+        const user = jose.decodeJwt(token)
+        userName = user.name;
+    }
+    else{
+        navigate('/login')
+    }
+
     const {state} = useLocation();
-    const {courses, index} = state;
+    const {courses, index, classNm} = state;
     const [classInfo, setClassInfo] = useState(courses[index].classInfo);
-    const [grades, setGrades] = useState(courses[index].grades);
+    // const [grades, setGrades] = useState(courses[index].grades);
+    const [description, setDescription] = useState(courses[index].description);
     const [gradeDistribution, setGradeDistribution] = useState(courses[index].gradeDistribution);
     const [dates, setDates] = useState(courses[index].dates);
     const [showPopup, setPopupStatus] = useState(false);
+    const [classNms, setClassNms] = useState(classNm);
+    
     // this.state = {classInfo: courses[index].classInfo, grades: courses[index].grades, gradeDistribution: courses[index].gradeDistribution, dates: courses[index].dates}
     // setClassInfo(courses[index].classInfo);
     // setGrades(courses[index].grades);
@@ -67,36 +84,55 @@ function FileDetails(){
     // setDates(courses[index].dates);
     function changeClass(e){
         setClassInfo(courses[e.target.id].classInfo);
-        setGrades(courses[e.target.id].grades);
+        // setGrades(courses[e.target.id].grades);
+        setDescription(courses[e.target.id].description);
         setGradeDistribution(courses[e.target.id].gradeDistribution);
         setDates(courses[e.target.id].dates);
+        var classNms2 = [];
+        for(var i = 0; i < classNms.length; i++){
+            if(i == e.target.id){
+                classNms2.push({name: "clickedButton"});
+            }
+            else{
+                classNms2.push({name: "buttonForClassChange"});
+            }
+        }
+        setClassNms(classNms2);
     }
     function addTeacherInfo(){
         setPopupStatus(!showPopup);
     }
+    
+    // function getClassNms(){
+    //     var classNms = [];
+    //     console.log("Buttons: " + courses.length);
+    //     for(var i = 0; i < courses.length; i++){
+    //         // if(i == e.target.id){
+    //         //     classNms.push("clickedButton");
+    //         // }
+    //         // else{
+    //             classNms.push("buttonForClassChange");
+    //         //}
+    //     }
+    //     return classNms;
+    // }
     return(
         <div className="page">
-        <Header />
-        <div className = "detailComps">
-        <NavBar username = "k.rahul287" items = {courses.map(c => c.course)} id="navigationBar" changeClass={changeClass}/>
-        <div className = "info">
-        <div className = "firstrow">
-            <TeacherInfo items={classInfo} addField = {addTeacherInfo}/>
-            <ReactModal 
-                isOpen = {showPopup}
-                contentLabel = "Please Work"
-            >
-                Please work right now
-            </ReactModal>
-            <Grades items = {grades} addField = {addTeacherInfo}/>
-            
-        </div>
-        <div className = "secondrow">
-            <GradeDistribution items={gradeDistribution} addField = {addTeacherInfo}/>
-            <Dates items={dates} addField = {addTeacherInfo}/>
-        </div>
-        </div>
-        </div>
+            <Header />
+            <div className = "detailComps">
+                <NavBar username={userName} items = {courses.map(c => c.course)} id="navigationBar" classNm = {classNms} changeClass={changeClass}/>
+                <div className = "info">
+                    <div className = "firstrow">
+                        <TeacherInfo items={classInfo} addField = {addTeacherInfo}/>
+                        <ReactModal isOpen = {showPopup} contentLabel = "Please Work"/>
+                        <GradeDistribution items={gradeDistribution} addField = {addTeacherInfo}/>
+                    </div>
+                    <div className = "secondrow">
+                        <Dates items={dates} addField = {addTeacherInfo}/>
+                        <Description items={description} addField = {addTeacherInfo}/>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }

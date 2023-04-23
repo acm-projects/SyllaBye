@@ -12,7 +12,7 @@ header {
     justify-content: space-between;
     align-items: flex-start;
   
-    width: 100%;
+    width: 100vw;
     height: 12vh;
   
     order: 0;
@@ -20,6 +20,8 @@ header {
     flex-grow: 0;
   
     background: var(--lightestGreen);
+
+    overflow: hidden;
 }
 
 h1 {
@@ -115,4 +117,16 @@ img {
     height: 10vh;
     margin-top: 1vh;
     margin-left: 1vh;
+}
+
+.longLogo{
+    align-content: center;
+    padding-left: 25vh;
+}
+
+.miniLogo{
+    padding-top: 1vh;
+    padding-left: 1vh;
+    height: 8vh;
+
 }

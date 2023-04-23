@@ -1,13 +1,21 @@
+:root {
+    --lightestGrey: #FBFFF9;
+    --lightestGreen: #EDF6EF;
+    --mediumGreen: #E0EAE2;
+    --mediumDarkGreen: #4B6350;
+    --darkGreen: #263928;
+  }
+
 .box{
     display: inline-block;
-    width: 35vw;
+    width: 39vw;
     height: 40vh;
-    margin-left: 15vw;
-    margin-top: 10vh;
+    margin-left: 2vw;
+    margin-top: 2vh;
     align-self: center;
     /* Tiny Gray */
-    background: #E0EAE2;
-    border: 1px black;
+    background: var(--lightestGreen);
+    border: 1px var(--darkGreen);
     border-radius: 15px;
     
     /* Inside auto layout */
@@ -17,18 +25,27 @@
     overflow-y: scroll;
     overflow-x: scroll;
 }
+.box::-webkit-scrollbar {
+    display: none;
+}
+/* .inlineForGood{
+    display: flex;
+    justify-content: space-between;
+} */
 #namelabel{
     font-weight: bold;
     text-align: center;
-    font-size: 3vw;
+    font-size: 4vh;
     padding-top: 2vh;
+    font-family: 'Inter';
+    color: var(--darkGreen);
 }
 .infoList{
     margin-top: 5%;
     /* line-height: 5vh; */
     font-size: 1.8vh;
     font-weight: bold;
-    border: 1px solid black;
+    border: 1px solid var(--darkGreen);
     margin-left: 10%;
     width: 80%;
     /* bottom: 5%; */

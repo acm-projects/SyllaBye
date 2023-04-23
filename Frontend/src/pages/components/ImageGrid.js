@@ -1,7 +1,7 @@
 import React from "react";
 import trash from "./delete-icon.png";
 
-const Image = ({ image, onDelete }) => {
+const Image = ({ image, onDelete, idreal, onNameClick }) => {
 
   async function deleteImage() {
     const res = await fetch("http://localhost:1337/api/delete", {
@@ -12,8 +12,6 @@ const Image = ({ image, onDelete }) => {
       },
       body: JSON.stringify({ thumbnail: image.src }),
     })
-
-    console.log(res);
     if(res){
       onDelete(image.id);
     }
@@ -35,23 +33,29 @@ const Image = ({ image, onDelete }) => {
       )}
 
       
-      <button type="button" className="pdf-label">{image.name}</button>
+      <button type="button" id = {idreal} className="pdf-label" onClick = {onNameClick}>{image.name}</button>
       
       
     </div>
   );
 };
 
-
-function ImageGrid({ images, onDelete }) {
-
-  const renderImage = (image) => {
-    return <Image image={image} key={`${image.id}-image`} onDelete={onDelete}/> ;
-  };
-
+function ImageGrid({ images, onDelete, onNameClick }) {
+  
+  // const renderImage = (image) => {
+  //   return <Image image={image} key={`${image.id}-image`} onDelete={onDelete} onNameClick = {onNameClick}/> ;
+  // };
   return (
-    <section className="file-list">{images.map(renderImage)}</section>
+    <section className="file-list">
+      {images.map((image,i) => (
+          <Image image={image} key = {`${image.id}-image`} onDelete={onDelete} onNameClick = {onNameClick} idreal = {i} />
+      ))}
+        
+  </section>
   );
+  // return (
+  //   <section className="file-list">{images.map(renderImage)}</section>
+  // );
 };
 
 export default ImageGrid;

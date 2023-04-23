@@ -13,6 +13,7 @@ import { pdfjs, Document, Page } from 'react-pdf';
 import * as jose from 'jose'
 import NavBar from "./NavBar";
 import FileDetails from "./FileDetails";
+import './CalendarPg.css'
 // import {useNavigate} from 'react-router-dom'
 import {useNavigate, BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
@@ -29,6 +30,8 @@ function CalendarPg() {
     var calendarID
     const dateKeywords = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
     const [classes, setClasses] = useState([]);
+    const [classNms, setClassNms] = useState([]);
+    const [navOpen, setNavOpen] = useState(false);
     const res = fetch("http://localhost:1337/api/google-auth-keys", {
         method: "GET",
     }).then((res) => res.json()
@@ -80,6 +83,10 @@ function CalendarPg() {
                         setClasses((prevState) => [
                             ...prevState,
                             { id: gridID, classID: prevState.classID + 1, course: courseName, classInfo: classInfo, description: CourseDes, gradeDistribution: gradeDistribution, dates: dates}
+                        ]);
+                        setClassNms((prevState) => [
+                            ...prevState,
+                            {name: "buttonForClassChange"}
                         ]);
                 })
             })
@@ -439,16 +446,39 @@ function CalendarPg() {
         <Route path = "/details" element = {<FileDetails />}/>
         //navigate('/details');
         // <FileDetails courses = {classes} index = {e.target.id} />
-        navigate('/details', {state: { courses : classes, index: e.target.id}});
+        var classNms2 = [];
+        for(var i = 0; i < classNms.length; i++){
+            if(i == e.target.id){
+                classNms2.push({name: "clickedButton"});
+            }
+            else{
+                classNms2.push({name: "buttonForClassChange"});
+            }
+        }
+        setClassNms(classNms2);
+        navigate('/details', {state: { courses : classes, index: e.target.id, classNm: classNms2}});
+      }
+      function openNav(){
+        setNavOpen(!navOpen);
       }
     return (
         <main>
-            <Header/>
-            <NavBar className = "navbar" username = {username} items = {classes.map(c => c.course)} changeClass = {changeClass2} />
-            <div>  
-                <div id="calendar-container"></div>
-                <button onClick={handleClick} class="Events">Add Events</button>
+            <div className = "headerclass">
+                <Header/>
+                <label className = "extra"></label>
             </div>
+            
+            {/* {navOpen ? (<NavBar className = "navbar" username = {username} classNm = {classNms} items = {classes.map(c => c.course)} changeClass = {changeClass2} /> )
+            : (console.log("wokay"))} */}
+           
+            <div className = "realstuff">  
+            <button onClick={handleClick} class="Events">Add Events</button>
+            <NavBar className = "navbar" username = {username} classNm = {classNms} items = {classes.map(c => c.course)} changeClass = {changeClass2} />
+                {/* <input type = "submit" className = "openNav" onClick = {openNav} value = "|||" /> */}
+                <div id="calendar-container"></div>
+                
+            </div>
+            {/* <button onClick={handleClick} class="Events">Add Events</button> */}
         </main>
     )
 }
