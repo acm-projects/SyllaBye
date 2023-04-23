@@ -240,7 +240,7 @@ function Register() {
                     </GoogleOAuthProvider>
                     </button>
                     <p id = "yesAccount">Already have an account?</p>
-                    <input className='Buttons' id="signinButton3" type="submit" value="Click here to sign in." onClick={handleLoginAsk}/>
+                    <input className='Buttons' id="signinButton3" type="submit" value="Click here to sign in!" onClick={handleLoginAsk}/>
                     <br />
                 </div>
             </div>

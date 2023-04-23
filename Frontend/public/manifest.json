@@ -3,17 +3,21 @@
   "name": "Create React App Sample",
   "icons": [
     {
+<<<<<<< HEAD
       "src": "miniLogo.png",
+=======
+      "src": "SyllaByeIcon.png",
+>>>>>>> 04222f0d6934d3c904ab7d2ca2b80cd01a1e3b74
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     },
     {
-      "src": "logo192.png",
+      "src": "SyllaByeIcon.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "logo512.png",
+      "src": "SyllaByeIcon.png",
       "type": "image/png",
       "sizes": "512x512"
     }

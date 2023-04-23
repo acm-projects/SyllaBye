@@ -12,10 +12,13 @@ import GradeDistribution from "./components/GradeDistribution";
 import Dates from "./components/Dates";
 import * as jose from 'jose'
 
+<<<<<<< HEAD
 // const token = localStorage.getItem('token')
 // const user = jose.decodeJwt(token)
 // const userName = user.name;
 
+=======
+>>>>>>> 04222f0d6934d3c904ab7d2ca2b80cd01a1e3b74
 
 
 // class FileDetails extends React.Component{
@@ -60,6 +63,7 @@ import * as jose from 'jose'
 //         this.state.numGrades++;
 
 function FileDetails(){
+<<<<<<< HEAD
     
     var userName = "";
     const navigate = useNavigate();
@@ -70,16 +74,29 @@ function FileDetails(){
     }
     else {
         navigate('/login');
+=======
+    var userName = ""
+    const navigate = useNavigate()
+    const token = localStorage.getItem('token')
+    if(token){
+        const user = jose.decodeJwt(token)
+        userName = user.name;
+    }
+    else{
+        navigate('/login')
+>>>>>>> 04222f0d6934d3c904ab7d2ca2b80cd01a1e3b74
     }
 
     const {state} = useLocation();
-    const {courses, index} = state;
+    const {courses, index, classNm} = state;
     const [classInfo, setClassInfo] = useState(courses[index].classInfo);
     // const [grades, setGrades] = useState(courses[index].grades);
     const [description, setDescription] = useState(courses[index].description);
     const [gradeDistribution, setGradeDistribution] = useState(courses[index].gradeDistribution);
     const [dates, setDates] = useState(courses[index].dates);
     const [showPopup, setPopupStatus] = useState(false);
+    const [classNms, setClassNms] = useState(classNm);
+    
     // this.state = {classInfo: courses[index].classInfo, grades: courses[index].grades, gradeDistribution: courses[index].gradeDistribution, dates: courses[index].dates}
     // setClassInfo(courses[index].classInfo);
     // setGrades(courses[index].grades);
@@ -91,15 +108,39 @@ function FileDetails(){
         setDescription(courses[e.target.id].description);
         setGradeDistribution(courses[e.target.id].gradeDistribution);
         setDates(courses[e.target.id].dates);
+        var classNms2 = [];
+        for(var i = 0; i < classNms.length; i++){
+            if(i == e.target.id){
+                classNms2.push({name: "clickedButton"});
+            }
+            else{
+                classNms2.push({name: "buttonForClassChange"});
+            }
+        }
+        setClassNms(classNms2);
     }
     function addTeacherInfo(){
         setPopupStatus(!showPopup);
     }
+    
+    // function getClassNms(){
+    //     var classNms = [];
+    //     console.log("Buttons: " + courses.length);
+    //     for(var i = 0; i < courses.length; i++){
+    //         // if(i == e.target.id){
+    //         //     classNms.push("clickedButton");
+    //         // }
+    //         // else{
+    //             classNms.push("buttonForClassChange");
+    //         //}
+    //     }
+    //     return classNms;
+    // }
     return(
         <div className="page">
             <Header />
             <div className = "detailComps">
-                <NavBar username={userName} items = {courses.map(c => c.course)} id="navigationBar" changeClass={changeClass}/>
+                <NavBar username={userName} items = {courses.map(c => c.course)} id="navigationBar" classNm = {classNms} changeClass={changeClass}/>
                 <div className = "info">
                     <div className = "firstrow">
                         <TeacherInfo items={classInfo} addField = {addTeacherInfo}/>

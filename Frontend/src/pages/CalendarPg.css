@@ -1,18 +1,56 @@
-:root {
+ /* :root {
     --lightestGrey: #FBFFF9;
     --lightestGreen: #EDF6EF;
     --mediumGreen: #E0EAE2;
     --mediumDarkGreen: #4B6350;
     --darkGreen: #263928;
-  }
-
+    width: 0;
+  } */
+  /*
+.navbar{
+  margin-right: 2vw;
+}
 .eventBtn{
 
 width:100%;
 
 }
-
-.calendarFrame{
+.calendar-container{
+  
+} */
+/* .calendarFrame{
+  margin-left: 2vw;
     
-    
+} */
+/* .openNav{
+  background-color: #4B6350;
+} */
+/* .extra{
+  background: var(--lightestGreen);
+  height: 12vh;
+  
+  margin-left: 0vw;
+  margin-right: 0vw;
+  width: 15vw;
+  display: flex;
+    flex-direction: row;
+} */
+/* .headerclass{
+  display: inline-flex;
+} */
+.realstuff{
+  display: inline-block;
+}
+#calendar-container{
+  margin-left: 20vw;
+  margin-top: 4vh;
+  margin-right: 0vw;
+}
+.Events{
+  margin-top: 2vh;
+  margin-left: 41vw;
+  margin-right: 28vw;
+  width: 31vw;
+  border-radius: 8px;
+  /* margin-top: 5vh; */
 }
