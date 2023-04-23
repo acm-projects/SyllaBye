@@ -25,7 +25,7 @@ width:100%;
 /* .openNav{
   background-color: #4B6350;
 } */
-.extra{
+/* .extra{
   background: var(--lightestGreen);
   height: 12vh;
   
@@ -34,19 +34,23 @@ width:100%;
   width: 15vw;
   display: flex;
     flex-direction: row;
-}
-.headerclass{
+} */
+/* .headerclass{
   display: inline-flex;
-}
+} */
 .realstuff{
   display: inline-block;
 }
 #calendar-container{
-  margin-left: 14vw;
-  margin-top: 5vh;
+  margin-left: 20vw;
+  margin-top: 4vh;
   margin-right: 0vw;
 }
 .Events{
-  margin-left: 14vw;
+  margin-top: 2vh;
+  margin-left: 41vw;
+  margin-right: 28vw;
+  width: 31vw;
+  border-radius: 8px;
   /* margin-top: 5vh; */
 }

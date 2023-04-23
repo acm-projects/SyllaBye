@@ -1,23 +1,17 @@
 import { React, useEffect, useState } from 'react';
 import Header from "./components/Header";
 import { gapi } from 'gapi-script';
-// import React, { useState, useCallback, useEffect} from "react";
-// import Header from "./components/Header";
-import Dropzone from "./components/Dropzone";
-import ImageGrid from "./components/ImageGrid";
-import './Home.css';
-import './components/ImageGrid.css';
 import cuid from "cuid";
 import { pdfjs, Document, Page } from 'react-pdf';
-// import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import * as jose from 'jose'
 import NavBar from "./NavBar";
 import FileDetails from "./FileDetails";
 import './CalendarPg.css'
-// import {useNavigate} from 'react-router-dom'
 import {useNavigate, BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
+
 function CalendarPg() {
+    const calMeasures = "70" 
     const navigate = useNavigate();
     let username = null;
     const token = localStorage.getItem('token')
@@ -105,7 +99,7 @@ function CalendarPg() {
                         let calendarEmbedUrl = "https://calendar.google.com/calendar/embed?src=" + userEmail + "&ctz=America%2FCentral";
                         const calendarFrame = document.createElement('iframe');
                         calendarFrame.setAttribute('src', calendarEmbedUrl);
-                        calendarFrame.setAttribute('style', 'border-width:0; width:100vw; height:100vh; framework:0');
+                        calendarFrame.setAttribute('style', 'border-width:0; width:' + calMeasures + 'vw;height:' + calMeasures + 'vh;framework:0');
                         document.getElementById('calendar-container').appendChild(calendarFrame);
                     }
                     catch(err){
@@ -121,7 +115,7 @@ function CalendarPg() {
                         let calendarEmbedUrl = "https://calendar.google.com/calendar/embed?src=" + userEmail  + "&src=" + calendarID + "&ctz=America%2FCentral";
                         const calendarFrame = document.createElement('iframe');
                         calendarFrame.setAttribute('src', calendarEmbedUrl);
-                        calendarFrame.setAttribute('style', 'border-width:0; width:100vw; height:100vh; framework:0');
+                        calendarFrame.setAttribute('style', 'border-width:0; width:' + calMeasures + 'vw;height:' + calMeasures + 'vh;framework:0');
                         document.getElementById('calendar-container').appendChild(calendarFrame);
                     }
                     catch(err){
@@ -380,7 +374,7 @@ function CalendarPg() {
             let calendarEmbedUrl = "https://calendar.google.com/calendar/embed?src=" + userEmail  + "&src=" + calendarID + "&ctz=America%2FCentral";
             const calendarFrame = document.createElement('iframe');
             calendarFrame.setAttribute('src', calendarEmbedUrl);
-            calendarFrame.setAttribute('style', 'border-width:0; width:100vw; height:100vh; framework:0');
+            calendarFrame.setAttribute('style', 'border-width:0; width:' + calMeasures + 'vw;height:' + calMeasures + 'vh;framework:0');
             const oldCalendarFrame = document.getElementById('calendar-container').getElementsByTagName('iframe')[0];
             oldCalendarFrame.parentNode.removeChild(oldCalendarFrame);
             document.getElementById('calendar-container').appendChild(calendarFrame);
@@ -457,10 +451,12 @@ function CalendarPg() {
         }
         setClassNms(classNms2);
         navigate('/details', {state: { courses : classes, index: e.target.id, classNm: classNms2}});
-      }
-      function openNav(){
-        setNavOpen(!navOpen);
-      }
+    }
+    
+    function openNav(){
+    setNavOpen(!navOpen);
+    }
+
     return (
         <main>
             <div className = "headerclass">
@@ -472,12 +468,12 @@ function CalendarPg() {
             : (console.log("wokay"))} */}
            
             <div className = "realstuff">  
-            <button onClick={handleClick} class="Events">Add Events</button>
             <NavBar className = "navbar" username = {username} classNm = {classNms} items = {classes.map(c => c.course)} changeClass = {changeClass2} />
                 {/* <input type = "submit" className = "openNav" onClick = {openNav} value = "|||" /> */}
                 <div id="calendar-container"></div>
                 
             </div>
+            <button onClick={handleClick} class="Events">Add Events</button>
             {/* <button onClick={handleClick} class="Events">Add Events</button> */}
         </main>
     )
