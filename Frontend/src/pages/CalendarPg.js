@@ -468,12 +468,12 @@ function CalendarPg() {
             : (console.log("wokay"))} */}
            
             <div className = "realstuff">  
-            <button onClick={handleClick} class="Events">Add Events</button>
             <NavBar className = "navbar" username = {username} classNm = {classNms} items = {classes.map(c => c.course)} changeClass = {changeClass2} />
                 {/* <input type = "submit" className = "openNav" onClick = {openNav} value = "|||" /> */}
                 <div id="calendar-container"></div>
                 
             </div>
+            <button onClick={handleClick} class="Events">Add Events</button>
             {/* <button onClick={handleClick} class="Events">Add Events</button> */}
         </main>
     )
