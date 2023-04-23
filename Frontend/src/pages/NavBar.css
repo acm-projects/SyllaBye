@@ -6,9 +6,7 @@
     --darkGreen: #263928;
   }
 
-hr{
-    outline: solid var(--darkGreen);
-}
+
 
 .navBar{
     width: 13vw;
@@ -59,29 +57,6 @@ hr{
     background-color: var(--lightestGreen);
     transition: .5s;
 }
-.clickedButton{
-    width: 110%;
-    padding-top: 2vh;
-    padding-bottom: 2vh;
-    padding-left:1vw;
-    font-size:1.2vw;
-    font-weight:500;
-    /* font-weight: bold; */
-    /* color: red; */
-    cursor: pointer;
-    background-color: lightgreen;
-    border: 0vw;
-    margin-bottom: 0vh;
-    text-align: left;
-    margin-left: 0vw;
-    font-family: 'Inter';
-    color: var(--darkGreen);
-    transition: .5s;
-    text-align:left;
-}
-/* .buttonForClassChange:active{
-    background-color: blue;
-} */
 #tabledet{
     border: 0vw;
 }
