@@ -69,11 +69,12 @@
 flex-direction: row;
 justify-content: center;
 align-items: center;
-padding-top: 1vh;
+padding-top: 2vh;
+padding-bottom: 2vh;
 
 width: 100vw;
 
-height: 85vh;
+height: 90vh;
 /* position: absolute; */
 /* papers */
 background: linear-gradient(0deg, rgba(194, 255, 211, 0.2), rgba(194, 255, 211, 0.2)), url(background.jpg) no-repeat center center fixed;
@@ -86,7 +87,7 @@ flex-grow: 0;
   .RealForm{
     
     width: 40%;
-height: 95%;
+height: 98%;
 align-self: center;
 /* Tiny Gray */
 background: #FBFFF9;
@@ -171,6 +172,7 @@ overflow-y: scroll;
   .googleBtn {
     background: none;
     margin: 0px;
+    margin-left: -.7vw;
   }
   
   .googleBtn:hover{
@@ -211,6 +213,8 @@ overflow-y: scroll;
  margin-left: 1vh;
  cursor: pointer;
  font-weight: bold;
+ text-decoration: underline;
+  text-decoration-thickness: 2px;
 
   /* position: absolute; */
   
