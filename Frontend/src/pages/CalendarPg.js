@@ -45,7 +45,7 @@ function CalendarPg() {
                     try{
                         const userProfile = gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile();
                         const userEmail = userProfile.getEmail();
-                        let calendarEmbedUrl = "https://calendar.google.com/calendar/embed?src=" + userEmail + "&ctz=America%2FCentral";
+                        let calendarEmbedUrl = "https://calendar.google.com/calendar/embed?src=" + userEmail + "&bgcolor=%23BAE38D&ctz=America%2FCentral";
                         const calendarFrame = document.createElement('iframe');
                         calendarFrame.setAttribute('src', calendarEmbedUrl);
                         calendarFrame.setAttribute('style', 'border-width:0; width:90vw; height:90vh; framework:0');
@@ -61,7 +61,7 @@ function CalendarPg() {
                     try{
                         const userProfile = gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile();
                         const userEmail = userProfile.getEmail();
-                        let calendarEmbedUrl = "https://calendar.google.com/calendar/embed?src=" + userEmail  + "&src=" + calendarID + "&ctz=America%2FCentral";
+                        let calendarEmbedUrl = "https://calendar.google.com/calendar/embed?src=" + userEmail  + "&src=" + calendarID + "&bgcolor=%23BAE38D&ctz=America%2FCentral";
                         const calendarFrame = document.createElement('iframe');
                         calendarFrame.setAttribute('src', calendarEmbedUrl);
                         calendarFrame.setAttribute('style', 'border-width:0; width:90vw; height:90vh; framework:0');

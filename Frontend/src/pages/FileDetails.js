@@ -4,7 +4,7 @@ import Popup from 'reactjs-popup';
 import ReactModal from 'react-modal';
 import NavBar from "./NavBar"
 import Header from "./components/Header";
-import {useLocation} from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
 import {useEffect, useState, useCallback} from "react";
 import TeacherInfo from "./components/TeacherInfo";
 import Description from "./components/Description";
@@ -12,9 +12,11 @@ import GradeDistribution from "./components/GradeDistribution";
 import Dates from "./components/Dates";
 import * as jose from 'jose'
 
-const token = localStorage.getItem('token')
-const user = jose.decodeJwt(token)
-const userName = user.name;
+// const token = localStorage.getItem('token')
+// const user = jose.decodeJwt(token)
+// const userName = user.name;
+
+
 
 // class FileDetails extends React.Component{
 //     constructor(props){
@@ -59,6 +61,16 @@ const userName = user.name;
 
 function FileDetails(){
     
+    var userName = "";
+    const navigate = useNavigate();
+    const token = localStorage.getItem('token');
+    if (token) {
+        const user = jose.decodeJwt(token);
+        userName = user.name;
+    }
+    else {
+        navigate('/login');
+    }
 
     const {state} = useLocation();
     const {courses, index} = state;
