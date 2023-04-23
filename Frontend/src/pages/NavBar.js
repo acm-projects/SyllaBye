@@ -1,7 +1,6 @@
-import { blue } from '@mui/material/colors';
 import {useState} from 'react'
 import './NavBar.css'
-// import ClassButton from './ClassButton'
+
 function NavBar(props){
     var classNames = [];
     console.log("Length" + props.items.length);
