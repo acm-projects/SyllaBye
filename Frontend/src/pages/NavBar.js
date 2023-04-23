@@ -1,7 +1,10 @@
+<<<<<<< HEAD
+=======
 //import { blue } from '@mui/material/colors';
+>>>>>>> 1c954b81e37918bbf0ed23861d8e4d19ef598de0
 import {useState} from 'react'
 import './NavBar.css'
-// import ClassButton from './ClassButton'
+
 function NavBar(props){
     var classNames = [];
     console.log("Length" + props.items.length);
