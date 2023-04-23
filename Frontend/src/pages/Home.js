@@ -88,7 +88,7 @@ function Home(){
                         ]);
                         setImages((prevState) => [
                             ...prevState,
-                            { id: gridID, src: file.thumbnail, name: file.fileData.courseName },
+                            { id: gridID, src: file.thumbnail, name: file.fileData.courseNum + ': ' + file.fileData.courseName },
                         ]);
                         setClassNms((prevState) => [
                             ...prevState,
@@ -150,7 +150,7 @@ function Home(){
                     ]);
                     setImages((prevState) => [
                         ...prevState,
-                        { id: gridID, src: thumbnail, name: extractedText.courseName },
+                        { id: gridID, src: thumbnail, name: extractedText.courseNum + ': ' + extractedText.courseName },
                     ]);
                     setClassNms((prevState) => [
                         ...prevState,
